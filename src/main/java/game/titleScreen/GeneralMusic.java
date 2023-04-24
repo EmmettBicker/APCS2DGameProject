@@ -24,12 +24,11 @@ public class GeneralMusic implements BasicSprite {
     private boolean hasStartedMusic;
     private String path;
 
-    public GeneralMusic(String path) {
+    public GeneralMusic(String pPath) {
         // load the assets
         loadImage();
-        
+        path = pPath;
         hasStartedMusic = false;
-        playMusic();
         pos = new Point(0, 0);
 
     }
@@ -48,25 +47,7 @@ public class GeneralMusic implements BasicSprite {
 
     public void playMusic() 
     {
-        try 
-        {
-            if (!hasStartedMusic)
-            {
-                AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(
-                    new File(path).getAbsoluteFile());
-                music = AudioSystem.getClip();
-                
-                music.open(audioInputStream);
-                music.start();
-            }
-            hasStartedMusic = true;
-            
-        } 
-        catch(Exception ex) 
-        {
-            System.out.println("Error with playing sound.");
-            ex.printStackTrace();
-        }
+       
     }
 
     public void draw(Graphics g, ImageObserver observer) {
@@ -94,6 +75,25 @@ public class GeneralMusic implements BasicSprite {
     @Override
     public void tick() {
         // no special behavior
+        try 
+        {
+            if (!hasStartedMusic)
+            {
+                AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(
+                    new File(path).getAbsoluteFile());
+                music = AudioSystem.getClip();
+                
+                music.open(audioInputStream);
+                music.start();
+            }
+            hasStartedMusic = true;
+            
+        } 
+        catch(Exception ex) 
+        {
+            System.out.println("Error with playing sound.");
+            ex.printStackTrace();
+        }
     }
 
     @Override
