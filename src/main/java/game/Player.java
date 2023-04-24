@@ -8,7 +8,7 @@ import java.awt.Point;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
-
+import game.Constants;
 import game.utils.ImageUtils;
 import game.interfaces.BasicSprite;
 
@@ -17,6 +17,9 @@ public class Player implements BasicSprite{
     // image that represents the player's position on the board
     private BufferedImage leftImage;
     private BufferedImage rightImage;
+    
+    
+
     private Point pos;
     private int score;
     private enum PlayerFacingStates {LEFT, RIGHT};
@@ -28,7 +31,7 @@ public class Player implements BasicSprite{
     public Player() {
         // load the assets
         loadImage();
-    
+
         pos = new Point(60, 60);
         playerFacing = PlayerFacingStates.RIGHT;
         score = 0;
@@ -57,8 +60,8 @@ public class Player implements BasicSprite{
             g.drawImage
             (
                 leftImage, 
-                pos.x * Board.TILE_SIZE, 
-                pos.y * Board.TILE_SIZE, 
+                pos.x, 
+                pos.y, 
                 observer
             );
         }
@@ -67,8 +70,8 @@ public class Player implements BasicSprite{
             g.drawImage
             (
                 rightImage, 
-                pos.x * Board.TILE_SIZE, 
-                pos.y * Board.TILE_SIZE, 
+                pos.x, 
+                pos.y, 
                 observer
             );
         }
@@ -117,18 +120,18 @@ public class Player implements BasicSprite{
     public void updateMovement()
     {
         if (isUpPressed) {
-            pos.translate(0, -1);
+            pos.translate(0, -Constants.SPEED);
         }
         if (isRightPressed) {
             playerFacing = PlayerFacingStates.RIGHT;
-            pos.translate(1, 0);
+            pos.translate(Constants.SPEED, 0);
         }
         if (isDownPressed) {
-            pos.translate(0, 1);
+            pos.translate(0, Constants.SPEED);
         }
         if (isLeftPressed) {
             playerFacing = PlayerFacingStates.LEFT;
-            pos.translate(-1, 0);
+            pos.translate(-Constants.SPEED, 0);
         }
     }
 
@@ -140,14 +143,14 @@ public class Player implements BasicSprite{
         // prevent the player from moving off the edge of the board sideways
         if (pos.x < 0) {
             pos.x = 0;
-        } else if (pos.x >= Board.COLUMNS) {
-            pos.x = Board.COLUMNS - 1;
+        } else if (pos.x >= Constants.CANVAS_WIDTH) {
+            pos.x = Constants.CANVAS_WIDTH- 1;
         }
         // prevent the player from moving off the edge of the board vertically
         if (pos.y < 0) {
             pos.y = 0;
-        } else if (pos.y >= Board.ROWS) {
-            pos.y = Board.ROWS - 1;
+        } else if (pos.y >= Constants.CANVAS_HEIGHT) {
+            pos.y = Constants.CANVAS_HEIGHT - 1;
         }
     }
 

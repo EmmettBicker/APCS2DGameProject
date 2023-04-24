@@ -3,7 +3,7 @@ package game;
 public class GameStates
 {
     public enum States {
-        TITLE_SCREEN, GAME
+        TITLE_SCREEN, GAME  
     }
     public static Board board = null;
 

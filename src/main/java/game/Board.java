@@ -29,10 +29,11 @@ public class Board extends JPanel implements ActionListener, KeyListener {
     // objects that appear on the game board
     private TitleScreen mTitleScreen;
     private SpaceText mSpaceText;
-    private TitleMusic mTitleMusic;
+    private GeneralMusic mTitleMusic;
 
     private Player mPlayer;
     private ScreenOneBg mScreenOneBg;
+    private Door mDoor;
 
     private ArrayList<BasicSprite> mTitleScreenSpriteArray;
     private ArrayList<BasicSprite> mGameScreenSpriteArray;
@@ -51,11 +52,12 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         // initialize the game state
         mTitleScreen = new TitleScreen();
         mSpaceText = new SpaceText();
-        mTitleMusic = new TitleMusic();
+        mTitleMusic = new GeneralMusic("src/main/resources/music/titleScreenChopin.wav");
         
 
         mPlayer = new Player();
         mScreenOneBg = new ScreenOneBg();
+        mDoor = new Door();
 
         // this timer will call the actionPerformed() method every DELAY ms
         mTimer = new Timer(DELAY, this);
@@ -64,12 +66,14 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         mTitleScreenSpriteArray = new ArrayList<BasicSprite>();
         mTitleScreenSpriteArray.add(mTitleScreen);
         mTitleScreenSpriteArray.add(mSpaceText);
-        mTitleScreenSpriteArray.add(mTitleMusic);
+        // mTitleScreenSpriteArray.add(mTitleMusic);
 
         mGameScreenSpriteArray = new ArrayList<BasicSprite>();
         
         mGameScreenSpriteArray.add(mScreenOneBg);
         mGameScreenSpriteArray.add(mPlayer);
+        mGameScreenSpriteArray.add(mDoor);
+
 
 
     }
@@ -228,6 +232,27 @@ public class Board extends JPanel implements ActionListener, KeyListener {
             }    
         }
     }
+
+    /*   MISC GETTER METHODS    */
+    public Point getPlayerPosition()
+    {
+        return mPlayer.getPos();
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     private void drawScore(Graphics g) {
         // set the text to be displayed

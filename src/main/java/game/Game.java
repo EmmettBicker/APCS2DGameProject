@@ -1,6 +1,7 @@
 package game;
 
 import javax.swing.*;
+import java.awt.Point;
 
 public class Game {
     private static Board board;
@@ -33,6 +34,11 @@ public class Game {
     public static Board getBoard()
     {
         return board;
+    }
+    
+    public static Point getPlayerPosition()
+    {
+        return board.getPlayerPosition();
     }
 
     public static void main(String[] args) {

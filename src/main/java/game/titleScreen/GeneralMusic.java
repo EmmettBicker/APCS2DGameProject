@@ -1,4 +1,4 @@
-package game.screen1;
+package game.titleScreen;
 
 import java.awt.event.KeyEvent;
 import java.awt.Graphics;
@@ -8,25 +8,29 @@ import java.awt.Point;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 
-import game.GameStates;
 import game.interfaces.BasicSprite;
-import game.Game;
-import game.utils.GeneralUtils;
 
 
-public class Door implements BasicSprite{
+public class GeneralMusic implements BasicSprite {
 
     // image that represents the player's position on the board
     private BufferedImage background;
-    private Point doorPos;    
+    private Point pos;
+    private Clip music;
+    private boolean hasStartedMusic;
+    private String path;
 
-
-    public Door() {
+    public GeneralMusic(String path) {
         // load the assets
-
         loadImage();
-        doorPos = new Point(0, 0);
+        
+        hasStartedMusic = false;
+        playMusic();
+        pos = new Point(0, 0);
 
     }
 
@@ -35,10 +39,33 @@ public class Door implements BasicSprite{
             // you can use just the filename if the image file is in your
             // project folder, otherwise you need to provide the file path.
             
-            background = ImageIO.read(new File("src/main/resources/images/screenOne/hitBox.png"));
+            background = ImageIO.read(new File("src/main/resources/images/special/emptyImage.png"));
     
         } catch (IOException exc) {
             System.out.println("Error opening title screen image file: " + exc.getMessage());
+        }
+    }
+
+    public void playMusic() 
+    {
+        try 
+        {
+            if (!hasStartedMusic)
+            {
+                AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(
+                    new File(path).getAbsoluteFile());
+                music = AudioSystem.getClip();
+                
+                music.open(audioInputStream);
+                music.start();
+            }
+            hasStartedMusic = true;
+            
+        } 
+        catch(Exception ex) 
+        {
+            System.out.println("Error with playing sound.");
+            ex.printStackTrace();
         }
     }
 
@@ -51,8 +78,8 @@ public class Door implements BasicSprite{
             g.drawImage
             (
                 background, 
-                doorPos.x,
-                doorPos.y,
+                pos.x,
+                pos.y,
                 observer
             );
     
@@ -60,10 +87,7 @@ public class Door implements BasicSprite{
     }
 
     public void keyPressed(KeyEvent e) {
-        int key = e.getKeyCode();
-        if (key == KeyEvent.VK_SPACE && GeneralUtils.isClose(Game.getPlayerPosition(), doorPos)) {
-            System.out.println("close!");
-        }
+        
    
     }
 
@@ -74,8 +98,11 @@ public class Door implements BasicSprite{
 
     @Override
     public void onDelete() {
-        System.out.println("here");
+        
+        hasStartedMusic = false;
         background = null;
+        music.stop();
+        music = null;
     }
  
 
