@@ -8,7 +8,7 @@ import javax.swing.*;
 
 import game.interfaces.BasicSprite;
 import game.titleScreen.*;
-
+import game.scrollingText.*;
 import game.screen1.*;
 
 public class Board extends JPanel implements ActionListener, KeyListener {
@@ -33,10 +33,15 @@ public class Board extends JPanel implements ActionListener, KeyListener {
 
     private Player mPlayer;
     private ScreenOneBg mScreenOneBg;
+    
     private Door mDoor;
+    
+    private BeginningText mBeginningText;
+    private  TextBackground mTextBackground;
 
     private ArrayList<BasicSprite> mTitleScreenSpriteArray;
     private ArrayList<BasicSprite> mGameScreenSpriteArray;
+    private ArrayList<BasicSprite> mBeginningTextArray;
 
     private GameStates.States mState;
     
@@ -57,7 +62,11 @@ public class Board extends JPanel implements ActionListener, KeyListener {
 
         mPlayer = new Player();
         mScreenOneBg = new ScreenOneBg();
+        
         mDoor = new Door();
+
+        mBeginningText = new BeginningText();
+        mTextBackground = new TextBackground();
 
         // this timer will call the actionPerformed() method every DELAY ms
         mTimer = new Timer(DELAY, this);
@@ -74,7 +83,8 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         mGameScreenSpriteArray.add(mPlayer);
         mGameScreenSpriteArray.add(mDoor);
 
-        
+        mBeginningTextArray.add(mBeginningText);
+        mBeginningTextArray.add(mTextBackground);
 
 
 

@@ -13,19 +13,19 @@ import game.interfaces.BasicSprite;
 
 import game.interfaces.BasicSprite;
 
-public class TextBackground implements BasicSprite{
+public class BeginningText implements BasicSprite{
 
-    private BufferedImage background;
+    private BufferedImage text;
     private Point pos;
 
-    public TextBackground() {
+    public BeginningText() {
         loadImage();
         pos = new Point(0, 0);
     }
 
     private void loadImage() {
         try {
-            background = ImageIO.read(new File("src/main/resources/images/scrollingText/beginningScollingText.png"));
+            text = ImageIO.read(new File("src/main/resources/images/scrollingText/beginningScollingText.png"));
     
         } catch (IOException exc) {
             System.out.println("Error opening title screen image file: " + exc.getMessage());
@@ -36,7 +36,7 @@ public class TextBackground implements BasicSprite{
     public void draw(Graphics g, ImageObserver observer) {
         g.drawImage
             (
-                background, 
+                text, 
                 pos.x,
                 pos.y,
                 observer
@@ -45,10 +45,6 @@ public class TextBackground implements BasicSprite{
 
     @Override
     public void keyPressed(KeyEvent e) {
-        int key = e.getKeyCode();
-        if (key == KeyEvent.VK_SPACE) {         
-            GameStates.setState(GameStates.States.GAMEPLAY);
-        }
     }
 
     @Override
@@ -58,6 +54,6 @@ public class TextBackground implements BasicSprite{
 
     @Override
     public void onDelete() {
-        background = null;
+        text = null;
     }    
 }
