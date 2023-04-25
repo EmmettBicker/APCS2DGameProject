@@ -60,7 +60,7 @@ public class TitleScreen implements BasicSprite{
         int key = e.getKeyCode();
         if (key == KeyEvent.VK_SPACE) {
            
-            GameStates.setState(GameStates.States.GAMEPLAY);
+            GameStates.setState(GameStates.States.SCROLLING_TEXT);
         }
    
     }

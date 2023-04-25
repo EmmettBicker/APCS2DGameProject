@@ -49,7 +49,7 @@ public class BeginningText implements BasicSprite{
 
     @Override
     public void tick() {
-        //no special behavior
+
     }
 
     @Override

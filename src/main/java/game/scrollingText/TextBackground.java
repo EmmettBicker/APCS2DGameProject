@@ -25,7 +25,7 @@ public class TextBackground implements BasicSprite{
 
     private void loadImage() {
         try {
-            background = ImageIO.read(new File("src/main/resources/images/scrollingText/beginningScollingText.png"));
+            background = ImageIO.read(new File("src/main/resources/images/scrollingText/scrollingTextSpaceBackground.jpg"));
     
         } catch (IOException exc) {
             System.out.println("Error opening title screen image file: " + exc.getMessage());
