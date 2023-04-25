@@ -66,7 +66,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         mTitleScreenSpriteArray = new ArrayList<BasicSprite>();
         mTitleScreenSpriteArray.add(mTitleScreen);
         mTitleScreenSpriteArray.add(mSpaceText);
-        mTitleScreenSpriteArray.add(mTitleMusic);
+        // mTitleScreenSpriteArray.add(mTitleMusic);
 
         mGameScreenSpriteArray = new ArrayList<BasicSprite>();
         
