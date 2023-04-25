@@ -3,7 +3,7 @@ package game;
 public class GameStates
 {
     public enum States {
-        TITLE_SCREEN, SCROLLING_TEXT, GAMEPLAY, 
+        TITLE_SCREEN, SCROLLING_TEXT, GAMEPLAY, FINAL_BOSS, END_SCREEN, NPC
     }
 
 

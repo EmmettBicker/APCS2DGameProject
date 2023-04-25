@@ -74,6 +74,8 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         mGameScreenSpriteArray.add(mPlayer);
         mGameScreenSpriteArray.add(mDoor);
 
+        
+
 
 
     }
