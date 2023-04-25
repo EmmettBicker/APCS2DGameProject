@@ -97,7 +97,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
                 break;
             }
 
-            case GAME : {
+            case GAMEPLAY : {
                 // this method is called by the timer every DELAY ms.
                 // use this space to update the state of your game or animation
                 // before the graphics are redrawn.
@@ -138,7 +138,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
                 break;
             }
 
-            case GAME:
+            case GAMEPLAY:
             {
                 for (BasicSprite sprite : mGameScreenSpriteArray)
                 {
@@ -172,7 +172,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
                     sprite.keyPressed(e);
                 }
             }
-            case GAME:
+            case GAMEPLAY:
             {
                 for (BasicSprite sprite : mGameScreenSpriteArray)
                 {
@@ -197,7 +197,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
                 }
                 break;
             }
-            case GAME:
+            case GAMEPLAY:
             {
                 for (BasicSprite sprite : mGameScreenSpriteArray)
                 {
