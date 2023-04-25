@@ -74,7 +74,6 @@ public class Door implements BasicSprite{
 
     @Override
     public void onDelete() {
-        System.out.println("here");
         background = null;
     }
  
