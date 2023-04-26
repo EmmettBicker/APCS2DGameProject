@@ -10,12 +10,14 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import game.GameStates;
+import game.GameStates.GameplayStates;
+import game.interfaces.BasicRoomSprite;
 import game.interfaces.BasicSprite;
 import game.Game;
 import game.utils.GeneralUtils;
 
 
-public class Door implements BasicSprite{
+public class Door implements BasicRoomSprite{
 
     // image that represents the player's position on the board
     private BufferedImage background;
@@ -76,6 +78,7 @@ public class Door implements BasicSprite{
     public void onDelete() {
         background = null;
     }
- 
+
+  
 
 }

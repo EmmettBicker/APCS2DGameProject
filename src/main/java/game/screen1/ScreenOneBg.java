@@ -11,9 +11,10 @@ import javax.imageio.ImageIO;
 
 import game.GameStates;
 import game.interfaces.BasicSprite;
+import game.interfaces.BasicRoomSprite;
 
 
-public class ScreenOneBg implements BasicSprite{
+public class ScreenOneBg implements BasicRoomSprite{
 
     // image that represents the player's position on the board
     private BufferedImage background;

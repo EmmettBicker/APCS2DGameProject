@@ -48,6 +48,7 @@ public class TextBackground implements BasicSprite{
         int key = e.getKeyCode();
         if (key == KeyEvent.VK_SPACE) {         
             GameStates.setState(GameStates.States.GAMEPLAY);
+            GameStates.setGameplayState(GameStates.GameplayStates.ROOM_1);
         }
     }
 
