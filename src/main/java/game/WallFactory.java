@@ -26,7 +26,11 @@ public class WallFactory implements BasicRoomSprite{
 
     @Override
     public void draw(Graphics g, ImageObserver observer) {
-        g.drawRect(0, 0, 1280, 720);
+        
+        //fillRect makes a filled in rectangle
+        //would likely create an array or some type of data structure to hold the information to create the different type of walls
+        g.setColor(Color.BLACK);
+        g.fillRect(640, 360, 500, 100); 
     }
 
     @Override

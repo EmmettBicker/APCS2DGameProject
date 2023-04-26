@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.awt.Point;
+import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
@@ -55,6 +56,11 @@ public class Player implements BasicSprite{
         // this is also where we translate board grid position into a canvas pixel
         // position by multiplying by the tile size.
         // System.out.println(pos);
+        
+        //hitbox
+        g.setColor(Color.BLACK);
+        g.drawRect((int) pos.getX(), (int) pos.getY(), rightImage.getWidth(), rightImage.getHeight());
+        
         if (playerFacing == PlayerFacingStates.RIGHT)
         {
             g.drawImage
@@ -69,6 +75,7 @@ public class Player implements BasicSprite{
         {
             g.drawImage
             (
+                //hitbox of sprite
                 rightImage, 
                 pos.x, 
                 pos.y, 

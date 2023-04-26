@@ -9,8 +9,6 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
-import game.GameStates;
-import game.interfaces.BasicSprite;
 import game.interfaces.BasicRoomSprite;
 
 
@@ -59,9 +57,7 @@ public class ScreenOneBg implements BasicRoomSprite{
     }
 
     public void keyPressed(KeyEvent e) {
-        int key = e.getKeyCode();
 
-   
     }
 
     @Override
