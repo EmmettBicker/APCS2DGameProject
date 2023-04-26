@@ -1,11 +1,9 @@
 package game;
 
-import java.util.Arrays;
 import java.util.Hashtable;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
-import java.util.Random;
 import javax.swing.*;
 
 import game.interfaces.BasicSprite;
@@ -13,7 +11,6 @@ import game.interfaces.BasicRoomSprite;
 import game.titleScreen.*;
 import game.scrollingText.*;
 import game.screen1.*;
-import game.WallFactory;
 
 public class Board extends JPanel implements ActionListener, KeyListener {
 
@@ -259,23 +256,8 @@ public class Board extends JPanel implements ActionListener, KeyListener {
     /*   MISC GETTER METHODS    */
     public Point getPlayerPosition()
     {
-        return mPlayer.getPos();
+        return mPlayer.getPlayerPos();
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     private void drawScore(Graphics g) {
         // set the text to be displayed

@@ -11,8 +11,6 @@ import game.GameStates;
 
 import game.interfaces.BasicSprite;
 
-import game.interfaces.BasicSprite;
-
 public class TextBackground implements BasicSprite{
 
     private BufferedImage background;

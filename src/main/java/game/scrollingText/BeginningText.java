@@ -7,10 +7,6 @@ import java.awt.Point;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
-import game.GameStates;
-
-import game.interfaces.BasicSprite;
-
 import game.interfaces.BasicSprite;
 
 public class BeginningText implements BasicSprite{
