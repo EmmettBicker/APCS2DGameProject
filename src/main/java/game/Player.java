@@ -1,5 +1,6 @@
 package game;
 
+import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -9,9 +10,10 @@ import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
-import game.Constants;
+import game.Constants;  
 import game.utils.ImageUtils;
 import game.interfaces.BasicSprite;
+import game.WallFactory;
 
 public class Player implements BasicSprite{
 
@@ -58,11 +60,12 @@ public class Player implements BasicSprite{
         // System.out.println(pos);
         
         //hitbox
-        g.setColor(Color.BLACK);
-        g.drawRect((int) pos.getX(), (int) pos.getY(), rightImage.getWidth(), rightImage.getHeight());
+
         
         if (playerFacing == PlayerFacingStates.RIGHT)
         {
+            // g.setColor(Color.BLACK);
+            // g.drawRect((int) getHitboxRectangle().getX(), (int) getHitboxRectangle().getY(), (int) getHitboxRectangle().getHeight(), (int) getHitboxRectangle().getWidth());
             g.drawImage
             (
                 leftImage, 
@@ -142,6 +145,10 @@ public class Player implements BasicSprite{
         }
     }
 
+    public Rectangle getPlayerHitboxRectangle() {
+        return new Rectangle((int) pos.getX(), (int) pos.getY(), rightImage.getWidth(), rightImage.getHeight());
+    } 
+
     public void tick() {
         updateMovement();
         // this gets called once every tick, before the repainting process happens.
@@ -158,6 +165,37 @@ public class Player implements BasicSprite{
             pos.y = 0;
         } else if (pos.y >= Constants.CANVAS_HEIGHT) {
             pos.y = Constants.CANVAS_HEIGHT - 1;
+        }
+
+        // check for collision with wall sprites
+        Rectangle playerHitbox = getPlayerHitboxRectangle();
+        Rectangle wallHitbox = game.WallFactory.getWallHitBox();
+        if (playerHitbox.intersects(wallHitbox)) {
+            // determine the direction of collision
+            double dx = playerHitbox.getCenterX() - wallHitbox.getCenterX();
+            double dy = playerHitbox.getCenterY() - wallHitbox.getCenterY();
+
+            // handle the collision based on the direction
+            if (Math.abs(dx) > Math.abs(dy)) {
+                // collided in x direction
+                if (dx < 0) {
+                    // collided on right side of wall
+                    pos.x = (int) (wallHitbox.getX() - playerHitbox.getWidth());
+                } else {
+                    // collided on left side of wall
+                    pos.x = (int) (wallHitbox.getX() + wallHitbox.getWidth());
+                }
+            } 
+            else {
+                // collided in y direction
+                if (dy < 0) {
+                    // collided on bottom side of wall
+                    pos.y = (int) (wallHitbox.getY() - playerHitbox.getHeight());
+                } else {
+                    // collided on top side of wall
+                    pos.y = (int) (wallHitbox.getY() + wallHitbox.getHeight());
+                }
+            }
         }
     }
 
