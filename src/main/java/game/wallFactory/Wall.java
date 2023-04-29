@@ -1,15 +1,15 @@
-package game;
+package game.wallFactory;
 import game.interfaces.BasicRoomSprite;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.ImageObserver;
 
-public class WallFactory implements BasicRoomSprite{
+public class Wall implements BasicRoomSprite{
    
-    private static Rectangle mWall;
+    private Rectangle mWall;
 
-    public WallFactory() {
-        mWall = new Rectangle(100, 100, 600, 500);
+    public Wall(Rectangle pWall) {
+        mWall = pWall;
     }
 
     @Override
@@ -21,7 +21,7 @@ public class WallFactory implements BasicRoomSprite{
         g.fillRect((int) mWall.getX(), (int) mWall.getY(), (int) mWall.getWidth(), (int) mWall.getHeight());
     }
 
-    public static Rectangle getWallHitBox() {
+    public Rectangle getWallHitBox() {
         return mWall;
     }
 

@@ -7,8 +7,11 @@ import java.util.ArrayList;
 import javax.swing.*;
 
 import game.interfaces.BasicSprite;
+import game.GameStates.GameplayStates;
 import game.interfaces.BasicRoomSprite;
 import game.titleScreen.*;
+import game.wallFactory.Wall;
+import game.wallFactory.WallFactory;
 import game.scrollingText.*;
 import game.screen1.*;
 
@@ -23,6 +26,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
     private static final long serialVersionUID = 490905409104883233L;
 
     private GameStates.States[] mAllStatesArray;
+    private GameStates.GameplayStates[] mAllRoomStatesArray;
     private Hashtable<GameStates.States, ArrayList<BasicSprite>> mStatesToRespectiveArray;
     private Hashtable<GameStates.GameplayStates, ArrayList<BasicRoomSprite>> mGameplayStatesToRespectiveArray;
     
@@ -36,7 +40,6 @@ public class Board extends JPanel implements ActionListener, KeyListener {
     private ScreenOneBg mScreenOneBg;
     
     private Door mDoor;
-    private WallFactory mWall;
     
     private BeginningText mBeginningText;
     private TextBackground mTextBackground;
@@ -61,22 +64,21 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         setBackground(new Color(232, 232, 232));
 
         mAllStatesArray = GameStates.States.values();
+        mAllRoomStatesArray = GameStates.GameplayStates.values();
 
         mStatesToRespectiveArray = new Hashtable<GameStates.States, ArrayList<BasicSprite>>();
         mGameplayStatesToRespectiveArray = new Hashtable<GameStates.GameplayStates, ArrayList<BasicRoomSprite>>();
         
-
         // initialize the game state
         mTitleScreen = new TitleScreen();
         mSpaceText = new SpaceText();
         mTitleMusic = new GeneralMusic("src/main/resources/music/titleScreenChopin.wav");
         
 
-        mPlayer = new Player();
         mScreenOneBg = new ScreenOneBg();
+        mPlayer = new Player();
         
         mDoor = new Door();
-        mWall = new WallFactory();
 
         mBeginningText = new BeginningText();
         mTextBackground = new TextBackground();
@@ -100,7 +102,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         mGameScreenSpriteArray = new ArrayList<BasicSprite>();
         
         
-        mGameScreenSpriteArray.add(mPlayer);
+      
     
 
 
@@ -110,16 +112,35 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         mRoomOneSpriteArray = new ArrayList<BasicRoomSprite>();
 
         mRoomOneSpriteArray.add(mDoor);
-        mRoomOneSpriteArray.add(mScreenOneBg);
-        mRoomOneSpriteArray.add(mWall);
         
-
+        mRoomOneSpriteArray.add(mScreenOneBg);
+        mGameScreenSpriteArray.add(mPlayer);
+        
+        
+        
+        
         mStatesToRespectiveArray.put(GameStates.States.TITLE_SCREEN, mTitleScreenSpriteArray);
         mStatesToRespectiveArray.put(GameStates.States.SCROLLING_TEXT, mBeginningTextArray);
         mStatesToRespectiveArray.put(GameStates.States.GAMEPLAY, mGameScreenSpriteArray);
 
         mGameplayStatesToRespectiveArray.put(GameStates.GameplayStates.NOT_IN_GAME, mNotPlayingSpriteArray);
         mGameplayStatesToRespectiveArray.put(GameStates.GameplayStates.ROOM_1, mRoomOneSpriteArray);
+
+
+        WallFactory.addWall(GameStates.GameplayStates.ROOM_1, new Rectangle(100, 100, 100, 100));
+        WallFactory.addWall(GameStates.GameplayStates.ROOM_1, new Rectangle(300, 300, 100, 100));
+
+        // Add all wall sprites to room array
+
+        for (GameStates.GameplayStates gameplayState : mAllRoomStatesArray)
+        {
+            System.out.println(gameplayState);
+            ArrayList<Wall> tempWallArray = WallFactory.getRoomWallArray(gameplayState);
+            for (Wall wall : tempWallArray)
+            {
+                mGameplayStatesToRespectiveArray.get(gameplayState).add(wall);
+            }
+        }
 
 
     }

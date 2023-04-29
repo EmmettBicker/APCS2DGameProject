@@ -8,9 +8,14 @@ import java.awt.image.ImageObserver;
 import java.awt.Point;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.imageio.ImageIO;
 import game.utils.ImageUtils;
 import game.interfaces.BasicSprite;
+
+import game.wallFactory.Wall;
+import game.wallFactory.WallFactory;
 
 public class Player implements BasicSprite{
 
@@ -154,34 +159,48 @@ public class Player implements BasicSprite{
             playerPos.y = Constants.CANVAS_HEIGHT - 1;
         }
 
-        // check for collision with wall sprites
-        Rectangle playerHitbox = getPlayerHitboxRectangle();
-        Rectangle wallHitbox = game.WallFactory.getWallHitBox();
-        
-        if (playerHitbox.intersects(wallHitbox)) {
-            // determine the direction of collision
-            double dx = playerHitbox.getCenterX() - wallHitbox.getCenterX();
-            double dy = playerHitbox.getCenterY() - wallHitbox.getCenterY();
+        wallCollision();
 
-            // handle the collision based on the direction
-            if (Math.abs(dx) > Math.abs(dy)) {
-                // collided in x direction
-                if (dx < 0) {
-                    // collided on right side of wall
-                    playerPos.x = (int) (wallHitbox.getX() - playerHitbox.getWidth());
-                } else {
-                    // collided on left side of wall
-                    playerPos.x = (int) (wallHitbox.getX() + wallHitbox.getWidth());
-                }
-            } 
-            else {
-                // collided in y direction
-                if (dy < 0) {
-                    // collided on bottom side of wall
-                    playerPos.y = (int) (wallHitbox.getY() - playerHitbox.getHeight());
-                } else {
-                    // collided on top side of wall
-                    playerPos.y = (int) (wallHitbox.getY() + wallHitbox.getHeight());
+        
+    }
+    
+    public void wallCollision()
+    {
+        GameStates.GameplayStates currentRoom = GameStates.getGameplayState();
+        ArrayList<Wall> currentRoomWalls = WallFactory.getRoomWallArray(currentRoom);
+        
+        for (Wall wall : currentRoomWalls)
+        {
+        
+            // check for collision with wall sprites
+            Rectangle playerHitbox = getPlayerHitboxRectangle();
+            Rectangle wallHitbox = wall.getWallHitBox();
+
+            if (playerHitbox.intersects(wallHitbox)) {
+                // determine the direction of collision
+                double dx = playerHitbox.getCenterX() - wallHitbox.getCenterX();
+                double dy = playerHitbox.getCenterY() - wallHitbox.getCenterY();
+
+                // handle the collision based on the direction
+                if (Math.abs(dx) > Math.abs(dy)) {
+                    // collided in x direction
+                    if (dx < 0) {
+                        // collided on right side of wall
+                        playerPos.x = (int) (wallHitbox.getX() - playerHitbox.getWidth());
+                    } else {
+                        // collided on left side of wall
+                        playerPos.x = (int) (wallHitbox.getX() + wallHitbox.getWidth());
+                    }
+                } 
+                else {
+                    // collided in y direction
+                    if (dy < 0) {
+                        // collided on bottom side of wall
+                        playerPos.y = (int) (wallHitbox.getY() - playerHitbox.getHeight());
+                    } else {
+                        // collided on top side of wall
+                        playerPos.y = (int) (wallHitbox.getY() + wallHitbox.getHeight());
+                    }
                 }
             }
         }
