@@ -127,8 +127,10 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         mGameplayStatesToRespectiveArray.put(GameStates.GameplayStates.ROOM_1, mRoomOneSpriteArray);
 
 
-        WallFactory.addWall(GameStates.GameplayStates.ROOM_1, new Rectangle(100, 100, 100, 100));
-        WallFactory.addWall(GameStates.GameplayStates.ROOM_1, new Rectangle(500, 300, 100, 500));
+        WallFactory.addWall(GameStates.GameplayStates.ROOM_1, new Rectangle(0, 100, 1000, 100));
+ 
+        WallFactory.addWall(GameStates.GameplayStates.ROOM_1, new Rectangle(0, 300, Constants.CANVAS_WIDTH/2-200, 500));
+        WallFactory.addWall(GameStates.GameplayStates.ROOM_1, new Rectangle(Constants.CANVAS_WIDTH/2+200, 300, Constants.CANVAS_WIDTH/2-200, 500));
 
         // Add all wall sprites to room array
 

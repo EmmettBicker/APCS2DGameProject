@@ -168,20 +168,7 @@ public class Player implements BasicSprite{
     {
         GameStates.GameplayStates currentRoom = GameStates.getGameplayState();
         ArrayList<Wall> currentRoomWalls = WallFactory.getRoomWallArray(currentRoom);
-        
-        if (currentRoomWalls.size() >= 1)
-        {
-            Wall wall = currentRoomWalls.get(1);
-            Rectangle playerHitbox = getPlayerHitboxRectangle();
-            Rectangle wallHitbox = wall.getWallHitBox();
-            double wallWidth = wallHitbox.getWidth();
-            double wallHeight = wallHitbox.getHeight();
-            double dx = playerHitbox.getCenterX() - wallHitbox.getCenterX();
-            double dy = playerHitbox.getCenterY() - wallHitbox.getCenterY();
-            
-
-            System.out.println("Width: " + Math.abs(dx) / wallWidth + " Height " +  Math.abs(dy) / wallHeight);
-        }
+       
         for (Wall wall : currentRoomWalls)
         {
         
@@ -195,9 +182,6 @@ public class Player implements BasicSprite{
                 // determine the direction of collision
                 double dx = playerHitbox.getCenterX() - wallHitbox.getCenterX();
                 double dy = playerHitbox.getCenterY() - wallHitbox.getCenterY();
-
-                System.out.println("Width: " + Math.abs(dx) / wallWidth + " Height " +  Math.abs(dy) / wallHeight);
-                System.out.println(Math.abs(dx) / wallWidth > Math.abs(dy) / wallHeight);
                 // handle the collision based on the direction
                 if (Math.abs(dx) / wallWidth > Math.abs(dy) / wallHeight) {
                     // collided in x direction

@@ -17,6 +17,7 @@ public class Wall implements BasicRoomSprite{
         
         //fillRect makes a filled in rectangle
         //would likely create an array or some type of data structure to hold the information to create the different type of walls
+        
         g.setColor(Color.BLACK);
         g.fillRect((int) mWall.getX(), (int) mWall.getY(), (int) mWall.getWidth(), (int) mWall.getHeight());
     }
