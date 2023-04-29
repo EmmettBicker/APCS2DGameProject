@@ -128,13 +128,12 @@ public class Board extends JPanel implements ActionListener, KeyListener {
 
 
         WallFactory.addWall(GameStates.GameplayStates.ROOM_1, new Rectangle(100, 100, 100, 100));
-        WallFactory.addWall(GameStates.GameplayStates.ROOM_1, new Rectangle(300, 300, 100, 100));
+        WallFactory.addWall(GameStates.GameplayStates.ROOM_1, new Rectangle(500, 300, 100, 500));
 
         // Add all wall sprites to room array
 
         for (GameStates.GameplayStates gameplayState : mAllRoomStatesArray)
         {
-            System.out.println(gameplayState);
             ArrayList<Wall> tempWallArray = WallFactory.getRoomWallArray(gameplayState);
             for (Wall wall : tempWallArray)
             {
@@ -153,11 +152,6 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         mState = GameStates.getState();
         mGameplayState = GameStates.getGameplayState();
  
-        for (BasicSprite sprite : mStatesToRespectiveArray.get(mState))
-        {
-            sprite.tick();
-        }
-
         if (mState == GameStates.States.GAMEPLAY)
         {
             for (BasicRoomSprite roomSprite : mGameplayStatesToRespectiveArray.get(mGameplayState))
@@ -165,6 +159,12 @@ public class Board extends JPanel implements ActionListener, KeyListener {
                 roomSprite.tick();
             }
         }
+        for (BasicSprite sprite : mStatesToRespectiveArray.get(mState))
+        {
+            sprite.tick();
+        }
+
+        
         
             
         
@@ -188,11 +188,6 @@ public class Board extends JPanel implements ActionListener, KeyListener {
 
         
 
-        for (BasicSprite sprite : mStatesToRespectiveArray.get(mState))
-        {
-            sprite.draw(g, this);
-        }
-
         if (mState == GameStates.States.GAMEPLAY)
         {
             for (BasicRoomSprite roomSprite : mGameplayStatesToRespectiveArray.get(mGameplayState))
@@ -200,6 +195,13 @@ public class Board extends JPanel implements ActionListener, KeyListener {
                 roomSprite.draw(g, this);
             }
         }
+        for (BasicSprite sprite : mStatesToRespectiveArray.get(mState))
+        {
+            sprite.draw(g, this);
+        }
+   
+
+        
 
         // this smooths out animations on some systems
         Toolkit.getDefaultToolkit().sync();
@@ -216,11 +218,6 @@ public class Board extends JPanel implements ActionListener, KeyListener {
     {
         mState = GameStates.getState();
         // react to key down events
-        for (BasicSprite sprite : mStatesToRespectiveArray.get(mState))
-        {
-            sprite.keyPressed(e);
-        }
-
         if (mState == GameStates.States.GAMEPLAY)
         {
             for (BasicRoomSprite roomSprite : mGameplayStatesToRespectiveArray.get(mGameplayState))
@@ -228,17 +225,18 @@ public class Board extends JPanel implements ActionListener, KeyListener {
                 roomSprite.keyPressed(e);
             }
         }
+        for (BasicSprite sprite : mStatesToRespectiveArray.get(mState))
+        {
+            sprite.keyPressed(e);
+        }
+
+        
 
         
     }
 
     public void exitingState(GameStates.States state)
     {
-        for (BasicSprite sprite : mStatesToRespectiveArray.get(mState))
-        {
-            sprite.onDelete();
-        }
-
         if (mState == GameStates.States.GAMEPLAY)
         {
             for (BasicRoomSprite roomSprite : mGameplayStatesToRespectiveArray.get(mGameplayState))
@@ -246,6 +244,12 @@ public class Board extends JPanel implements ActionListener, KeyListener {
                 roomSprite.onDelete();
             }
         }
+        for (BasicSprite sprite : mStatesToRespectiveArray.get(mState))
+        {
+            sprite.onDelete();
+        }
+
+        
         
     }
 
