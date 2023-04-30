@@ -137,10 +137,7 @@ public class Player implements BasicSprite{
         }
     }
 
-    public Rectangle getPlayerHitboxRectangle() {
-        return new Rectangle((int) playerPos.getX(), (int) playerPos.getY(), rightImage.getWidth(), rightImage.getHeight());
-    } 
-
+    
     public void tick() {
         updateMovement();
         // this gets called once every tick, before the repainting process happens.
@@ -212,6 +209,11 @@ public class Player implements BasicSprite{
         return String.valueOf(score);
     }
 
+    public void setPosition(Point pPos)
+    {
+        playerPos = pPos;
+    }
+
     public void addScore(int amount) {
         score += amount;
     }
@@ -219,6 +221,12 @@ public class Player implements BasicSprite{
     public Point getPlayerPos() {
         return playerPos;
     }
+
+    public Rectangle getPlayerHitboxRectangle() {
+        return new Rectangle((int) playerPos.getX(), (int) playerPos.getY(), rightImage.getWidth(), rightImage.getHeight());
+    } 
+
+
 
     @Override
     public void onDelete() {

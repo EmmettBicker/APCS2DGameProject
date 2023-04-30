@@ -7,7 +7,7 @@ public class GameStates
     }
 
     public enum GameplayStates {
-        NOT_IN_GAME, ROOM_1 //, ROOM_2, ROOM_3, ROOM_4
+        NOT_IN_GAME, ROOM_1, ROOM_2//, ROOM_3, ROOM_4
     }
 
 

@@ -2,6 +2,7 @@ package game;
 
 import javax.swing.*;
 import java.awt.Point;
+import java.awt.Rectangle;
 
 public class Game {
     private static Board board;
@@ -39,6 +40,16 @@ public class Game {
     public static Point getPlayerPosition()
     {
         return board.getPlayerPosition();
+    }
+
+    public static Rectangle getPlayerHitbox()
+    {
+        return board.getPlayerHitbox();
+    }
+
+    public static void setPlayerPosition(Point pPos)
+    {
+        board.setPlayerPosition(pPos);
     }
 
     public static void main(String[] args) {

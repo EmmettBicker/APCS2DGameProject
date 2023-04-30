@@ -8,6 +8,8 @@ import javax.swing.*;
 
 import game.interfaces.BasicSprite;
 import game.GameStates.GameplayStates;
+import game.generalSprites.GeneralDoor;
+import game.generalSprites.GeneralMusic;
 import game.interfaces.BasicRoomSprite;
 import game.titleScreen.*;
 import game.wallFactory.Wall;
@@ -37,9 +39,13 @@ public class Board extends JPanel implements ActionListener, KeyListener {
     private GeneralMusic mTitleMusic;
 
     private Player mPlayer;
+
+    // ROOM 1
     private ScreenOneBg mScreenOneBg;
+    private GeneralDoor mRoom1toRoom2Door;
     
-    private Door mDoor;
+    // ROOM 2 
+    private GeneralDoor mRoom2toRoom1Door;
     
     private BeginningText mBeginningText;
     private TextBackground mTextBackground;
@@ -50,6 +56,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
 
     private ArrayList<BasicRoomSprite> mNotPlayingSpriteArray; // has nothing 
     private ArrayList<BasicRoomSprite> mRoomOneSpriteArray;
+    private ArrayList<BasicRoomSprite> mRoomTwoSpriteArray;
 
     private GameStates.States mState;
     private GameStates.GameplayStates mGameplayState;
@@ -75,10 +82,19 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         mTitleMusic = new GeneralMusic("src/main/resources/music/titleScreenChopin.wav");
         
 
+        // ROOM 1
         mScreenOneBg = new ScreenOneBg();
         mPlayer = new Player();
         
-        mDoor = new Door();
+        Point room1toRoom2DoorPos = new Point(0,200);
+        Point room2toRoom1DoorPos = new Point(Constants.CANVAS_WIDTH-200,200);
+        mRoom1toRoom2Door = new GeneralDoor(GameStates.GameplayStates.ROOM_2, room2toRoom1DoorPos, 
+                                            new Rectangle(room1toRoom2DoorPos.x,room1toRoom2DoorPos.y,100,100));
+
+        // ROOM 2
+
+        mRoom2toRoom1Door = new GeneralDoor(GameStates.GameplayStates.ROOM_1, room1toRoom2DoorPos, 
+                                            new Rectangle(room2toRoom1DoorPos.x,room2toRoom1DoorPos.y,100,100));
 
         mBeginningText = new BeginningText();
         mTextBackground = new TextBackground();
@@ -108,15 +124,18 @@ public class Board extends JPanel implements ActionListener, KeyListener {
 
 
         // ROOM SPRITES 
+        // ROOM 1 
         mNotPlayingSpriteArray = new ArrayList<BasicRoomSprite>();
         mRoomOneSpriteArray = new ArrayList<BasicRoomSprite>();
 
-        mRoomOneSpriteArray.add(mDoor);
+        mRoomOneSpriteArray.add(mRoom1toRoom2Door);
         
         mRoomOneSpriteArray.add(mScreenOneBg);
         mGameScreenSpriteArray.add(mPlayer);
         
-        
+        // ROOM 2 
+        mRoomTwoSpriteArray = new ArrayList<BasicRoomSprite>();
+        mRoomTwoSpriteArray.add(mRoom2toRoom1Door);
         
         
         mStatesToRespectiveArray.put(GameStates.States.TITLE_SCREEN, mTitleScreenSpriteArray);
@@ -125,6 +144,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
 
         mGameplayStatesToRespectiveArray.put(GameStates.GameplayStates.NOT_IN_GAME, mNotPlayingSpriteArray);
         mGameplayStatesToRespectiveArray.put(GameStates.GameplayStates.ROOM_1, mRoomOneSpriteArray);
+        mGameplayStatesToRespectiveArray.put(GameStates.GameplayStates.ROOM_2, mRoomTwoSpriteArray);
 
 
         WallFactory.addWall(GameStates.GameplayStates.ROOM_1, new Rectangle(0, 100, 1000, 100));
@@ -156,8 +176,10 @@ public class Board extends JPanel implements ActionListener, KeyListener {
  
         if (mState == GameStates.States.GAMEPLAY)
         {
+            
             for (BasicRoomSprite roomSprite : mGameplayStatesToRespectiveArray.get(mGameplayState))
             {
+    
                 roomSprite.tick();
             }
         }
@@ -285,6 +307,17 @@ public class Board extends JPanel implements ActionListener, KeyListener {
     {
         return mPlayer.getPlayerPos();
     }
+
+    public Rectangle getPlayerHitbox()
+    {
+        return mPlayer.getPlayerHitboxRectangle();
+    }
+
+    public void setPlayerPosition(Point pPos)
+    {
+        mPlayer.setPosition(pPos);
+    }
+
 
     private void drawScore(Graphics g) {
         // set the text to be displayed

@@ -1,4 +1,4 @@
-package game.titleScreen;
+package game.generalSprites;
 
 import java.awt.event.KeyEvent;
 import java.awt.Graphics;
@@ -15,20 +15,21 @@ import javax.sound.sampled.Clip;
 import game.interfaces.BasicSprite;
 
 
-public class TitleMusic implements BasicSprite {
+public class GeneralMusic implements BasicSprite {
 
     // image that represents the player's position on the board
     private BufferedImage background;
     private Point pos;
     private Clip music;
     private boolean hasStartedMusic;
-    
+    private String path;
 
-    public TitleMusic() {
+    public GeneralMusic(String pPath) {
         // load the assets
         loadImage();
+        path = pPath;
         hasStartedMusic = false;
-        playMusic();
+        
         pos = new Point(0, 0);
 
     }
@@ -52,7 +53,7 @@ public class TitleMusic implements BasicSprite {
             if (!hasStartedMusic)
             {
                 AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(
-                    new File("src/main/resources/music/titleScreenChopin.wav").getAbsoluteFile());
+                    new File(path).getAbsoluteFile());
                 music = AudioSystem.getClip();
                 
                 music.open(audioInputStream);
@@ -93,6 +94,7 @@ public class TitleMusic implements BasicSprite {
     @Override
     public void tick() {
         // no special behavior
+        playMusic();
     }
 
     @Override
