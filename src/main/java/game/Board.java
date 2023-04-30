@@ -86,15 +86,16 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         mScreenOneBg = new ScreenOneBg();
         mPlayer = new Player();
         
+        int doorWidth = 80;
         Point room1toRoom2DoorPos = new Point(0,200);
-        Point room2toRoom1DoorPos = new Point(Constants.CANVAS_WIDTH-200,200);
+        Point room2toRoom1DoorPos = new Point(Constants.CANVAS_WIDTH-doorWidth,200);
         mRoom1toRoom2Door = new GeneralDoor(GameStates.GameplayStates.ROOM_2, room2toRoom1DoorPos, 
-                                            new Rectangle(room1toRoom2DoorPos.x,room1toRoom2DoorPos.y,100,100));
+                                            new Rectangle(room1toRoom2DoorPos.x,room1toRoom2DoorPos.y, doorWidth,100));
 
         // ROOM 2
 
         mRoom2toRoom1Door = new GeneralDoor(GameStates.GameplayStates.ROOM_1, room1toRoom2DoorPos, 
-                                            new Rectangle(room2toRoom1DoorPos.x,room2toRoom1DoorPos.y,100,100));
+                                            new Rectangle(room2toRoom1DoorPos.x,room2toRoom1DoorPos.y, doorWidth,100));
 
         mBeginningText = new BeginningText();
         mTextBackground = new TextBackground();
@@ -147,10 +148,14 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         mGameplayStatesToRespectiveArray.put(GameStates.GameplayStates.ROOM_2, mRoomTwoSpriteArray);
 
 
+        // ROOM 1
         WallFactory.addWall(GameStates.GameplayStates.ROOM_1, new Rectangle(0, 100, 1000, 100));
- 
         WallFactory.addWall(GameStates.GameplayStates.ROOM_1, new Rectangle(0, 300, Constants.CANVAS_WIDTH/2-200, 500));
         WallFactory.addWall(GameStates.GameplayStates.ROOM_1, new Rectangle(Constants.CANVAS_WIDTH/2+200, 300, Constants.CANVAS_WIDTH/2-200, 500));
+
+        // ROOM 2
+        WallFactory.addWall(GameStates.GameplayStates.ROOM_2, new Rectangle(1000, 100, Constants.CANVAS_WIDTH-1000, 100));
+        WallFactory.addWall(GameStates.GameplayStates.ROOM_2, new Rectangle(1000, 300, Constants.CANVAS_WIDTH-1000, 100));
 
         // Add all wall sprites to room array
 

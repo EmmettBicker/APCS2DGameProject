@@ -37,7 +37,7 @@ public class Player implements BasicSprite{
     public Player() {
         loadImage();
 
-        playerPos = new Point(60, 60);
+        playerPos = new Point(Constants.CANVAS_WIDTH/2-rightImage.getWidth()/2, Constants.CANVAS_HEIGHT-250);
         playerFacing = PlayerFacingStates.RIGHT;
         score = 0;
     }
@@ -144,21 +144,26 @@ public class Player implements BasicSprite{
         // so we can do anything needed in here to update the state of the player.
 
         // prevent the player from moving off the edge of the board sideways
-        if (playerPos.x < 0) {
-            playerPos.x = 0;
-        } else if (playerPos.x >= Constants.CANVAS_WIDTH) {
-            playerPos.x = Constants.CANVAS_WIDTH- 1;
-        }
-        // prevent the player from moving off the edge of the board vertically
-        if (playerPos.y < 0) {
-            playerPos.y = 0;
-        } else if (playerPos.y >= Constants.CANVAS_HEIGHT) {
-            playerPos.y = Constants.CANVAS_HEIGHT - 1;
-        }
+        screenEdgeDetection();
 
         wallCollision();
 
         
+    }
+
+    public void screenEdgeDetection()
+    {
+        if (playerPos.x < 0) {
+            playerPos.x = 0;
+        } else if (playerPos.x >= Constants.CANVAS_WIDTH - rightImage.getWidth()) {
+            playerPos.x = Constants.CANVAS_WIDTH - 1 - rightImage.getHeight();
+        }
+        // prevent the player from moving off the edge of the board vertically
+        if (playerPos.y < 0) {
+            playerPos.y = 0;
+        } else if (playerPos.y >= Constants.CANVAS_HEIGHT - (int)(rightImage.getHeight()*1.5)) {
+            playerPos.y = Constants.CANVAS_HEIGHT - (int)(rightImage.getHeight()*1.5) - 1;
+        }
     }
     
     public void wallCollision()
