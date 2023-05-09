@@ -33,6 +33,8 @@ public class Player implements BasicSprite{
     // needs to be reimplemented    
     private int score;
 
+    private int currentHealth;
+    private int maxHealth;
 
     public Player() {
         loadImage();
@@ -236,6 +238,22 @@ public class Player implements BasicSprite{
     @Override
     public void onDelete() {
         // no special action yet
+    }
+
+    public int getCurrentHealth() {
+        return currentHealth;
+    }
+
+    public void setCuurentHealth() {
+        currentHealth = 10;
+    }
+    
+    public int getMaxHealth() {
+        return maxHealth;
+    }
+
+    public void setMaxHealth() {
+        maxHealth = 10;
     }
 
 }

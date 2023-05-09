@@ -8,6 +8,7 @@ import javax.swing.*;
 
 import game.interfaces.BasicSprite;
 import game.GameStates.GameplayStates;
+import game.PlayerAttributes.HealthBar;
 import game.generalSprites.GeneralDoor;
 import game.generalSprites.GeneralMusic;
 import game.interfaces.BasicRoomSprite;
@@ -39,6 +40,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
     private GeneralMusic mTitleMusic;
 
     private Player mPlayer;
+    private HealthBar mHealthBar;
 
     // ROOM 1
     private ScreenOneBg mScreenOneBg;
@@ -85,6 +87,8 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         // ROOM 1
         mScreenOneBg = new ScreenOneBg();
         mPlayer = new Player();
+
+        mHealthBar = new HealthBar();
         
         int doorWidth = 80;
         Point room1toRoom2DoorPos = new Point(0,200);
@@ -133,6 +137,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         
         mRoomOneSpriteArray.add(mScreenOneBg);
         mGameScreenSpriteArray.add(mPlayer);
+        mGameScreenSpriteArray.add(mHealthBar);
         
         // ROOM 2 
         mRoomTwoSpriteArray = new ArrayList<BasicRoomSprite>();
