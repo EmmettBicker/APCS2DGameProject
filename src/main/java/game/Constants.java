@@ -8,4 +8,5 @@ public class Constants {
     public static final int HEALTH_BAR_PADDING = 7;
     public static final int HEALTH_BAR_GAP_WIDTH = 3;
     
+    
 }

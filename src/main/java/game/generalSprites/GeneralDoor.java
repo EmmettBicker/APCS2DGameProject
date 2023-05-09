@@ -66,7 +66,10 @@ public class GeneralDoor implements BasicRoomSprite{
 
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
-        if (key == KeyEvent.VK_SPACE && Game.getPlayerHitbox().intersects(mHitbox)) {
+        
+        if (key == KeyEvent.VK_SPACE && Game.getPlayerHitbox().intersects(mHitbox) && !Game.getHasChangedRoomAlready()) {
+            Game.setHasChangedRoomAlready(true);
+            System.out.println(mHitbox + " " + Game.getPlayerHitbox().intersects(mHitbox));
             GameStates.setGameplayState(mDestination);
             Game.setPlayerPosition(mPlayerEndPos);
         }
@@ -75,6 +78,7 @@ public class GeneralDoor implements BasicRoomSprite{
 
     @Override
     public void tick() {
+  
         // no special behavior
     }
 

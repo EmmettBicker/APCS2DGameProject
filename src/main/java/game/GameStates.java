@@ -1,5 +1,8 @@
 package game;
 
+import java.awt.Point;
+import java.util.Hashtable;
+
 public class GameStates
 {
     public enum States {
@@ -7,7 +10,7 @@ public class GameStates
     }
 
     public enum GameplayStates {
-        NOT_IN_GAME, ROOM_1, ROOM_2//, ROOM_3, ROOM_4
+        NOT_IN_GAME, ROOM_1, ROOM_2, ROOM_3//, ROOM_4
     }
 
 
@@ -19,6 +22,17 @@ public class GameStates
     public static GameplayStates mGameplayState = GameplayStates.NOT_IN_GAME;
     public static GameplayStates mPreviousGameplayState = GameplayStates.NOT_IN_GAME; 
     
+    private static Hashtable<GameplayStates, Point> mPlayerLastPositionInRoom;
+
+    static {
+        mPlayerLastPositionInRoom = new Hashtable<GameplayStates, Point>();
+        
+        for (GameplayStates room : GameplayStates.values())
+        {
+            mPlayerLastPositionInRoom.put(room, new Point());
+        }
+        
+    }
 
     public static States getState()
     {

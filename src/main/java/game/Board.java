@@ -45,12 +45,15 @@ public class Board extends JPanel implements ActionListener, KeyListener {
     // ROOM 1
     private ScreenOneBg mScreenOneBg;
     private GeneralDoor mRoom1toRoom2Door;
+    private GeneralDoor mRoom1toRoom3Door;
     
     // ROOM 2 
     private GeneralDoor mRoom2toRoom1Door;
     
     private BeginningText mBeginningText;
     private TextBackground mTextBackground;
+    // ROOM 3
+    private GeneralDoor mRoom3toRoom1Door;
 
     private ArrayList<BasicSprite> mTitleScreenSpriteArray;
     private ArrayList<BasicSprite> mGameScreenSpriteArray;
@@ -59,6 +62,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
     private ArrayList<BasicRoomSprite> mNotPlayingSpriteArray; // has nothing 
     private ArrayList<BasicRoomSprite> mRoomOneSpriteArray;
     private ArrayList<BasicRoomSprite> mRoomTwoSpriteArray;
+    private ArrayList<BasicRoomSprite> mRoomThreeSpriteArray;
 
     private GameStates.States mState;
     private GameStates.GameplayStates mGameplayState;
@@ -93,8 +97,12 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         int doorWidth = 80;
         Point room1toRoom2DoorPos = new Point(0,200);
         Point room2toRoom1DoorPos = new Point(Constants.CANVAS_WIDTH-doorWidth,200);
+        Point room1toRoom3DoorPos = new Point(Constants.CANVAS_WIDTH-doorWidth,200);
+        Point room3toRoom1DoorPos = new Point(0,200);
         mRoom1toRoom2Door = new GeneralDoor(GameStates.GameplayStates.ROOM_2, room2toRoom1DoorPos, 
                                             new Rectangle(room1toRoom2DoorPos.x,room1toRoom2DoorPos.y, doorWidth,100));
+        mRoom1toRoom3Door = new GeneralDoor(GameStates.GameplayStates.ROOM_3, room3toRoom1DoorPos, 
+                                            new Rectangle(room2toRoom1DoorPos.x,room2toRoom1DoorPos.y, doorWidth,100));
 
         // ROOM 2
 
@@ -103,6 +111,13 @@ public class Board extends JPanel implements ActionListener, KeyListener {
 
         mBeginningText = new BeginningText();
         mTextBackground = new TextBackground();
+
+        // ROOM 3
+
+        mRoom3toRoom1Door = new GeneralDoor(GameStates.GameplayStates.ROOM_1, room1toRoom3DoorPos, 
+                                            new Rectangle(room3toRoom1DoorPos.x,room3toRoom1DoorPos.y, doorWidth,100));
+
+
 
         // this timer will call the actionPerformed() method every DELAY ms
         mTimer = new Timer(DELAY, this);
@@ -121,10 +136,10 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         
 
         mGameScreenSpriteArray = new ArrayList<BasicSprite>();
-        
+        mGameScreenSpriteArray.add(mPlayer);
         
       
-    
+        
 
 
 
@@ -134,14 +149,20 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         mRoomOneSpriteArray = new ArrayList<BasicRoomSprite>();
 
         mRoomOneSpriteArray.add(mRoom1toRoom2Door);
-        
         mRoomOneSpriteArray.add(mScreenOneBg);
         mGameScreenSpriteArray.add(mPlayer);
         mGameScreenSpriteArray.add(mHealthBar);
+        mRoomOneSpriteArray.add(mRoom1toRoom3Door);
+        
         
         // ROOM 2 
         mRoomTwoSpriteArray = new ArrayList<BasicRoomSprite>();
         mRoomTwoSpriteArray.add(mRoom2toRoom1Door);
+        
+        // ROOM 3
+        mRoomThreeSpriteArray = new ArrayList<BasicRoomSprite>();
+        mRoomThreeSpriteArray.add(mRoom3toRoom1Door);
+        
         
         
         mStatesToRespectiveArray.put(GameStates.States.TITLE_SCREEN, mTitleScreenSpriteArray);
@@ -151,6 +172,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         mGameplayStatesToRespectiveArray.put(GameStates.GameplayStates.NOT_IN_GAME, mNotPlayingSpriteArray);
         mGameplayStatesToRespectiveArray.put(GameStates.GameplayStates.ROOM_1, mRoomOneSpriteArray);
         mGameplayStatesToRespectiveArray.put(GameStates.GameplayStates.ROOM_2, mRoomTwoSpriteArray);
+        mGameplayStatesToRespectiveArray.put(GameStates.GameplayStates.ROOM_3, mRoomThreeSpriteArray);
 
 
         // ROOM 1
@@ -183,13 +205,13 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         
         mState = GameStates.getState();
         mGameplayState = GameStates.getGameplayState();
- 
-        if (mState == GameStates.States.GAMEPLAY)
+        // System.out.println(mGameplayState);
+        if (mState == GameStates.States.GAMEPLAY)  
         {
             
             for (BasicRoomSprite roomSprite : mGameplayStatesToRespectiveArray.get(mGameplayState))
             {
-    
+                // System.out.println(roomSprite);
                 roomSprite.tick();
             }
         }
@@ -247,9 +269,12 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         // this is not used but must be defined as part of the KeyListener interface
     }
 
+    private boolean mHasChangedRoomAlready;
+
     @Override
     public void keyPressed(KeyEvent e) 
     {
+        mHasChangedRoomAlready = false;
         mState = GameStates.getState();
         // react to key down events
         if (mState == GameStates.States.GAMEPLAY)
@@ -263,9 +288,6 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         {
             sprite.keyPressed(e);
         }
-
-        
-
         
     }
 
@@ -326,6 +348,16 @@ public class Board extends JPanel implements ActionListener, KeyListener {
     public void setPlayerPosition(Point pPos)
     {
         mPlayer.setPosition(pPos);
+    }
+
+    public boolean getHasChangedRoomAlready()
+    {
+        return mHasChangedRoomAlready;
+    }
+
+    public void setHasChangedRoomAlready(boolean b)
+    {
+        mHasChangedRoomAlready = b;
     }
 
 

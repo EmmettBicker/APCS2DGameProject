@@ -52,6 +52,16 @@ public class Game {
         board.setPlayerPosition(pPos);
     }
 
+    public static boolean getHasChangedRoomAlready()
+    {
+        return board.getHasChangedRoomAlready();
+    }
+
+    public static void setHasChangedRoomAlready(boolean b)
+    {
+        board.setHasChangedRoomAlready(b);
+    }
+
     public static void main(String[] args) {
         // invokeLater() is used here to prevent our graphics processing from
         // blocking the GUI. https://stackoverflow.com/a/22534931/4655368
