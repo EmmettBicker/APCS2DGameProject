@@ -30,24 +30,41 @@ public class HealthBar implements BasicSprite{
         g.setColor(Color.BLACK);
         g.drawRect(x, y, width, height);
             
-        // draw health segments
-        int segmentWidth = (int)Math.floor((width - 2 * Constants.HEALTH_BAR_PADDING) / maxHealth);
-        int gapWidth = Constants.HEALTH_BAR_GAP_WIDTH;
-        int remainingHealth = currentHealth;
-        for (int i = 0; i < maxHealth; i++) {
-            if (remainingHealth > 0) {
-                g.setColor(Color.GREEN);
-                if (remainingHealth >= segmentWidth) {
-                    g.fillRect(x + Constants.HEALTH_BAR_PADDING + i * (segmentWidth + gapWidth), y + Constants.HEALTH_BAR_PADDING, segmentWidth, height - 2 * Constants.HEALTH_BAR_PADDING);
-                } else {
-                    g.fillRect(x + Constants.HEALTH_BAR_PADDING + i * (segmentWidth + gapWidth), y + Constants.HEALTH_BAR_PADDING, remainingHealth, height - 2 * Constants.HEALTH_BAR_PADDING);
-                }
-                remainingHealth -= segmentWidth;
-            } else {
-                g.setColor(Color.RED);
-                g.fillRect(x + Constants.HEALTH_BAR_PADDING + i * (segmentWidth + gapWidth), y + Constants.HEALTH_BAR_PADDING, segmentWidth, height - 2 * Constants.HEALTH_BAR_PADDING);
+
+      
+        int segmentWidth = width / maxHealth; 
+        int remainingHealth = currentHealth; 
+
+        // width of the seperator
+        int inbetweenWidth = 5;
+        // surrounding rectangle
+        int padX = 5, padY = 5;
+        g.setColor(Color.BLACK);
+        g.fillRect(x-padX, y-padY, width+(2*padX) - inbetweenWidth+1, height+(2*padY));
+        
+        
+   
+        for (int i = 0; i < maxHealth; i++) 
+        {
+            // draw as many green health segments as the current health
+            if (i < currentHealth) { 
+                g.setColor(Color.GREEN); 
+                g.fillRect(x + i * segmentWidth, y, segmentWidth, height); 
+             
             }
+            // draw the rest red
+            else { 
+                g.setColor(Color.RED); 
+                g.fillRect(x + i * segmentWidth, y, segmentWidth, height); 
+            
+            }
+            // after drawing every segment draw this black line at the end of it (but not the final segment)
+         
+            g.setColor(Color.BLACK); 
+            g.fillRect(x + (i+1) * segmentWidth - inbetweenWidth, y, inbetweenWidth, height); 
+            
         }
+
     
         // draw current and max health text
         String healthText = currentHealth + " / " + maxHealth;
