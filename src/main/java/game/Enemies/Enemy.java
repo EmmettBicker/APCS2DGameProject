@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import game.utils.GeneralUtils;
+import game.Constants;
 import game.Game;
 
 import game.interfaces.EnemyInterface;
@@ -48,8 +49,7 @@ public class Enemy implements EnemyInterface{
 
     @Override
     public void keyPressed(KeyEvent e) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'keyPressed'");
+       
     }
 
     @Override
@@ -58,10 +58,25 @@ public class Enemy implements EnemyInterface{
         int deltaX = (int) Math.abs((Game.getPlayerPosition().getX() - enemyPos.getX()));
         int deltaY = (int) Math.abs((Game.getPlayerPosition().getY() - enemyPos.getY()));
         if (deltaX > deltaY) {
-            enemyPos.x += 1;
+            // if player if further down 
+            if (Game.getPlayerPosition().getX() > enemyPos.getX())
+            {
+                enemyPos.x += Constants.BASIC_ENEMY_SPEED;
+            }
+            else
+            {
+                enemyPos.x -= Constants.BASIC_ENEMY_SPEED;
+            }
         }
         else {
-            enemyPos.y +=1;
+            if (Game.getPlayerPosition().getY() > enemyPos.getY())
+            {
+                enemyPos.y += Constants.BASIC_ENEMY_SPEED;
+            }
+            else
+            {
+                enemyPos.y -= Constants.BASIC_ENEMY_SPEED;
+            }
         }
         GeneralUtils.wallCollision(getPlayerHitboxRectangle(), enemyPos);
     }

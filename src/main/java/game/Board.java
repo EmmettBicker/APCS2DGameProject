@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import javax.swing.*;
 
 import game.interfaces.BasicSprite;
+import game.Enemies.Enemy;
 import game.GameStates.GameplayStates;
 import game.PlayerAttributes.HealthBar;
 import game.generalSprites.GeneralDoor;
@@ -158,7 +159,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         // ROOM 2 
         mRoomTwoSpriteArray = new ArrayList<BasicRoomSprite>();
         mRoomTwoSpriteArray.add(mRoom2toRoom1Door);
-        
+        mRoomTwoSpriteArray.add(new Enemy(new Point(0,0)));
         // ROOM 3
         mRoomThreeSpriteArray = new ArrayList<BasicRoomSprite>();
         mRoomThreeSpriteArray.add(mRoom3toRoom1Door);
@@ -173,6 +174,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         mGameplayStatesToRespectiveArray.put(GameStates.GameplayStates.ROOM_1, mRoomOneSpriteArray);
         mGameplayStatesToRespectiveArray.put(GameStates.GameplayStates.ROOM_2, mRoomTwoSpriteArray);
         mGameplayStatesToRespectiveArray.put(GameStates.GameplayStates.ROOM_3, mRoomThreeSpriteArray);
+        
 
 
         // ROOM 1

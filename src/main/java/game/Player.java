@@ -126,18 +126,18 @@ public class Player implements BasicSprite{
     public void updateMovement()
     {
         if (isUpPressed) {
-            playerPos.translate(0, -Constants.SPEED);
+            playerPos.translate(0, -Constants.PLAYER_SPEED);
         }
         if (isRightPressed) {
             playerFacing = PlayerFacingStates.RIGHT;
-            playerPos.translate(Constants.SPEED, 0);
+            playerPos.translate(Constants.PLAYER_SPEED, 0);
         }
         if (isDownPressed) {
-            playerPos.translate(0, Constants.SPEED);
+            playerPos.translate(0, Constants.PLAYER_SPEED);
         }
         if (isLeftPressed) {
             playerFacing = PlayerFacingStates.LEFT;
-            playerPos.translate(-Constants.SPEED, 0);
+            playerPos.translate(-Constants.PLAYER_SPEED, 0);
         }
     }
 
