@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
+
+import game.utils.GeneralUtils;
 import game.utils.ImageUtils;
 import game.interfaces.BasicSprite;
 
@@ -148,7 +150,7 @@ public class Player implements BasicSprite{
         // prevent the player from moving off the edge of the board sideways
         screenEdgeDetection();
 
-        wallCollision();
+        GeneralUtils.wallCollision(getPlayerHitboxRectangle(), playerPos);
 
         
     }
@@ -168,49 +170,49 @@ public class Player implements BasicSprite{
         }
     }
     
-    public void wallCollision()
-    {
-        GameStates.GameplayStates currentRoom = GameStates.getGameplayState();
-        ArrayList<Wall> currentRoomWalls = WallFactory.getRoomWallArray(currentRoom);
+    // public void wallCollision()
+    // {
+    //     GameStates.GameplayStates currentRoom = GameStates.getGameplayState();
+    //     ArrayList<Wall> currentRoomWalls = WallFactory.getRoomWallArray(currentRoom);
        
-        for (Wall wall : currentRoomWalls)
-        {
+    //     for (Wall wall : currentRoomWalls)
+    //     {
         
-            // check for collision with wall sprites
-            Rectangle playerHitbox = getPlayerHitboxRectangle();
-            Rectangle wallHitbox = wall.getWallHitBox();
-            double wallWidth = wallHitbox.getWidth();
-            double wallHeight = wallHitbox.getHeight();
+    //         // check for collision with wall sprites
+    //         Rectangle playerHitbox = getPlayerHitboxRectangle();
+    //         Rectangle wallHitbox = wall.getWallHitBox();
+    //         double wallWidth = wallHitbox.getWidth();
+    //         double wallHeight = wallHitbox.getHeight();
 
-            if (playerHitbox.intersects(wallHitbox)) {
-                // determine the direction of collision
-                double dx = playerHitbox.getCenterX() - wallHitbox.getCenterX();
-                double dy = playerHitbox.getCenterY() - wallHitbox.getCenterY();
-                // handle the collision based on the direction
-                if (Math.abs(dx) / wallWidth > Math.abs(dy) / wallHeight) {
-                    // collided in x direction
-                    if (dx < 0) {
-                        // collided on right side of wall
-                        playerPos.x = (int) (wallHitbox.getX() - playerHitbox.getWidth());
-                    } else {
-                        // collided on left side of wall
-                        playerPos.x = (int) (wallHitbox.getX() + wallHitbox.getWidth());
-                    }
-                } 
-                else {
-                    // collided in y direction
-                    if (dy < 0) {
+    //         if (playerHitbox.intersects(wallHitbox)) {
+    //             // determine the direction of collision
+    //             double dx = playerHitbox.getCenterX() - wallHitbox.getCenterX();
+    //             double dy = playerHitbox.getCenterY() - wallHitbox.getCenterY();
+    //             // handle the collision based on the direction
+    //             if (Math.abs(dx) / wallWidth > Math.abs(dy) / wallHeight) {
+    //                 // collided in x direction
+    //                 if (dx < 0) {
+    //                     // collided on right side of wall
+    //                     playerPos.x = (int) (wallHitbox.getX() - playerHitbox.getWidth());
+    //                 } else {
+    //                     // collided on left side of wall
+    //                     playerPos.x = (int) (wallHitbox.getX() + wallHitbox.getWidth());
+    //                 }
+    //             } 
+    //             else {
+    //                 // collided in y direction
+    //                 if (dy < 0) {
                        
-                        // collided on bottom side of wall
-                        playerPos.y = (int) (wallHitbox.getY() - playerHitbox.getHeight());
-                    } else {
-                        // collided on top side of wall
-                        playerPos.y = (int) (wallHitbox.getY() + wallHitbox.getHeight());
-                    }
-                }
-            }
-        }
-    }
+    //                     // collided on bottom side of wall
+    //                     playerPos.y = (int) (wallHitbox.getY() - playerHitbox.getHeight());
+    //                 } else {
+    //                     // collided on top side of wall
+    //                     playerPos.y = (int) (wallHitbox.getY() + wallHitbox.getHeight());
+    //                 }
+    //             }
+    //         }
+    //     }
+    // }
 
     public String getScore() {
         return String.valueOf(score);

@@ -25,7 +25,7 @@ public class HealthBar implements BasicSprite{
         int y = 10;
             
         int maxHealth = 10;
-        int currentHealth = 7;
+        int currentHealth = 9;
             
         g.setColor(Color.BLACK);
         g.drawRect(x, y, width, height);
@@ -67,12 +67,12 @@ public class HealthBar implements BasicSprite{
 
     
         // draw current and max health text
-        String healthText = currentHealth + " / " + maxHealth;
-        FontMetrics fm = g.getFontMetrics();
-        int textWidth = fm.stringWidth(healthText);
-        int textHeight = fm.getHeight();
-        g.setColor(Color.BLACK);
-        g.drawString(healthText, x - textWidth - Constants.HEALTH_BAR_PADDING, y + (height + textHeight) / 2);
+        // String healthText = currentHealth + " / " + maxHealth;
+        // FontMetrics fm = g.getFontMetrics();
+        // int textWidth = fm.stringWidth(healthText);
+        // int textHeight = fm.getHeight();
+        // g.setColor(Color.BLACK);
+        // g.drawString(healthText, x - textWidth - Constants.HEALTH_BAR_PADDING, y + (height + textHeight) / 2);
     }
     
 
