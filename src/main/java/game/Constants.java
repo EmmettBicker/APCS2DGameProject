@@ -8,6 +8,9 @@ public class Constants {
     public static final int BASIC_ENEMY_SPEED = 3;
     public static final int HEALTH_BAR_PADDING = 7;
     public static final int HEALTH_BAR_GAP_WIDTH = 3;
+
+    public static final int DOOR_WIDTH = 80; // px
+    public static final int DOOR_HEIGHT = 100; // px
     
     
 }

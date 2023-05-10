@@ -220,7 +220,9 @@ public class Player implements BasicSprite{
 
     public void setPosition(Point pPos)
     {
-        playerPos = pPos;
+        // No mutation
+        playerPos.x = pPos.x;
+        playerPos.y = pPos.y;
     }
 
     public void addScore(int amount) {

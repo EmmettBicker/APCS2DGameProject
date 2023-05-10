@@ -31,7 +31,7 @@ public class GeneralDoor implements BasicRoomSprite{
         // load the assets
         loadImage();
         mDestination = pDestination;
-        mPlayerEndPos = pPlayerEndPos;
+        mPlayerEndPos = GeneralUtils.centerDoorEndDestination(pPlayerEndPos);
         mHitbox = pHitbox;
 
     }
@@ -66,10 +66,10 @@ public class GeneralDoor implements BasicRoomSprite{
 
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
-        
+
         if (key == KeyEvent.VK_SPACE && Game.getPlayerHitbox().intersects(mHitbox) && !Game.getHasChangedRoomAlready()) {
             Game.setHasChangedRoomAlready(true);
-            System.out.println(mHitbox + " " + Game.getPlayerHitbox().intersects(mHitbox));
+            
             GameStates.setGameplayState(mDestination);
             Game.setPlayerPosition(mPlayerEndPos);
         }

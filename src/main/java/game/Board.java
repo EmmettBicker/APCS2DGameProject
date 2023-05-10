@@ -7,9 +7,9 @@ import java.util.ArrayList;
 import javax.swing.*;
 
 import game.interfaces.BasicSprite;
-import game.Enemies.Enemy;
 import game.GameStates.GameplayStates;
 import game.PlayerAttributes.HealthBar;
+import game.enemies.Enemy;
 import game.generalSprites.GeneralDoor;
 import game.generalSprites.GeneralMusic;
 import game.interfaces.BasicRoomSprite;
@@ -95,20 +95,20 @@ public class Board extends JPanel implements ActionListener, KeyListener {
 
         mHealthBar = new HealthBar();
         
-        int doorWidth = 80;
+        
         Point room1toRoom2DoorPos = new Point(0,200);
-        Point room2toRoom1DoorPos = new Point(Constants.CANVAS_WIDTH-doorWidth,200);
-        Point room1toRoom3DoorPos = new Point(Constants.CANVAS_WIDTH-doorWidth,200);
+        Point room2toRoom1DoorPos = new Point(Constants.CANVAS_WIDTH-Constants.DOOR_WIDTH,200);
+        Point room1toRoom3DoorPos = new Point(Constants.CANVAS_WIDTH-Constants.DOOR_WIDTH,200);
         Point room3toRoom1DoorPos = new Point(0,200);
         mRoom1toRoom2Door = new GeneralDoor(GameStates.GameplayStates.ROOM_2, room2toRoom1DoorPos, 
-                                            new Rectangle(room1toRoom2DoorPos.x,room1toRoom2DoorPos.y, doorWidth,100));
+                                            new Rectangle(room1toRoom2DoorPos.x,room1toRoom2DoorPos.y, Constants.DOOR_WIDTH, Constants.DOOR_HEIGHT));
         mRoom1toRoom3Door = new GeneralDoor(GameStates.GameplayStates.ROOM_3, room3toRoom1DoorPos, 
-                                            new Rectangle(room2toRoom1DoorPos.x,room2toRoom1DoorPos.y, doorWidth,100));
+                                            new Rectangle(room2toRoom1DoorPos.x,room2toRoom1DoorPos.y, Constants.DOOR_WIDTH, Constants.DOOR_HEIGHT));
 
         // ROOM 2
 
         mRoom2toRoom1Door = new GeneralDoor(GameStates.GameplayStates.ROOM_1, room1toRoom2DoorPos, 
-                                            new Rectangle(room2toRoom1DoorPos.x,room2toRoom1DoorPos.y, doorWidth,100));
+                                            new Rectangle(room2toRoom1DoorPos.x,room2toRoom1DoorPos.y, Constants.DOOR_WIDTH, Constants.DOOR_HEIGHT));
 
         mBeginningText = new BeginningText();
         mTextBackground = new TextBackground();
@@ -116,7 +116,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         // ROOM 3
 
         mRoom3toRoom1Door = new GeneralDoor(GameStates.GameplayStates.ROOM_1, room1toRoom3DoorPos, 
-                                            new Rectangle(room3toRoom1DoorPos.x,room3toRoom1DoorPos.y, doorWidth,100));
+                                            new Rectangle(room3toRoom1DoorPos.x,room3toRoom1DoorPos.y, Constants.DOOR_WIDTH, Constants.DOOR_HEIGHT));
 
 
 

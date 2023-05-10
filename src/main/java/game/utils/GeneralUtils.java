@@ -29,6 +29,13 @@ public class GeneralUtils {
         return Math.abs(p1.getX()-p2.getX()) < Constants.CLOSENESS_THRESHOLD && Math.abs(p1.getY()-p2.getY()) < Constants.CLOSENESS_THRESHOLD;
     }
 
+    public static Point centerDoorEndDestination(Point p)
+    {
+        int playerHeight = 60;
+        int playerWidth = 56;
+        return new Point(p.x + Constants.DOOR_WIDTH/2 - playerWidth/2, p.y + Constants.DOOR_HEIGHT/2 - playerHeight/2);
+    }
+
     /*
      * This MODIFIES currentPos
      */

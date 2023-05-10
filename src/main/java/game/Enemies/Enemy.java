@@ -1,4 +1,5 @@
-package game.Enemies;
+package game.enemies;
+
 import java.awt.event.KeyEvent;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -29,7 +30,7 @@ public class Enemy implements EnemyInterface{
             // you can use just the filename if the image file is in your
             // project folder, otherwise you need to provide the file path.
             
-            image = ImageIO.read(new File("src/main/resources/images/enemies/enemysprite.png"));
+            image = ImageIO.read(new File("src/main/resources/images/enemies/enemySprite.png"));
     
         } catch (IOException exc) {
             System.out.println("Error opening title screen image file: " + exc.getMessage());
