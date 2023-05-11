@@ -2,21 +2,9 @@ package game.utils;
 
 import game.Constants;
 import game.GameStates;
-
 import java.awt.Rectangle;
-import java.awt.event.KeyEvent;
-import java.awt.Graphics;
-import java.awt.image.BufferedImage;
-import java.awt.image.ImageObserver;
 import java.awt.Point;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-
-import javax.imageio.ImageIO;
-import game.utils.ImageUtils;
-import game.interfaces.BasicSprite;
-
 import game.wallFactory.Wall;
 import game.wallFactory.WallFactory;
 

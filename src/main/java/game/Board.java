@@ -18,6 +18,7 @@ import game.wallFactory.Wall;
 import game.wallFactory.WallFactory;
 import game.scrollingText.*;
 import game.screen1.*;
+import game.enemies.EnemyFactory;
 
 public class Board extends JPanel implements ActionListener, KeyListener {
 
@@ -186,6 +187,9 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         WallFactory.addWall(GameStates.GameplayStates.ROOM_2, new Rectangle(1000, 100, Constants.CANVAS_WIDTH-1000, 100));
         WallFactory.addWall(GameStates.GameplayStates.ROOM_2, new Rectangle(1000, 300, Constants.CANVAS_WIDTH-1000, 100));
 
+        EnemyFactory.addEnemy(GameStates.GameplayStates.ROOM_1, new Point(0,0));
+        EnemyFactory.addEnemy(GameStates.GameplayStates.ROOM_2, new Point(0,Constants.CANVAS_HEIGHT));
+
         // Add all wall sprites to room array
 
         for (GameStates.GameplayStates gameplayState : mAllRoomStatesArray)
@@ -194,6 +198,15 @@ public class Board extends JPanel implements ActionListener, KeyListener {
             for (Wall wall : tempWallArray)
             {
                 mGameplayStatesToRespectiveArray.get(gameplayState).add(wall);
+            }
+        }
+
+        for (GameStates.GameplayStates gameplayState : mAllRoomStatesArray)
+        {
+            ArrayList<Enemy> tempEnemyArray = EnemyFactory.getRoomEnemyArray(gameplayState);
+            for (Enemy enemy : tempEnemyArray)
+            {
+                mGameplayStatesToRespectiveArray.get(gameplayState).add(enemy);
             }
         }
 
@@ -263,6 +276,10 @@ public class Board extends JPanel implements ActionListener, KeyListener {
 
         // this smooths out animations on some systems
         Toolkit.getDefaultToolkit().sync();
+    }
+
+    public Player getPlayer() {
+        return mPlayer;
     }
 
     @Override

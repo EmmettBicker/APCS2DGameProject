@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.Point;
 import java.awt.Rectangle;
 
+
 public class Game {
     private static Board board;
 
@@ -60,6 +61,10 @@ public class Game {
     public static void setHasChangedRoomAlready(boolean b)
     {
         board.setHasChangedRoomAlready(b);
+    }
+
+    public static Player getPlayer() {
+        return board.getPlayer();
     }
 
     public static void main(String[] args) {

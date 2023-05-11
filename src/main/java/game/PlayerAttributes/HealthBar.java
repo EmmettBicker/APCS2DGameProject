@@ -7,6 +7,7 @@ import java.awt.event.KeyEvent;
 import java.awt.image.ImageObserver;
 
 import game.Constants;
+import game.Game;
 import game.Player;
 
 import game.interfaces.BasicSprite;
@@ -24,8 +25,8 @@ public class HealthBar implements BasicSprite{
         int x = Constants.CANVAS_WIDTH - 10 - width;
         int y = 10;
             
-        int maxHealth = 10;
-        int currentHealth = 9;
+        int maxHealth = Game.getPlayer().getMaxHealth();
+        int currentHealth = Game.getPlayer().getCurrentHealth();
             
         g.setColor(Color.BLACK);
         g.drawRect(x, y, width, height);

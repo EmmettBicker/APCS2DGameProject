@@ -43,6 +43,7 @@ public class Player implements BasicSprite{
 
         playerPos = new Point(Constants.CANVAS_WIDTH/2-rightImage.getWidth()/2, Constants.CANVAS_HEIGHT-250);
         playerFacing = PlayerFacingStates.RIGHT;
+        maxHealth = 10;
         score = 0;
     }
 
@@ -165,54 +166,12 @@ public class Player implements BasicSprite{
         // prevent the player from moving off the edge of the board vertically
         if (playerPos.y < 0) {
             playerPos.y = 0;
-        } else if (playerPos.y >= Constants.CANVAS_HEIGHT - (int)(rightImage.getHeight()*1.5)) {
-            playerPos.y = Constants.CANVAS_HEIGHT - (int)(rightImage.getHeight()*1.5) - 1;
+        } else if (playerPos.y >= Constants.CANVAS_HEIGHT - (int)(rightImage.getHeight())) {
+            playerPos.y = Constants.CANVAS_HEIGHT - (int)(rightImage.getHeight()) - 1;
         }
     }
     
-    // public void wallCollision()
-    // {
-    //     GameStates.GameplayStates currentRoom = GameStates.getGameplayState();
-    //     ArrayList<Wall> currentRoomWalls = WallFactory.getRoomWallArray(currentRoom);
-       
-    //     for (Wall wall : currentRoomWalls)
-    //     {
-        
-    //         // check for collision with wall sprites
-    //         Rectangle playerHitbox = getPlayerHitboxRectangle();
-    //         Rectangle wallHitbox = wall.getWallHitBox();
-    //         double wallWidth = wallHitbox.getWidth();
-    //         double wallHeight = wallHitbox.getHeight();
-
-    //         if (playerHitbox.intersects(wallHitbox)) {
-    //             // determine the direction of collision
-    //             double dx = playerHitbox.getCenterX() - wallHitbox.getCenterX();
-    //             double dy = playerHitbox.getCenterY() - wallHitbox.getCenterY();
-    //             // handle the collision based on the direction
-    //             if (Math.abs(dx) / wallWidth > Math.abs(dy) / wallHeight) {
-    //                 // collided in x direction
-    //                 if (dx < 0) {
-    //                     // collided on right side of wall
-    //                     playerPos.x = (int) (wallHitbox.getX() - playerHitbox.getWidth());
-    //                 } else {
-    //                     // collided on left side of wall
-    //                     playerPos.x = (int) (wallHitbox.getX() + wallHitbox.getWidth());
-    //                 }
-    //             } 
-    //             else {
-    //                 // collided in y direction
-    //                 if (dy < 0) {
-                       
-    //                     // collided on bottom side of wall
-    //                     playerPos.y = (int) (wallHitbox.getY() - playerHitbox.getHeight());
-    //                 } else {
-    //                     // collided on top side of wall
-    //                     playerPos.y = (int) (wallHitbox.getY() + wallHitbox.getHeight());
-    //                 }
-    //             }
-    //         }
-    //     }
-    // }
+    // public void isPlayerAttacked
 
     public String getScore() {
         return String.valueOf(score);
@@ -236,8 +195,6 @@ public class Player implements BasicSprite{
     public Rectangle getPlayerHitboxRectangle() {
         return new Rectangle((int) playerPos.getX(), (int) playerPos.getY(), rightImage.getWidth(), rightImage.getHeight());
     } 
-
-
 
     @Override
     public void onDelete() {
