@@ -38,12 +38,15 @@ public class Player implements BasicSprite{
     private int currentHealth;
     private int maxHealth;
 
+    private long lastDamageTime = 0;
+
     public Player() {
         loadImage();
 
         playerPos = new Point(Constants.CANVAS_WIDTH/2-rightImage.getWidth()/2, Constants.CANVAS_HEIGHT-250);
         playerFacing = PlayerFacingStates.RIGHT;
         maxHealth = 10;
+        currentHealth = 10;
         score = 0;
     }
 
@@ -204,17 +207,16 @@ public class Player implements BasicSprite{
     public int getCurrentHealth() {
         return currentHealth;
     }
-
-    public void setCuurentHealth() {
-        currentHealth = 10;
-    }
     
     public int getMaxHealth() {
         return maxHealth;
     }
 
-    public void setMaxHealth() {
-        maxHealth = 10;
+    public void lowerPlayerHealth() {
+        long currentTime = System.currentTimeMillis();
+        if (currentTime - lastDamageTime > Constants.DELAY_BETWEEN_DAMAGE_TICKS) {
+            currentHealth -= Constants.BASIC_ENEMY_ATTACK_DAMAGE;
+            lastDamageTime = currentTime;
+        }
     }
-
 }

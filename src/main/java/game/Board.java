@@ -379,6 +379,10 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         mHasChangedRoomAlready = b;
     }
 
+    public void lowerPlayerHealth() {
+        mPlayer.lowerPlayerHealth();
+    }
+
 
     private void drawScore(Graphics g) {
         // set the text to be displayed
