@@ -154,10 +154,10 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         mGameScreenSpriteArray.add(mHealthBar);
         mGameScreenSpriteArray.add(mTextBox);
         mRoomOneSpriteArray.add(mRoom1toRoom3Door);
-        ArrayList<String> adamRoomOneMessage = MessageFactory.getRoomOneAdamMessage();
+
         mRoomOneSpriteArray.add(new NPC(
-            new Rectangle(Constants.CANVAS_WIDTH/2-100, Constants.CANVAS_HEIGHT/2,Constants.NPCS.ADAM_NPC_WIDTH, Constants.NPCS.ADAM_NPC_HEIGHT), 
-            PresetNPC.Adam,adamRoomOneMessage));
+            new Rectangle(Constants.CANVAS_WIDTH/2-150, Constants.CANVAS_HEIGHT/2,Constants.NPCS.ADAM_NPC_WIDTH, Constants.NPCS.ADAM_NPC_HEIGHT), 
+            PresetNPC.Adam,MessageFactory.getRoomOneAdamMessage()));
         
         
         // ROOM 2 

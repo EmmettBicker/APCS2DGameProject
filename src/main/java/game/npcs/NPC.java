@@ -20,6 +20,7 @@ import game.GameStates;
 import game.interfaces.BasicSprite;
 import game.npcs.TextBox.TextState;
 import game.utils.GeneralUtils;
+import game.utils.ImageUtils;
 
 
 public class NPC implements NPCInterface {
@@ -28,6 +29,8 @@ public class NPC implements NPCInterface {
 
     
     private BufferedImage npc;
+    private BufferedImage npcFlipped;
+    private BufferedImage npcHead;
 
     
 
@@ -54,6 +57,8 @@ public class NPC implements NPCInterface {
                 case Adam:
                 {
                     npc = ImageIO.read(new File("src/main/resources/images/npcs/adamFigure.png"));
+                    npcFlipped = ImageUtils.flipImageHoriziontally(npc);
+                    npcHead = ImageIO.read(new File("src/main/resources/images/npcs/adamHead.png"));
                     break;
                 }
             }
@@ -69,14 +74,15 @@ public class NPC implements NPCInterface {
         // pos.x reliably returns an int. https://stackoverflow.com/a/30220114/4655368
         // this is also where we translate board grid position into a canvas pixel
         // position by multiplying by the tile size.
-            g.drawImage(
-                npc, 
-                mHitBox.x,
-                mHitBox.y, 
-                mHitBox.width, 
-                mHitBox.height, 
-                observer
-            );
+        BufferedImage currentImage = Math.sin(System.currentTimeMillis()/500.0) > 0  ? npc : npcFlipped;
+        g.drawImage(
+            currentImage, 
+            mHitBox.x,
+            mHitBox.y, 
+            mHitBox.width, 
+            mHitBox.height, 
+            observer
+        );
             
     
     
@@ -90,6 +96,7 @@ public class NPC implements NPCInterface {
             {
                 Game.getTextBox().setState(TextBox.TextState.ENTERING);
                 Game.getTextBox().setText(mMessage);
+                Game.getTextBox().setHeadImage(npcHead);
                 mIsTalking = true;
             }
          
