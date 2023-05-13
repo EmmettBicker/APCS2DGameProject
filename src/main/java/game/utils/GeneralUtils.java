@@ -8,33 +8,31 @@ import java.util.ArrayList;
 import game.wallFactory.Wall;
 import game.wallFactory.WallFactory;
 
-
 public class GeneralUtils {
-    private GeneralUtils() {}
-
-    public static boolean isClose(Point p1, Point p2)
-    {
-        return Math.abs(p1.getX()-p2.getX()) < Constants.CLOSENESS_THRESHOLD && Math.abs(p1.getY()-p2.getY()) < Constants.CLOSENESS_THRESHOLD;
+    private GeneralUtils() {
     }
 
-    public static Point centerDoorEndDestination(Point p)
-    {
+    public static boolean isClose(Point p1, Point p2) {
+        return Math.abs(p1.getX() - p2.getX()) < Constants.CLOSENESS_THRESHOLD
+                && Math.abs(p1.getY() - p2.getY()) < Constants.CLOSENESS_THRESHOLD;
+    }
+
+    public static Point centerDoorEndDestination(Point p) {
         int playerHeight = 60;
         int playerWidth = 56;
-        return new Point(p.x + Constants.DOOR_WIDTH/2 - playerWidth/2, p.y + Constants.DOOR_HEIGHT/2 - playerHeight/2);
+        return new Point(p.x + Constants.DOOR_WIDTH / 2 - playerWidth / 2,
+                p.y + Constants.DOOR_HEIGHT / 2 - playerHeight / 2);
     }
 
     /*
      * This MODIFIES currentPos
      */
-    public static void wallCollision(Rectangle interactingHitbox, Point currentPos)
-    {
+    public static void wallCollision(Rectangle interactingHitbox, Point currentPos) {
         GameStates.GameplayStates currentRoom = GameStates.getGameplayState();
         ArrayList<Wall> currentRoomWalls = WallFactory.getRoomWallArray(currentRoom);
-       
-        for (Wall wall : currentRoomWalls)
-        {
-        
+
+        for (Wall wall : currentRoomWalls) {
+
             // check for collision with wall sprites
             Rectangle wallHitbox = wall.getWallHitBox();
             double wallWidth = wallHitbox.getWidth();
@@ -54,11 +52,10 @@ public class GeneralUtils {
                         // collided on left side of wall
                         currentPos.x = (int) (wallHitbox.getX() + wallHitbox.getWidth());
                     }
-                } 
-                else {
+                } else {
                     // collided in y direction
                     if (dy < 0) {
-                       
+
                         // collided on bottom side of wall
                         currentPos.y = (int) (wallHitbox.getY() - interactingHitbox.getHeight());
                     } else {

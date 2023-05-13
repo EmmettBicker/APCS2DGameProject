@@ -14,7 +14,6 @@ import javax.sound.sampled.Clip;
 
 import game.interfaces.BasicSprite;
 
-
 public class GeneralMusic implements BasicSprite {
 
     // image that represents the player's position on the board
@@ -29,7 +28,7 @@ public class GeneralMusic implements BasicSprite {
         loadImage();
         path = pPath;
         hasStartedMusic = false;
-        
+
         pos = new Point(0, 0);
 
     }
@@ -38,57 +37,48 @@ public class GeneralMusic implements BasicSprite {
         try {
             // you can use just the filename if the image file is in your
             // project folder, otherwise you need to provide the file path.
-            
+
             background = ImageIO.read(new File("src/main/resources/images/special/emptyImage.png"));
-    
+
         } catch (IOException exc) {
             System.out.println("Error opening title screen image file: " + exc.getMessage());
         }
     }
 
-    public void playMusic() 
-    {
-        try 
-        {
-            if (!hasStartedMusic)
-            {
+    public void playMusic() {
+        try {
+            if (!hasStartedMusic) {
                 AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(
-                    new File(path).getAbsoluteFile());
+                        new File(path).getAbsoluteFile());
                 music = AudioSystem.getClip();
-                
+
                 music.open(audioInputStream);
                 music.start();
             }
             hasStartedMusic = true;
-            
-        } 
-        catch(Exception ex) 
-        {
+
+        } catch (Exception ex) {
             System.out.println("Error with playing sound.");
             ex.printStackTrace();
         }
     }
 
     public void draw(Graphics g, ImageObserver observer) {
-        // with the Point class, note that pos.getX() returns a double, but 
+        // with the Point class, note that pos.getX() returns a double, but
         // pos.x reliably returns an int. https://stackoverflow.com/a/30220114/4655368
         // this is also where we translate board grid position into a canvas pixel
         // position by multiplying by the tile size.
-   
-            g.drawImage
-            (
-                background, 
+
+        g.drawImage(
+                background,
                 pos.x,
                 pos.y,
-                observer
-            );
-    
-    
+                observer);
+
     }
 
     public void keyPressed(KeyEvent e) {
-        
-   
+
     }
 
     @Override
@@ -99,12 +89,11 @@ public class GeneralMusic implements BasicSprite {
 
     @Override
     public void onDelete() {
-        
+
         hasStartedMusic = false;
         background = null;
         music.stop();
         music = null;
     }
- 
 
 }

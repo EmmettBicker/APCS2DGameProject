@@ -4,7 +4,6 @@ import javax.swing.*;
 import java.awt.Point;
 import java.awt.Rectangle;
 
-
 public class Game {
     private static Board board;
 
@@ -21,11 +20,12 @@ public class Game {
         window.add(board);
         // pass keyboard inputs to the jpanel
         window.addKeyListener(board);
-        
+
         // don't allow the user to resize the window
         window.setResizable(false);
         // fit the window size around the components (just our jpanel).
-        // pack() should be called after setResizable() to avoid issues on some platforms
+        // pack() should be called after setResizable() to avoid issues on some
+        // platforms
         window.pack();
         // open window in the center of the screen
         window.setLocationRelativeTo(null);
@@ -33,33 +33,27 @@ public class Game {
         window.setVisible(true);
     }
 
-    public static Board getBoard()
-    {
+    public static Board getBoard() {
         return board;
     }
-    
-    public static Point getPlayerPosition()
-    {
+
+    public static Point getPlayerPosition() {
         return board.getPlayerPosition();
     }
 
-    public static Rectangle getPlayerHitbox()
-    {
+    public static Rectangle getPlayerHitbox() {
         return board.getPlayerHitbox();
     }
 
-    public static void setPlayerPosition(Point pPos)
-    {
+    public static void setPlayerPosition(Point pPos) {
         board.setPlayerPosition(pPos);
     }
 
-    public static boolean getHasChangedRoomAlready()
-    {
+    public static boolean getHasChangedRoomAlready() {
         return board.getHasChangedRoomAlready();
     }
 
-    public static void setHasChangedRoomAlready(boolean b)
-    {
+    public static void setHasChangedRoomAlready(boolean b) {
         board.setHasChangedRoomAlready(b);
     }
 

@@ -16,16 +16,13 @@ import game.Game;
 import game.GameStates;
 import game.utils.GeneralUtils;
 
-
-public class GeneralDoor implements BasicRoomSprite{
+public class GeneralDoor implements BasicRoomSprite {
 
     // image that represents the player's position on the board
-    private BufferedImage img; 
+    private BufferedImage img;
     private GameStates.GameplayStates mDestination;
     private Point mPlayerEndPos;
     private Rectangle mHitbox;
-    
-
 
     public GeneralDoor(GameStates.GameplayStates pDestination, Point pPlayerEndPos, Rectangle pHitbox) {
         // load the assets
@@ -41,44 +38,43 @@ public class GeneralDoor implements BasicRoomSprite{
             // you can use just the filename if the image file is in your
             // project folder, otherwise you need to provide the file path.
             img = ImageIO.read(new File("src/main/resources/images/generalSprites/generalDoor.png"));
-    
+
         } catch (IOException exc) {
             System.out.println("Error opening title screen image file: " + exc.getMessage());
         }
     }
 
     public void draw(Graphics g, ImageObserver observer) {
-        // with the Point class, note that pos.getX() returns a double, but 
+        // with the Point class, note that pos.getX() returns a double, but
         // pos.x reliably returns an int. https://stackoverflow.com/a/30220114/4655368
         // this is also where we translate board grid position into a canvas pixel
         // position by multiplying by the tile size.
-            g.drawImage(
-                img, 
+        g.drawImage(
+                img,
                 mHitbox.x,
-                mHitbox.y, 
-                mHitbox.width, 
-                mHitbox.height, 
-                observer
-            );
-    
-    
+                mHitbox.y,
+                mHitbox.width,
+                mHitbox.height,
+                observer);
+
     }
 
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
 
-        if (key == KeyEvent.VK_SPACE && Game.getPlayerHitbox().intersects(mHitbox) && !Game.getHasChangedRoomAlready()) {
+        if (key == KeyEvent.VK_SPACE && Game.getPlayerHitbox().intersects(mHitbox)
+                && !Game.getHasChangedRoomAlready()) {
             Game.setHasChangedRoomAlready(true);
-            
+
             GameStates.setGameplayState(mDestination);
             Game.setPlayerPosition(mPlayerEndPos);
         }
-   
+
     }
 
     @Override
     public void tick() {
-  
+
         // no special behavior
     }
 
@@ -86,7 +82,5 @@ public class GeneralDoor implements BasicRoomSprite{
     public void onDelete() {
         img = null;
     }
-
-  
 
 }

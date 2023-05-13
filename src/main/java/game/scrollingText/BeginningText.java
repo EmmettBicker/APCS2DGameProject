@@ -1,4 +1,5 @@
 package game.scrollingText;
+
 import java.awt.event.KeyEvent;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -9,7 +10,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import game.interfaces.BasicSprite;
 
-public class BeginningText implements BasicSprite{
+public class BeginningText implements BasicSprite {
 
     private BufferedImage text;
     private Point pos;
@@ -22,21 +23,19 @@ public class BeginningText implements BasicSprite{
     private void loadImage() {
         try {
             text = ImageIO.read(new File("src/main/resources/images/scrollingText/beginningScollingText.png"));
-    
+
         } catch (IOException exc) {
             System.out.println("Error opening title screen image file: " + exc.getMessage());
         }
     }
-    
+
     @Override
     public void draw(Graphics g, ImageObserver observer) {
-        g.drawImage
-            (
-                text, 
+        g.drawImage(
+                text,
                 pos.x,
                 pos.y,
-                observer
-            );
+                observer);
     }
 
     @Override
@@ -51,5 +50,5 @@ public class BeginningText implements BasicSprite{
     @Override
     public void onDelete() {
         text = null;
-    }    
+    }
 }

@@ -8,7 +8,6 @@ import java.awt.image.ImageObserver;
 import java.awt.Point;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
@@ -16,8 +15,6 @@ import game.utils.GeneralUtils;
 import game.utils.ImageUtils;
 import game.interfaces.BasicSprite;
 
-import game.wallFactory.Wall;
-import game.wallFactory.WallFactory;
 
 public class Player implements BasicSprite{
 
@@ -39,6 +36,7 @@ public class Player implements BasicSprite{
     private int maxHealth;
 
     private long lastDamageTime = 0;
+    private long lastHealthRegenTime = System.currentTimeMillis();
 
     public Player() {
         loadImage();
@@ -219,4 +217,13 @@ public class Player implements BasicSprite{
             lastDamageTime = currentTime;
         }
     }
+
+    public void passiveHealthRegen() {
+        // Check if it's time to regenerate health
+        if (System.currentTimeMillis() - lastHealthRegenTime >= Constants.HEALTH_REGEN_DELAY) {
+            currentHealth += Constants.HEALTH_REGEN_AMOUNT;
+            lastHealthRegenTime = System.currentTimeMillis();
+        }
+    }
+    
 }

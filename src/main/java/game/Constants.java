@@ -13,7 +13,8 @@ public class Constants {
     public static final int DOOR_HEIGHT = 100; // px
 
     public static final int BASIC_ENEMY_ATTACK_DAMAGE = 1;
-    public static final int DELAY_BETWEEN_DAMAGE_TICKS = 1000; //milliseconds
-    
-    
+    public static final int DELAY_BETWEEN_DAMAGE_TICKS = 1000; // milliseconds
+
+    public static final long HEALTH_REGEN_DELAY = 5000; // 5 seconds in milliseconds
+    public static final int HEALTH_REGEN_AMOUNT = 1;
 }
