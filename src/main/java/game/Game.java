@@ -1,6 +1,9 @@
 package game;
 
 import javax.swing.*;
+
+import game.npcs.TextBox;
+
 import java.awt.Point;
 import java.awt.Rectangle;
 
@@ -59,6 +62,11 @@ public class Game {
 
     public static Player getPlayer() {
         return board.getPlayer();
+    }
+
+    public static TextBox getTextBox()
+    {
+        return board.getTextBox();
     }
 
     public static void main(String[] args) {

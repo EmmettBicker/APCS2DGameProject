@@ -3,6 +3,7 @@ package game.utils;
 import game.Constants;
 import game.GameStates;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
 import java.awt.Point;
 import java.util.ArrayList;
 import game.wallFactory.Wall;
@@ -22,6 +23,12 @@ public class GeneralUtils {
         int playerWidth = 56;
         return new Point(p.x + Constants.DOOR_WIDTH / 2 - playerWidth / 2,
                 p.y + Constants.DOOR_HEIGHT / 2 - playerHeight / 2);
+    }
+
+    public static Rectangle getRectangleFromPointAndImage(Point p, BufferedImage b)
+    {
+        return new Rectangle((int) p.getX(), (int) p.getY(), b.getWidth(), b.getHeight());
+        
     }
 
     /*

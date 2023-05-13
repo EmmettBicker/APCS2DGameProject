@@ -7,6 +7,10 @@ import java.util.ArrayList;
 import javax.swing.*;
 
 import game.interfaces.BasicSprite;
+import game.npcs.MessageFactory;
+import game.npcs.NPC;
+import game.npcs.TextBox;
+import game.npcs.NPC.PresetNPC;
 import game.GameStates.GameplayStates;
 import game.PlayerAttributes.HealthBar;
 import game.enemies.Enemy;
@@ -43,6 +47,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
 
     private Player mPlayer;
     private HealthBar mHealthBar;
+    private TextBox mTextBox;
 
     // ROOM 1
     private ScreenOneBg mScreenOneBg;
@@ -90,6 +95,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         // ROOM 1
         mScreenOneBg = new ScreenOneBg();
         mPlayer = new Player();
+        mTextBox = new TextBox();
 
         mHealthBar = new HealthBar();
 
@@ -146,12 +152,19 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         mRoomOneSpriteArray.add(mScreenOneBg);
         mGameScreenSpriteArray.add(mPlayer);
         mGameScreenSpriteArray.add(mHealthBar);
+        mGameScreenSpriteArray.add(mTextBox);
         mRoomOneSpriteArray.add(mRoom1toRoom3Door);
-
-        // ROOM 2
+        ArrayList<String> adamRoomOneMessage = MessageFactory.getRoomOneAdamMessage();
+        mRoomOneSpriteArray.add(new NPC(
+            new Rectangle(Constants.CANVAS_WIDTH/2-100, Constants.CANVAS_HEIGHT/2,Constants.NPCS.ADAM_NPC_WIDTH, Constants.NPCS.ADAM_NPC_HEIGHT), 
+            PresetNPC.Adam,adamRoomOneMessage));
+        
+        
+        // ROOM 2 
         mRoomTwoSpriteArray = new ArrayList<BasicRoomSprite>();
         mRoomTwoSpriteArray.add(mRoom2toRoom1Door);
-        mRoomTwoSpriteArray.add(new Enemy(new Point(0, 0)));
+        mRoomTwoSpriteArray.add(new Enemy(new Point(0,0)));
+
         // ROOM 3
         mRoomThreeSpriteArray = new ArrayList<BasicRoomSprite>();
         mRoomThreeSpriteArray.add(mRoom3toRoom1Door);
@@ -178,8 +191,9 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         WallFactory.addWall(GameStates.GameplayStates.ROOM_2,
                 new Rectangle(1000, 300, Constants.CANVAS_WIDTH - 1000, 100));
 
-        EnemyFactory.addEnemy(GameStates.GameplayStates.ROOM_1, new Point(0, 0));
-        EnemyFactory.addEnemy(GameStates.GameplayStates.ROOM_2, new Point(0, Constants.CANVAS_HEIGHT));
+     
+        EnemyFactory.addEnemy(GameStates.GameplayStates.ROOM_2, new Point(0,Constants.CANVAS_HEIGHT));
+
 
         // Add all wall sprites to room array
 
@@ -249,6 +263,11 @@ public class Board extends JPanel implements ActionListener, KeyListener {
     public Player getPlayer() {
         return mPlayer;
     }
+
+    public TextBox getTextBox() {
+        return mTextBox;
+    }
+
 
     @Override
     public void keyTyped(KeyEvent e) {

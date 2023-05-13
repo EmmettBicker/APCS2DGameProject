@@ -37,6 +37,8 @@ public class Player implements BasicSprite{
 
     private long lastDamageTime = 0;
     private long lastHealthRegenTime = System.currentTimeMillis();
+    private boolean canMove;
+    
 
     public Player() {
         loadImage();
@@ -46,6 +48,7 @@ public class Player implements BasicSprite{
         maxHealth = 10;
         currentHealth = 10;
         score = 0;
+        canMove = true;
     }
 
     private void loadImage() {
@@ -127,20 +130,35 @@ public class Player implements BasicSprite{
 
     public void updateMovement()
     {
-        if (isUpPressed) {
-            playerPos.translate(0, -Constants.PLAYER_SPEED);
+        if (canMove)
+        {
+            if (isUpPressed) {
+                playerPos.translate(0, -Constants.PLAYER_SPEED);
+            }
+            if (isRightPressed) {
+                playerFacing = PlayerFacingStates.RIGHT;
+                playerPos.translate(Constants.PLAYER_SPEED, 0);
+            }
+            if (isDownPressed) {
+                playerPos.translate(0, Constants.PLAYER_SPEED);
+            }
+            if (isLeftPressed) {
+                playerFacing = PlayerFacingStates.LEFT;
+                playerPos.translate(-Constants.PLAYER_SPEED, 0);
+            }
         }
-        if (isRightPressed) {
-            playerFacing = PlayerFacingStates.RIGHT;
-            playerPos.translate(Constants.PLAYER_SPEED, 0);
-        }
-        if (isDownPressed) {
-            playerPos.translate(0, Constants.PLAYER_SPEED);
-        }
-        if (isLeftPressed) {
-            playerFacing = PlayerFacingStates.LEFT;
-            playerPos.translate(-Constants.PLAYER_SPEED, 0);
-        }
+    }
+    public void lockMovement()
+    {
+        canMove = false;
+    
+
+
+    }
+
+    public void allowMovement()
+    {
+        canMove = true;
     }
 
     
