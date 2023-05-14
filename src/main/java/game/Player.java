@@ -15,22 +15,21 @@ import game.utils.GeneralUtils;
 import game.utils.ImageUtils;
 import game.interfaces.BasicSprite;
 
-
-public class Player implements BasicSprite{
+public class Player implements BasicSprite {
 
     // image that represents the player's position on the board
     private BufferedImage leftImage;
     private BufferedImage rightImage;
 
     // possible states that the player is facing
-    private enum PlayerFacingStates {LEFT, RIGHT};
+    private enum PlayerFacingStates {
+        LEFT, RIGHT
+    };
+
     private PlayerFacingStates playerFacing;
-    
+
     // position of player sprite
     private Point playerPos;
-    
-    // needs to be reimplemented    
-    private int score;
 
     private int currentHealth;
     private int maxHealth;
@@ -38,16 +37,14 @@ public class Player implements BasicSprite{
     private long lastDamageTime = 0;
     private long lastHealthRegenTime = System.currentTimeMillis();
     private boolean canMove;
-    
 
     public Player() {
         loadImage();
 
-        playerPos = new Point(Constants.CANVAS_WIDTH/2-rightImage.getWidth()/2, Constants.CANVAS_HEIGHT-250);
+        playerPos = new Point(Constants.CANVAS_WIDTH / 2 - rightImage.getWidth() / 2, Constants.CANVAS_HEIGHT - 250);
         playerFacing = PlayerFacingStates.RIGHT;
         maxHealth = 10;
         currentHealth = 10;
-        score = 0;
         canMove = true;
     }
 
@@ -55,14 +52,13 @@ public class Player implements BasicSprite{
         try {
             rightImage = ImageIO.read(new File("src/main/resources/images/player.png"));
             leftImage = ImageUtils.flipImageHoriziontally(rightImage);
-        } 
-        catch (IOException exc) {
+        } catch (IOException exc) {
             System.out.println("Error opening image file: " + exc.getMessage());
         }
     }
 
     public void draw(Graphics g, ImageObserver observer) {
-        // with the Point class, note that pos.getX() returns a double, but 
+        // with the Point class, note that pos.getX() returns a double, but
         // pos.x reliably returns an int. https://stackoverflow.com/a/30220114/4655368
         // this is also where we translate board grid position into a canvas pixel
         // position by multiplying by the tile size.
@@ -70,25 +66,20 @@ public class Player implements BasicSprite{
 
         if (playerFacing == PlayerFacingStates.RIGHT) {
 
-            g.drawImage
-            (
-                leftImage, 
-                playerPos.x, 
-                playerPos.y, 
-                observer
-            );
+            g.drawImage(
+                    leftImage,
+                    playerPos.x,
+                    playerPos.y,
+                    observer);
+        } else if (playerFacing == PlayerFacingStates.LEFT) {
+            g.drawImage(
+                    rightImage,
+                    playerPos.x,
+                    playerPos.y,
+                    observer);
         }
-        else if (playerFacing == PlayerFacingStates.LEFT) {
-            g.drawImage
-            (
-                rightImage, 
-                playerPos.x, 
-                playerPos.y, 
-                observer
-            );
-        }      
     }
-    
+
     private boolean isUpPressed = false;
     private boolean isRightPressed = false;
     private boolean isDownPressed = false;
@@ -108,7 +99,7 @@ public class Player implements BasicSprite{
         if (key == KeyEvent.VK_LEFT) {
             isLeftPressed = true;
         }
-   
+
     }
 
     public void keyReleased(KeyEvent e) {
@@ -128,10 +119,8 @@ public class Player implements BasicSprite{
 
     }
 
-    public void updateMovement()
-    {
-        if (canMove)
-        {
+    public void updateMovement() {
+        if (canMove) {
             if (isUpPressed) {
                 playerPos.translate(0, -Constants.PLAYER_SPEED);
             }
@@ -148,20 +137,16 @@ public class Player implements BasicSprite{
             }
         }
     }
-    public void lockMovement()
-    {
-        canMove = false;
-    
 
+    public void lockMovement() {
+        canMove = false;
 
     }
 
-    public void allowMovement()
-    {
+    public void allowMovement() {
         canMove = true;
     }
 
-    
     public void tick() {
         updateMovement();
         // this gets called once every tick, before the repainting process happens.
@@ -172,11 +157,10 @@ public class Player implements BasicSprite{
 
         GeneralUtils.wallCollision(getPlayerHitboxRectangle(), playerPos);
 
-        
+        passiveHealthRegen();
     }
 
-    public void screenEdgeDetection()
-    {
+    public void screenEdgeDetection() {
         if (playerPos.x < 0) {
             playerPos.x = 0;
         } else if (playerPos.x >= Constants.CANVAS_WIDTH - rightImage.getWidth()) {
@@ -185,26 +169,15 @@ public class Player implements BasicSprite{
         // prevent the player from moving off the edge of the board vertically
         if (playerPos.y < 0) {
             playerPos.y = 0;
-        } else if (playerPos.y >= Constants.CANVAS_HEIGHT - (int)(rightImage.getHeight())) {
-            playerPos.y = Constants.CANVAS_HEIGHT - (int)(rightImage.getHeight()) - 1;
+        } else if (playerPos.y >= Constants.CANVAS_HEIGHT - (int) (rightImage.getHeight())) {
+            playerPos.y = Constants.CANVAS_HEIGHT - (int) (rightImage.getHeight()) - 1;
         }
     }
-    
-    // public void isPlayerAttacked
 
-    public String getScore() {
-        return String.valueOf(score);
-    }
-
-    public void setPosition(Point pPos)
-    {
+    public void setPosition(Point pPos) {
         // No mutation
         playerPos.x = pPos.x;
         playerPos.y = pPos.y;
-    }
-
-    public void addScore(int amount) {
-        score += amount;
     }
 
     public Point getPlayerPos() {
@@ -212,8 +185,9 @@ public class Player implements BasicSprite{
     }
 
     public Rectangle getPlayerHitboxRectangle() {
-        return new Rectangle((int) playerPos.getX(), (int) playerPos.getY(), rightImage.getWidth(), rightImage.getHeight());
-    } 
+        return new Rectangle((int) playerPos.getX(), (int) playerPos.getY(), rightImage.getWidth(),
+                rightImage.getHeight());
+    }
 
     @Override
     public void onDelete() {
@@ -223,7 +197,7 @@ public class Player implements BasicSprite{
     public int getCurrentHealth() {
         return currentHealth;
     }
-    
+
     public int getMaxHealth() {
         return maxHealth;
     }
@@ -243,5 +217,5 @@ public class Player implements BasicSprite{
             lastHealthRegenTime = System.currentTimeMillis();
         }
     }
-    
+
 }

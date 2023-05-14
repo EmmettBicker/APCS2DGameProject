@@ -1,6 +1,7 @@
 package game.enemies;
 
 import java.awt.event.KeyEvent;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
@@ -13,16 +14,23 @@ import game.utils.GeneralUtils;
 import game.Constants;
 import game.Game;
 
+
 import game.interfaces.EnemyInterface;
 
 public class Enemy implements EnemyInterface {
 
     private BufferedImage image;
     private Point enemyPos;
+    private EnemyHealthBar enemyHealthBar;
+    private int enemyCurrentHealth;
+    private int enemyMaxHealth;
 
     public Enemy(Point pos) {
         loadImage();
         enemyPos = pos;
+        enemyCurrentHealth = 2;
+        enemyMaxHealth = 3;
+        enemyHealthBar = new EnemyHealthBar(enemyMaxHealth, enemyCurrentHealth, image.getWidth(), 5, Color.RED, Color.GREEN);
     }
 
     public void loadImage() {
@@ -44,6 +52,8 @@ public class Enemy implements EnemyInterface {
                 enemyPos.x,
                 enemyPos.y,
                 observer);
+
+        enemyHealthBar.draw(g, enemyPos.x, enemyPos.y - 10);
     }
 
     @Override
@@ -54,6 +64,7 @@ public class Enemy implements EnemyInterface {
     @Override
 
     public void tick() {
+
         int deltaX = (int) Math.abs((Game.getPlayerPosition().getX() - enemyPos.getX()));
         int deltaY = (int) Math.abs((Game.getPlayerPosition().getY() - enemyPos.getY()));
         if (deltaX > deltaY) {
@@ -70,13 +81,12 @@ public class Enemy implements EnemyInterface {
                 enemyPos.y -= Constants.BASIC_ENEMY_SPEED;
             }
         }
+
         GeneralUtils.wallCollision(getEnemyHitboxRectangle(), enemyPos);
 
         if (getEnemyHitboxRectangle().intersects(Game.getPlayerHitbox())) {
             Game.getPlayer().lowerPlayerHealth();
         }
-
-        Game.getPlayer().passiveHealthRegen();
     }
 
     @Override

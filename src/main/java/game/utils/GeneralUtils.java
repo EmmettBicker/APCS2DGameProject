@@ -74,4 +74,15 @@ public class GeneralUtils {
         }
 
     }
+    public static boolean doesCollide(Rectangle rect) {
+        GameStates.GameplayStates currRoom = GameStates.getGameplayState();
+        ArrayList<Wall> currRoomWalls = WallFactory.getRoomWallArray(currRoom);
+    
+        for (Wall wall: currRoomWalls) {
+            if (rect.intersects(wall.getWallHitBox())) {
+                return true;
+            }
+        }
+        return false;
+    }    
 }
