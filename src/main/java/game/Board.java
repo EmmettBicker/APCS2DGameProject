@@ -103,6 +103,8 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         Point room2toRoom1DoorPos = new Point(Constants.CANVAS_WIDTH - Constants.DOOR_WIDTH, 200);
         Point room1toRoom3DoorPos = new Point(Constants.CANVAS_WIDTH - Constants.DOOR_WIDTH, 200);
         Point room3toRoom1DoorPos = new Point(0, 200);
+        Point room3toRoom4DoorPos = new Point(Constants.CANVAS_WIDTH - Constants.DOOR_WIDTH, 200);
+        Point room4toRoom3DoorPos = new Point(0, 300);
         mRoom1toRoom2Door = new GeneralDoor(GameStates.GameplayStates.ROOM_2, room2toRoom1DoorPos,
                 new Rectangle(room1toRoom2DoorPos.x, room1toRoom2DoorPos.y, Constants.DOOR_WIDTH,
                         Constants.DOOR_HEIGHT));
@@ -124,6 +126,12 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         mRoom3toRoom1Door = new GeneralDoor(GameStates.GameplayStates.ROOM_1, room1toRoom3DoorPos,
                 new Rectangle(room3toRoom1DoorPos.x, room3toRoom1DoorPos.y, Constants.DOOR_WIDTH,
                         Constants.DOOR_HEIGHT));
+        GeneralDoor room3toRoom4Door = new GeneralDoor(GameStates.GameplayStates.ROOM_4, room4toRoom3DoorPos,
+                                       new Rectangle(room3toRoom4DoorPos.x, room3toRoom4DoorPos.y, Constants.DOOR_WIDTH,
+                                            Constants.DOOR_HEIGHT));
+        GeneralDoor room4toRoom3Door = new GeneralDoor(GameStates.GameplayStates.ROOM_3, room3toRoom4DoorPos,
+                                       new Rectangle(room4toRoom3DoorPos.x, room4toRoom3DoorPos.y, Constants.DOOR_WIDTH,
+                                            Constants.DOOR_HEIGHT));
 
         // this timer will call the actionPerformed() method every DELAY ms
         mTimer = new Timer(DELAY, this);
@@ -168,6 +176,11 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         // ROOM 3
         mRoomThreeSpriteArray = new ArrayList<BasicRoomSprite>();
         mRoomThreeSpriteArray.add(mRoom3toRoom1Door);
+        mRoomThreeSpriteArray.add(room3toRoom4Door);
+
+        // ROOM 4
+        ArrayList<BasicRoomSprite> roomFourSpriteArray = new ArrayList<BasicRoomSprite>();
+        roomFourSpriteArray.add(room4toRoom3Door);
 
         mStatesToRespectiveArray.put(GameStates.States.TITLE_SCREEN, mTitleScreenSpriteArray);
         mStatesToRespectiveArray.put(GameStates.States.SCROLLING_TEXT, mBeginningTextArray);
@@ -177,6 +190,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         mGameplayStatesToRespectiveArray.put(GameStates.GameplayStates.ROOM_1, mRoomOneSpriteArray);
         mGameplayStatesToRespectiveArray.put(GameStates.GameplayStates.ROOM_2, mRoomTwoSpriteArray);
         mGameplayStatesToRespectiveArray.put(GameStates.GameplayStates.ROOM_3, mRoomThreeSpriteArray);
+        mGameplayStatesToRespectiveArray.put(GameStates.GameplayStates.ROOM_4, roomFourSpriteArray);
 
         // ROOM 1
         WallFactory.addWall(GameStates.GameplayStates.ROOM_1, new Rectangle(0, 100, 1000, 100));
@@ -191,8 +205,16 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         WallFactory.addWall(GameStates.GameplayStates.ROOM_2,
                 new Rectangle(1000, 300, Constants.CANVAS_WIDTH - 1000, 100));
 
+        // ROOM 3
+        GameStates.GameplayStates wallState = GameStates.GameplayStates.ROOM_3; 
+        WallFactory.addHallway(wallState, 0, 200);
+
+        // ROOM 4
+        wallState = GameStates.GameplayStates.ROOM_4; 
+        WallFactory.addHallway(wallState, 0, room4toRoom3DoorPos.y);
      
         EnemyFactory.addEnemy(GameStates.GameplayStates.ROOM_2, new Point(0,Constants.CANVAS_HEIGHT));
+        EnemyFactory.addEnemy(GameStates.GameplayStates.ROOM_3, new Point(Constants.CANVAS_WIDTH/2,Constants.CANVAS_HEIGHT/2));
 
 
         // Add all wall sprites to room array
