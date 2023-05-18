@@ -13,21 +13,29 @@ import javax.imageio.ImageIO;
 
 import game.utils.GeneralUtils;
 import game.utils.ImageUtils;
+import game.Weapon.WeaponStates;
 import game.interfaces.BasicSprite;
 
 public class Player implements BasicSprite {
 
+    public static WeaponStates weaponState;
     // image that represents the player's position on the board
     private BufferedImage leftImage;
     private BufferedImage rightImage;
 
     // possible states that the player is facing
     private enum PlayerFacingStates {
-        LEFT, RIGHT
+        LEFT, RIGHT 
     };
 
     private PlayerFacingStates playerFacing;
 
+    public enum WeaponOrientationStates {
+        WEAPON_UP, WEAPON_DOWN, WEAPON_LEFT, WEAPON_RIGHT,
+    }
+
+    private WeaponOrientationStates currWeaponOrientation;
+    
     // position of player sprite
     private Point playerPos;
 
@@ -89,17 +97,27 @@ public class Player implements BasicSprite {
         int key = e.getKeyCode();
         if (key == KeyEvent.VK_UP) {
             isUpPressed = true;
+            currWeaponOrientation = WeaponOrientationStates.WEAPON_UP;
         }
         if (key == KeyEvent.VK_RIGHT) {
             isRightPressed = true;
+            currWeaponOrientation = WeaponOrientationStates.WEAPON_RIGHT;
         }
         if (key == KeyEvent.VK_DOWN) {
             isDownPressed = true;
+            currWeaponOrientation = WeaponOrientationStates.WEAPON_DOWN;
         }
         if (key == KeyEvent.VK_LEFT) {
             isLeftPressed = true;
+            currWeaponOrientation = WeaponOrientationStates.WEAPON_LEFT;
         }
+        if (key == KeyEvent.VK_Q) {
+            Game.getWeapon().setWeaponState(WeaponStates.VISIBLE);
+        }
+    }
 
+    public WeaponOrientationStates getCurrWeaponOrientation() {
+        return currWeaponOrientation;
     }
 
     public void keyReleased(KeyEvent e) {
@@ -158,6 +176,7 @@ public class Player implements BasicSprite {
         GeneralUtils.wallCollision(getPlayerHitboxRectangle(), playerPos);
 
         passiveHealthRegen();
+
     }
 
     public void screenEdgeDetection() {
@@ -218,4 +237,7 @@ public class Player implements BasicSprite {
         }
     }
 
+    public int getPlayerImageWidth() {
+        return rightImage.getWidth();
+    }
 }

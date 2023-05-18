@@ -64,9 +64,12 @@ public class Game {
         return board.getPlayer();
     }
 
-    public static TextBox getTextBox()
-    {
+    public static TextBox getTextBox() {
         return board.getTextBox();
+    }
+
+    public static Weapon getWeapon() {
+        return board.getWeapon();
     }
 
     public static void main(String[] args) {

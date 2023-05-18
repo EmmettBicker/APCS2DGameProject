@@ -46,6 +46,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
     private GeneralMusic mTitleMusic;
 
     private Player mPlayer;
+    private Weapon mWeapon;
     private HealthBar mHealthBar;
     private TextBox mTextBox;
 
@@ -95,6 +96,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         // ROOM 1
         mScreenOneBg = new ScreenOneBg();
         mPlayer = new Player();
+        mWeapon = new Weapon();
         mTextBox = new TextBox();
 
         mHealthBar = new HealthBar();
@@ -149,7 +151,6 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         mBeginningTextArray.add(mBeginningText);
 
         mGameScreenSpriteArray = new ArrayList<BasicSprite>();
-        mGameScreenSpriteArray.add(mPlayer);
 
         // ROOM SPRITES
         // ROOM 1
@@ -159,6 +160,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         mRoomOneSpriteArray.add(mRoom1toRoom2Door);
         mRoomOneSpriteArray.add(mScreenOneBg);
         mGameScreenSpriteArray.add(mPlayer);
+        mGameScreenSpriteArray.add(mWeapon);
         mGameScreenSpriteArray.add(mHealthBar);
         mGameScreenSpriteArray.add(mTextBox);
         mRoomOneSpriteArray.add(mRoom1toRoom3Door);
@@ -284,6 +286,10 @@ public class Board extends JPanel implements ActionListener, KeyListener {
 
     public Player getPlayer() {
         return mPlayer;
+    }
+
+    public Weapon getWeapon() {
+        return mWeapon;
     }
 
     public TextBox getTextBox() {
