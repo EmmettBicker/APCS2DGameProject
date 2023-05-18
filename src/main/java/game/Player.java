@@ -51,6 +51,7 @@ public class Player implements BasicSprite {
 
         playerPos = new Point(Constants.CANVAS_WIDTH / 2 - rightImage.getWidth() / 2, Constants.CANVAS_HEIGHT - 250);
         playerFacing = PlayerFacingStates.RIGHT;
+        currWeaponOrientation = WeaponOrientationStates.WEAPON_RIGHT;
         maxHealth = 10;
         currentHealth = 10;
         canMove = true;
@@ -111,9 +112,7 @@ public class Player implements BasicSprite {
             isLeftPressed = true;
             currWeaponOrientation = WeaponOrientationStates.WEAPON_LEFT;
         }
-        if (key == KeyEvent.VK_Q) {
-            Game.getWeapon().setWeaponState(WeaponStates.VISIBLE);
-        }
+        
     }
 
     public WeaponOrientationStates getCurrWeaponOrientation() {

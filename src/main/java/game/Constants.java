@@ -17,6 +17,7 @@ public class Constants {
     public static final long HEALTH_REGEN_DELAY = 5000; // 5 seconds in milliseconds
     public static final int HEALTH_REGEN_AMOUNT = 1;
     public static final int DELAY_BETWEEN_DAMAGE_TICKS = 1000; //milliseconds
+    public static final int DELAY_FOR_WEAPON_DEPLOYMENT = 500;
 
     public static class NPCS
     {
