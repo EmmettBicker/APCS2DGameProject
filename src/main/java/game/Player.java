@@ -231,9 +231,11 @@ public class Player implements BasicSprite {
 
     public void passiveHealthRegen() {
         // Check if it's time to regenerate health
-        if (System.currentTimeMillis() - lastHealthRegenTime >= Constants.HEALTH_REGEN_DELAY) {
-            currentHealth += Constants.HEALTH_REGEN_AMOUNT;
-            lastHealthRegenTime = System.currentTimeMillis();
+        if (currentHealth < maxHealth) {
+            if (System.currentTimeMillis() - lastHealthRegenTime >= Constants.HEALTH_REGEN_DELAY) {
+                currentHealth += Constants.HEALTH_REGEN_AMOUNT;
+                lastHealthRegenTime = System.currentTimeMillis();
+            }
         }
     }
 
