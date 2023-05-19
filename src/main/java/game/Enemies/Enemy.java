@@ -25,10 +25,12 @@ public class Enemy implements EnemyInterface {
     private int enemyCurrentHealth;
     private int enemyMaxHealth;
 
+    private long lastDamageTime = 0;
+
     public Enemy(Point pos) {
         loadImage();
         enemyPos = pos;
-        enemyCurrentHealth = 2;
+        enemyCurrentHealth = 3;
         enemyMaxHealth = 3;
         enemyHealthBar = new EnemyHealthBar(enemyMaxHealth, enemyCurrentHealth, image.getWidth(), 5, Color.RED, Color.GREEN);
     }
@@ -94,10 +96,17 @@ public class Enemy implements EnemyInterface {
     }
 
     @Override
-    public void onDeath() {
-    }
+    public void onDeath() {}
 
     public Rectangle getEnemyHitboxRectangle() {
         return new Rectangle((int) enemyPos.getX(), (int) enemyPos.getY(), image.getWidth(), image.getHeight());
+    }
+
+    public void lowerEnemyHealth() {
+        long currentTime = System.currentTimeMillis();
+        if (currentTime - lastDamageTime > Constants.DELAY_BETWEEN_DAMAGE_TICKS) {
+            enemyCurrentHealth -= Constants.BASIC_PLAYER_ATTACK_DAMAGE;
+            lastDamageTime = currentTime;
+        }
     }
 }

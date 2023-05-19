@@ -1,14 +1,12 @@
 package game.PlayerAttributes;
 
 import java.awt.Color;
-import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.image.ImageObserver;
 
 import game.Constants;
 import game.Game;
-import game.Player;
 
 import game.interfaces.BasicSprite;
 

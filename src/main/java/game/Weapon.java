@@ -6,15 +6,22 @@ import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.imageio.ImageIO;
+import java.awt.Point;
+import java.awt.Rectangle;
 
 import game.Player.WeaponOrientationStates;
 import game.interfaces.BasicSprite;
+import game.enemies.*;
+
 
 public class Weapon implements BasicSprite {
 
     private BufferedImage weaponImage;
     private Player.WeaponOrientationStates weaponOrientation;
+    private Point weaponPos;
 
     public enum WeaponStates {
         INVISIBLE, VISIBLE
@@ -27,6 +34,7 @@ public class Weapon implements BasicSprite {
         loadImage();
         weaponOrientation = WeaponOrientationStates.WEAPON_RIGHT;
         setWeaponState(WeaponStates.INVISIBLE);
+        weaponPos = new Point(0, 0);
     }
 
     @Override
@@ -37,36 +45,26 @@ public class Weapon implements BasicSprite {
         if (weaponState == WeaponStates.INVISIBLE)
             return;
 
+        weaponPos.x = Game.getPlayer().getPlayerPos().x;
+        weaponPos.y = Game.getPlayer().getPlayerPos().y;
+
         switch (weaponOrientation) {
             case WEAPON_UP:
-                g.drawImage(
-                        weaponImage,
-                        Game.getPlayer().getPlayerPos().x,
-                        Game.getPlayer().getPlayerPos().y - weaponImage.getWidth(),
-                        observer);
+                weaponPos.y -= weaponImage.getHeight();
                 break;
             case WEAPON_DOWN:
-                g.drawImage(
-                        weaponImage,
-                        Game.getPlayer().getPlayerPos().x,
-                        Game.getPlayer().getPlayerPos().y - Game.getPlayer().getPlayerImageWidth(),
-                        observer);
+                weaponPos.y += Game.getPlayer().getPlayerImageWidth();
                 break;
             case WEAPON_LEFT:
-                g.drawImage(
-                        weaponImage,
-                        Game.getPlayer().getPlayerPos().x - weaponImage.getWidth(),
-                        Game.getPlayer().getPlayerPos().y,
-                        observer);
+                weaponPos.x -= weaponImage.getWidth();
                 break;
             case WEAPON_RIGHT:
-                g.drawImage(
-                        weaponImage,
-                        Game.getPlayer().getPlayerPos().x + weaponImage.getWidth(),
-                        Game.getPlayer().getPlayerPos().y,
-                        observer);
+                weaponPos.x += weaponImage.getWidth();
                 break;
         }
+
+        g.drawImage(weaponImage, weaponPos.x, weaponPos.y, observer);
+
     }
 
     private void loadImage() {
@@ -80,14 +78,25 @@ public class Weapon implements BasicSprite {
     @Override
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
-        if (key == KeyEvent.VK_Q) {
+        if (key == KeyEvent.VK_Q && weaponState == WeaponStates.INVISIBLE) {
             Game.getWeapon().setWeaponState(WeaponStates.VISIBLE);
         }
     }
 
-    @Override
+    @Override   
     public void tick() {
-        weaponOrientation = Game.getPlayer().getCurrWeaponOrientation();
+        if (weaponState == WeaponStates.INVISIBLE) {
+            weaponOrientation = Game.getPlayer().getCurrWeaponOrientation();
+        }
+
+        // GameStates.GameplayStates currentRoom = GameStates.getGameplayState();
+        // ArrayList<Enemy> currentRoomEnemies = EnemyFactory.getRoomEnemyArray(currentRoom);
+
+        // for (Enemy enemy : currentRoomEnemies) {
+        //     if (enemy.getEnemyHitboxRectangle().intersects(getWeaponHitBox())) {
+        //         enemy.lowerEnemyHealth();
+        //     }
+        // }
     }
 
     @Override
@@ -101,5 +110,9 @@ public class Weapon implements BasicSprite {
     public void setWeaponState(WeaponStates state) {
         weaponState = state;
         timeEnteredWeaponState = System.currentTimeMillis();
+    }
+
+    public Rectangle getWeaponHitBox() {
+        return new Rectangle(weaponPos.x, weaponPos.y, weaponImage.getWidth(), weaponImage.getHeight());
     }
 }
