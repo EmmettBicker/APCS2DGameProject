@@ -90,13 +90,15 @@ public class Weapon implements BasicSprite {
 
         GameStates.GameplayStates currentRoom = GameStates.getGameplayState();
         ArrayList<Enemy> currentRoomEnemies = EnemyFactory.getRoomEnemyArray(currentRoom);
-
+        System.out.println(currentRoomEnemies.size());
         if (weaponState == WeaponStates.VISIBLE) {
             for (Enemy enemy : currentRoomEnemies) {
+                
                 Rectangle weaponHitbox = getWeaponHitBox();
                 Rectangle enemyHitbox = enemy.getEnemyHitboxRectangle();
-
+            
                 if (weaponHitbox.intersects(enemyHitbox)) {
+                    System.out.print("hi");
                     enemy.lowerEnemyHealth();
                 }
             }
