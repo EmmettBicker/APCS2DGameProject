@@ -14,7 +14,6 @@ import game.utils.GeneralUtils;
 import game.Constants;
 import game.Game;
 
-
 import game.interfaces.EnemyInterface;
 
 public class Enemy implements EnemyInterface {
@@ -32,7 +31,8 @@ public class Enemy implements EnemyInterface {
         enemyPos = pos;
         enemyCurrentHealth = 3;
         enemyMaxHealth = 3;
-        enemyHealthBar = new EnemyHealthBar(enemyMaxHealth, enemyCurrentHealth, image.getWidth(), 5, Color.RED, Color.GREEN);
+        enemyHealthBar = new EnemyHealthBar(enemyMaxHealth, enemyCurrentHealth, image.getWidth(), 5, Color.RED,
+                Color.GREEN);
     }
 
     public void loadImage() {
@@ -56,6 +56,8 @@ public class Enemy implements EnemyInterface {
                 observer);
 
         enemyHealthBar.draw(g, enemyPos.x, enemyPos.y - 10);
+
+        g.fillRect(enemyMaxHealth, enemyCurrentHealth, enemyMaxHealth, enemyCurrentHealth);
     }
 
     @Override
@@ -66,7 +68,7 @@ public class Enemy implements EnemyInterface {
     @Override
 
     public void tick() {
-
+        
         int deltaX = (int) Math.abs((Game.getPlayerPosition().getX() - enemyPos.getX()));
         int deltaY = (int) Math.abs((Game.getPlayerPosition().getY() - enemyPos.getY()));
         if (deltaX > deltaY) {
@@ -96,7 +98,8 @@ public class Enemy implements EnemyInterface {
     }
 
     @Override
-    public void onDeath() {}
+    public void onDeath() {
+    }
 
     public Rectangle getEnemyHitboxRectangle() {
         return new Rectangle((int) enemyPos.getX(), (int) enemyPos.getY(), image.getWidth(), image.getHeight());
@@ -107,6 +110,12 @@ public class Enemy implements EnemyInterface {
         if (currentTime - lastDamageTime > Constants.DELAY_BETWEEN_DAMAGE_TICKS) {
             enemyCurrentHealth -= Constants.BASIC_PLAYER_ATTACK_DAMAGE;
             lastDamageTime = currentTime;
+
+            if (enemyCurrentHealth <= 0) {
+                onDeath();
+            }
+            enemyHealthBar.setCurrentHealth(enemyCurrentHealth);
         }
     }
+
 }
