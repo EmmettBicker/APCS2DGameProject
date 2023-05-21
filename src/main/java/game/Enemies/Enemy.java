@@ -68,7 +68,7 @@ public class Enemy implements EnemyInterface {
     @Override
 
     public void tick() {
-        
+
         int deltaX = (int) Math.abs((Game.getPlayerPosition().getX() - enemyPos.getX()));
         int deltaY = (int) Math.abs((Game.getPlayerPosition().getY() - enemyPos.getY()));
         if (deltaX > deltaY) {
@@ -89,7 +89,7 @@ public class Enemy implements EnemyInterface {
         GeneralUtils.wallCollision(getEnemyHitboxRectangle(), enemyPos);
 
         if (getEnemyHitboxRectangle().intersects(Game.getPlayerHitbox())) {
-            Game.getPlayer().lowerPlayerHealth();
+            Game.getPlayer().lowerPlayerHealth();   
         }
     }
 

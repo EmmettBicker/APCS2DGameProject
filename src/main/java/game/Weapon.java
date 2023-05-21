@@ -78,7 +78,7 @@ public class Weapon implements BasicSprite {
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
         if (key == KeyEvent.VK_Q && weaponState == WeaponStates.INVISIBLE) {
-            Game.getWeapon().setWeaponState(WeaponStates.VISIBLE);
+            setWeaponState(WeaponStates.VISIBLE);
         }
     }
 
