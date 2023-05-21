@@ -176,7 +176,6 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         // ROOM 2 
         mRoomTwoSpriteArray = new ArrayList<BasicRoomSprite>();
         mRoomTwoSpriteArray.add(mRoom2toRoom1Door);
-        mRoomTwoSpriteArray.add(new Enemy(new Point(0,0)));
 
         // ROOM 3
         mRoomThreeSpriteArray = new ArrayList<BasicRoomSprite>();
