@@ -13,7 +13,6 @@ import javax.imageio.ImageIO;
 import game.utils.GeneralUtils;
 import game.Constants;
 import game.Game;
-
 import game.interfaces.EnemyInterface;
 
 public class Enemy implements EnemyInterface {
@@ -23,6 +22,7 @@ public class Enemy implements EnemyInterface {
     private EnemyHealthBar enemyHealthBar;
     private int enemyCurrentHealth;
     private int enemyMaxHealth;
+    private boolean isVisible; // Flag to indicate if the enemy is visible
 
     private long lastDamageTime = 0;
 
@@ -33,13 +33,11 @@ public class Enemy implements EnemyInterface {
         enemyMaxHealth = 3;
         enemyHealthBar = new EnemyHealthBar(enemyMaxHealth, enemyCurrentHealth, image.getWidth(), 5, Color.RED,
                 Color.GREEN);
+        isVisible = true; // Set the initial visibility to true
     }
 
     public void loadImage() {
         try {
-            // you can use just the filename if the image file is in your
-            // project folder, otherwise you need to provide the file path.
-
             image = ImageIO.read(new File("src/main/resources/images/enemies/enemySprite.png"));
 
         } catch (IOException exc) {
@@ -49,6 +47,10 @@ public class Enemy implements EnemyInterface {
 
     @Override
     public void draw(Graphics g, ImageObserver observer) {
+        if (!isVisible) {
+            return; // If the enemy is not visible, don't draw it
+        }
+
         g.drawImage(
                 image,
                 enemyPos.x,
@@ -57,22 +59,22 @@ public class Enemy implements EnemyInterface {
 
         enemyHealthBar.draw(g, enemyPos.x, enemyPos.y - 10);
 
-        g.fillRect(enemyMaxHealth, enemyCurrentHealth, enemyMaxHealth, enemyCurrentHealth);
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
-
     }
 
     @Override
-
     public void tick() {
+        if (!isVisible) {
+            return; // If the enemy is not visible, skip the update logic
+        }
 
         int deltaX = (int) Math.abs((Game.getPlayerPosition().getX() - enemyPos.getX()));
         int deltaY = (int) Math.abs((Game.getPlayerPosition().getY() - enemyPos.getY()));
         if (deltaX > deltaY) {
-            // if player if further down
+            // if player is further down
             if (Game.getPlayerPosition().getX() > enemyPos.getX()) {
                 enemyPos.x += Constants.BASIC_ENEMY_SPEED;
             } else {
@@ -89,16 +91,26 @@ public class Enemy implements EnemyInterface {
         GeneralUtils.wallCollision(getEnemyHitboxRectangle(), enemyPos);
 
         if (getEnemyHitboxRectangle().intersects(Game.getPlayerHitbox())) {
-            Game.getPlayer().lowerPlayerHealth();   
+            Game.getPlayer().lowerPlayerHealth();
+        }
+
+        if (enemyCurrentHealth <= 0) {
+            // Enemy health dropped to 0, make it invisible
+            isVisible = false;
+            onDeath();
         }
     }
 
     @Override
     public void onDelete() {
+        // Handle deletion if needed
     }
 
     @Override
     public void onDeath() {
+        if (enemyCurrentHealth <= 0) {
+            isVisible = false;
+        }
     }
 
     public Rectangle getEnemyHitboxRectangle() {
@@ -111,11 +123,7 @@ public class Enemy implements EnemyInterface {
             enemyCurrentHealth -= Constants.BASIC_PLAYER_ATTACK_DAMAGE;
             lastDamageTime = currentTime;
 
-            if (enemyCurrentHealth <= 0) {
-                onDeath();
-            }
             enemyHealthBar.setCurrentHealth(enemyCurrentHealth);
         }
     }
-
 }

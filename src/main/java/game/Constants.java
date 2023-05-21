@@ -19,6 +19,7 @@ public class Constants {
     public static final int HEALTH_REGEN_AMOUNT = 1;
     public static final int DELAY_BETWEEN_DAMAGE_TICKS = 1000; // milliseconds
     public static final int DELAY_FOR_WEAPON_DEPLOYMENT = 750;
+    public static final int PROJECTILE_SPEED = 7;
 
     public static class NPCS {
         public static final int ADAM_NPC_WIDTH = 60;

@@ -21,7 +21,6 @@ public class Projectile implements BasicSprite {
     private BufferedImage projectileImage;
     private Player.WeaponOrientationStates weaponOrientation;
     private Point projectilePos;
-    private int projectileSpeed; // Speed of the projectile
     private boolean moving; // Flag to indicate if the projectile is moving
 
     public enum ProjectileStates {
@@ -36,7 +35,6 @@ public class Projectile implements BasicSprite {
         weaponOrientation = WeaponOrientationStates.WEAPON_RIGHT;
         setProjectileState(ProjectileStates.INVISIBLE);
         projectilePos = new Point(0, 0);
-        projectileSpeed = 5; // Set the desired speed of the projectile
         moving = false;
     }
 
@@ -147,18 +145,18 @@ public class Projectile implements BasicSprite {
     private void updateProjectilePosition() {
         switch (weaponOrientation) {
             case WEAPON_UP:
-                projectilePos.y -= projectileSpeed;
+                projectilePos.y -= Constants.PROJECTILE_SPEED;
                 break;
             case WEAPON_DOWN:
-                projectilePos.y += projectileSpeed;
+                projectilePos.y += Constants.PROJECTILE_SPEED;
                 break;
             case WEAPON_LEFT:
-                projectilePos.x -= projectileSpeed;
+                projectilePos.x -= Constants.PROJECTILE_SPEED;
                 break;
             case WEAPON_RIGHT:
-                projectilePos.x += projectileSpeed;
+                projectilePos.x += Constants.PROJECTILE_SPEED;
                 break;
-        }
+        } 
     }
 
     private boolean isProjectileOnScreen() {

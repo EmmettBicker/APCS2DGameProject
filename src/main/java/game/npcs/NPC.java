@@ -25,7 +25,6 @@ public class NPC implements NPCInterface {
 
     private ArrayList<String> mMessage;
     private PresetNPC mPresetNPC;
-    private double mEnteredConvoTime;
     private boolean mIsTalking;
     private Rectangle mHitBox;
 

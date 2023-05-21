@@ -31,7 +31,6 @@ public class HealthBar implements BasicSprite {
         g.drawRect(x, y, width, height);
 
         int segmentWidth = width / maxHealth;
-        int remainingHealth = currentHealth;
 
         // width of the seperator
         int inbetweenWidth = 5;

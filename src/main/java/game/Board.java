@@ -11,7 +11,6 @@ import game.npcs.MessageFactory;
 import game.npcs.NPC;
 import game.npcs.TextBox;
 import game.npcs.NPC.PresetNPC;
-import game.GameStates.GameplayStates;
 import game.PlayerAttributes.HealthBar;
 import game.enemies.Enemy;
 import game.generalSprites.GeneralDoor;
@@ -131,11 +130,11 @@ public class Board extends JPanel implements ActionListener, KeyListener {
                 new Rectangle(room3toRoom1DoorPos.x, room3toRoom1DoorPos.y, Constants.DOOR_WIDTH,
                         Constants.DOOR_HEIGHT));
         GeneralDoor room3toRoom4Door = new GeneralDoor(GameStates.GameplayStates.ROOM_4, room4toRoom3DoorPos,
-                                       new Rectangle(room3toRoom4DoorPos.x, room3toRoom4DoorPos.y, Constants.DOOR_WIDTH,
-                                            Constants.DOOR_HEIGHT));
+                new Rectangle(room3toRoom4DoorPos.x, room3toRoom4DoorPos.y, Constants.DOOR_WIDTH,
+                        Constants.DOOR_HEIGHT));
         GeneralDoor room4toRoom3Door = new GeneralDoor(GameStates.GameplayStates.ROOM_3, room3toRoom4DoorPos,
-                                       new Rectangle(room4toRoom3DoorPos.x, room4toRoom3DoorPos.y, Constants.DOOR_WIDTH,
-                                            Constants.DOOR_HEIGHT));
+                new Rectangle(room4toRoom3DoorPos.x, room4toRoom3DoorPos.y, Constants.DOOR_WIDTH,
+                        Constants.DOOR_HEIGHT));
 
         // this timer will call the actionPerformed() method every DELAY ms
         mTimer = new Timer(DELAY, this);
@@ -169,11 +168,11 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         mRoomOneSpriteArray.add(mRoom1toRoom3Door);
 
         mRoomOneSpriteArray.add(new NPC(
-            new Rectangle(Constants.CANVAS_WIDTH/2-150, Constants.CANVAS_HEIGHT/2,Constants.NPCS.ADAM_NPC_WIDTH, Constants.NPCS.ADAM_NPC_HEIGHT), 
-            PresetNPC.Adam,MessageFactory.getRoomOneAdamMessage()));
-        
-        
-        // ROOM 2 
+                new Rectangle(Constants.CANVAS_WIDTH / 2 - 150, Constants.CANVAS_HEIGHT / 2,
+                        Constants.NPCS.ADAM_NPC_WIDTH, Constants.NPCS.ADAM_NPC_HEIGHT),
+                PresetNPC.Adam, MessageFactory.getRoomOneAdamMessage()));
+
+        // ROOM 2
         mRoomTwoSpriteArray = new ArrayList<BasicRoomSprite>();
         mRoomTwoSpriteArray.add(mRoom2toRoom1Door);
 
@@ -210,16 +209,16 @@ public class Board extends JPanel implements ActionListener, KeyListener {
                 new Rectangle(1000, 300, Constants.CANVAS_WIDTH - 1000, 100));
 
         // ROOM 3
-        GameStates.GameplayStates wallState = GameStates.GameplayStates.ROOM_3; 
+        GameStates.GameplayStates wallState = GameStates.GameplayStates.ROOM_3;
         WallFactory.addHallway(wallState, 0, 200);
 
         // ROOM 4
-        wallState = GameStates.GameplayStates.ROOM_4; 
+        wallState = GameStates.GameplayStates.ROOM_4;
         WallFactory.addHallway(wallState, 0, room4toRoom3DoorPos.y);
-     
-        EnemyFactory.addEnemy(GameStates.GameplayStates.ROOM_2, new Point(0,Constants.CANVAS_HEIGHT));
-        EnemyFactory.addEnemy(GameStates.GameplayStates.ROOM_3, new Point(Constants.CANVAS_WIDTH/2,Constants.CANVAS_HEIGHT/2));
 
+        EnemyFactory.addEnemy(GameStates.GameplayStates.ROOM_2, new Point(0, Constants.CANVAS_HEIGHT));
+        EnemyFactory.addEnemy(GameStates.GameplayStates.ROOM_3,
+                new Point(Constants.CANVAS_WIDTH / 2, Constants.CANVAS_HEIGHT / 2));
 
         // Add all wall sprites to room array
 
@@ -297,7 +296,6 @@ public class Board extends JPanel implements ActionListener, KeyListener {
     public TextBox getTextBox() {
         return mTextBox;
     }
-
 
     @Override
     public void keyTyped(KeyEvent e) {

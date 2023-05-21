@@ -5,7 +5,6 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
-import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
@@ -23,7 +22,6 @@ public class TextBox implements BasicSprite {
     private BufferedImage mHeadImage;
     private int mTextIndex;
     private int mWordIndex;
-    private Point pos;
     private long timeEnteredState;
     private ArrayList<String> mDesiredText;
     private boolean doneWithSentence;
