@@ -1,4 +1,4 @@
-package game.screen1;
+package game;
 
 import java.awt.event.KeyEvent;
 import java.awt.Graphics;
@@ -11,26 +11,28 @@ import javax.imageio.ImageIO;
 
 import game.interfaces.BasicRoomSprite;
 
-public class ScreenOneBg implements BasicRoomSprite {
+public class GenericBackground implements BasicRoomSprite {
 
     // image that represents the player's position on the board
     private BufferedImage background;
     private Point pos;
+    private String mBackgroundName;
+    
 
-    public ScreenOneBg() {
+    public GenericBackground(String backgroundName) {
         // load the assets
-
-        loadImage();
+        mBackgroundName = "src/main/resources/images/backgrounds/" + backgroundName + ".png";
+        loadImage(mBackgroundName);
         pos = new Point(0, 0);
 
     }
 
-    private void loadImage() {
+    private void loadImage(String path) {
         try {
             // you can use just the filename if the image file is in your
             // project folder, otherwise you need to provide the file path.
 
-            background = ImageIO.read(new File("src/main/resources/images/backgrounds/screen1.png"));
+            background = ImageIO.read(new File(path));
 
         } catch (IOException exc) {
             System.out.println("Error opening title screen image file: " + exc.getMessage());

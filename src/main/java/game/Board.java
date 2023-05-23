@@ -20,7 +20,6 @@ import game.titleScreen.*;
 import game.wallFactory.Wall;
 import game.wallFactory.WallFactory;
 import game.scrollingText.*;
-import game.screen1.*;
 import game.enemies.EnemyFactory;
 
 public class Board extends JPanel implements ActionListener, KeyListener {
@@ -51,7 +50,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
     private TextBox mTextBox;
 
     // ROOM 1
-    private ScreenOneBg mScreenOneBg;
+    private GenericBackground mScreenOneBg;
     private GeneralDoor mRoom1toRoom2Door;
     private GeneralDoor mRoom1toRoom3Door;
 
@@ -94,7 +93,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         mTitleMusic = new GeneralMusic("src/main/resources/music/titleScreenChopin.wav");
 
         // ROOM 1
-        mScreenOneBg = new ScreenOneBg();
+        mScreenOneBg = new GenericBackground("screen1");
         mPlayer = new Player();
         mWeapon = new Weapon();
         mProjectile = new Projectile();
@@ -158,15 +157,15 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         mNotPlayingSpriteArray = new ArrayList<BasicRoomSprite>();
         mRoomOneSpriteArray = new ArrayList<BasicRoomSprite>();
 
-        mRoomOneSpriteArray.add(mRoom1toRoom2Door);
         mRoomOneSpriteArray.add(mScreenOneBg);
+        mRoomOneSpriteArray.add(mRoom1toRoom3Door);
+        mRoomOneSpriteArray.add(mRoom1toRoom2Door);
         mGameScreenSpriteArray.add(mPlayer);
         mGameScreenSpriteArray.add(mWeapon);
         mGameScreenSpriteArray.add(mProjectile);
         mGameScreenSpriteArray.add(mHealthBar);
         mGameScreenSpriteArray.add(mTextBox);
-        mRoomOneSpriteArray.add(mRoom1toRoom3Door);
-
+ 
         mRoomOneSpriteArray.add(new NPC(
                 new Rectangle(Constants.CANVAS_WIDTH / 2 - 150, Constants.CANVAS_HEIGHT / 2,
                         Constants.NPCS.ADAM_NPC_WIDTH, Constants.NPCS.ADAM_NPC_HEIGHT),
