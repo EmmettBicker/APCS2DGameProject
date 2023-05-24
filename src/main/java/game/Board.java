@@ -12,6 +12,7 @@ import game.npcs.NPC;
 import game.npcs.TextBox;
 import game.npcs.NPC.PresetNPC;
 import game.PlayerAttributes.HealthBar;
+import game.PlayerAttributes.Inventory;
 import game.enemies.Enemy;
 import game.generalSprites.GeneralDoor;
 import game.generalSprites.GeneralMusic;
@@ -100,6 +101,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         mTextBox = new TextBox();
 
         mHealthBar = new HealthBar();
+        
 
         Point room1toRoom2DoorPos = new Point(0, 200);
         Point room2toRoom1DoorPos = new Point(Constants.CANVAS_WIDTH - Constants.DOOR_WIDTH, 200);
@@ -165,12 +167,12 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         mGameScreenSpriteArray.add(mProjectile);
         mGameScreenSpriteArray.add(mHealthBar);
         mGameScreenSpriteArray.add(mTextBox);
- 
+        mGameScreenSpriteArray.add(new Inventory());
         mRoomOneSpriteArray.add(new NPC(
                 new Rectangle(Constants.CANVAS_WIDTH / 2 - 150, Constants.CANVAS_HEIGHT / 2,
                         Constants.NPCS.ADAM_NPC_WIDTH, Constants.NPCS.ADAM_NPC_HEIGHT),
                 PresetNPC.Adam, MessageFactory.getRoomOneAdamMessage()));
-
+        
         // ROOM 2
         mRoomTwoSpriteArray = new ArrayList<BasicRoomSprite>();
         mRoomTwoSpriteArray.add(mRoom2toRoom1Door);
