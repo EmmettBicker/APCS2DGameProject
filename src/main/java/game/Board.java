@@ -13,6 +13,7 @@ import game.npcs.TextBox;
 import game.npcs.NPC.PresetNPC;
 import game.PlayerAttributes.HealthBar;
 import game.PlayerAttributes.Inventory;
+import game.PlayerAttributes.InventoryScreen;
 import game.enemies.Enemy;
 import game.generalSprites.GeneralDoor;
 import game.generalSprites.GeneralMusic;
@@ -50,6 +51,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
     private HealthBar mHealthBar;
     private TextBox mTextBox;
 
+    private InventoryScreen mInventoryScreen;
     // ROOM 1
     private GenericBackground mScreenOneBg;
     private GeneralDoor mRoom1toRoom2Door;
@@ -101,6 +103,8 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         mTextBox = new TextBox();
 
         mHealthBar = new HealthBar();
+
+        mInventoryScreen = new InventoryScreen();
         
 
         Point room1toRoom2DoorPos = new Point(0, 200);
@@ -168,6 +172,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         mGameScreenSpriteArray.add(mHealthBar);
         mGameScreenSpriteArray.add(mTextBox);
         mGameScreenSpriteArray.add(new Inventory());
+        mGameScreenSpriteArray.add(mInventoryScreen);
         mRoomOneSpriteArray.add(new NPC(
                 new Rectangle(Constants.CANVAS_WIDTH / 2 - 150, Constants.CANVAS_HEIGHT / 2,
                         Constants.NPCS.ADAM_NPC_WIDTH, Constants.NPCS.ADAM_NPC_HEIGHT),
@@ -380,6 +385,10 @@ public class Board extends JPanel implements ActionListener, KeyListener {
 
     public void lowerPlayerHealth() {
         mPlayer.lowerPlayerHealth();
+    }
+
+    public InventoryScreen getInventoryScreen() {
+        return mInventoryScreen;
     }
 
 }
