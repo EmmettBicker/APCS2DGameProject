@@ -108,9 +108,7 @@ public class Enemy implements EnemyInterface {
 
     @Override
     public void onDeath() {
-        if (enemyCurrentHealth <= 0) {
-            isVisible = false;
-        }
+        
     }
 
     public Rectangle getEnemyHitboxRectangle() {
