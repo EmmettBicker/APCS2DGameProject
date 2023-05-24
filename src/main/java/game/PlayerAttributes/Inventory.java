@@ -7,11 +7,12 @@ import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-
+import game.npcs.TextBox;
 import javax.imageio.ImageIO;
 import java.awt.Point;
 import java.awt.Rectangle;
 
+import game.Game;
 import game.Player.WeaponOrientationStates;
 import game.interfaces.BasicSprite;
 import game.enemies.*;
@@ -20,11 +21,11 @@ public class Inventory implements BasicSprite{
     private BufferedImage inventoryImage;
     private Rectangle inventoryLocation;
     
-    
+    private boolean mIsScreenOpen;
     
     public Inventory() {
         loadImage();
-        inventoryLocation = new Rectangle(100,100,100,100);
+        inventoryLocation = new Rectangle(25,25,100,100);
     }
     
     private void loadImage() {
@@ -48,7 +49,19 @@ public class Inventory implements BasicSprite{
     }
     @Override
     public void keyPressed(KeyEvent e) {
-        // TODO Auto-generated method stub
+        int key = e.getKeyCode();
+        if (key == KeyEvent.VK_I) {
+            mIsScreenOpen = Game.getInventoryScreen().getTextState() != InventoryScreen.TextState.INVISIBLE;
+            boolean isTalking = Game.getTextBox().getTextState() != TextBox.TextState.INVISIBLE;
+            if (!mIsScreenOpen && !isTalking) {
+               
+                Game.getInventoryScreen().setState(InventoryScreen.TextState.ENTERING);
+         
+
+                mIsScreenOpen = true;
+            }
+
+        }
         
     }
     @Override

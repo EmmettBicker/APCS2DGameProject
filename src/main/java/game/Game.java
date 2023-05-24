@@ -2,6 +2,7 @@ package game;
 
 import javax.swing.*;
 
+import game.PlayerAttributes.InventoryScreen;
 import game.npcs.TextBox;
 
 import java.awt.Point;
@@ -66,6 +67,10 @@ public class Game {
 
     public static TextBox getTextBox() {
         return board.getTextBox();
+    }
+
+    public static InventoryScreen getInventoryScreen() {
+        return board.getInventoryScreen();
     }
 
     public static Weapon getWeapon() {
