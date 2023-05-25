@@ -16,6 +16,7 @@ import game.PlayerAttributes.Inventory;
 import game.PlayerAttributes.InventoryScreen;
 import game.enemies.Enemy;
 import game.generalSprites.GeneralDoor;
+import game.generalSprites.GeneralImage;
 import game.generalSprites.GeneralMusic;
 import game.interfaces.BasicRoomSprite;
 import game.titleScreen.*;
@@ -178,9 +179,11 @@ public class Board extends JPanel implements ActionListener, KeyListener {
                         Constants.NPCS.ADAM_NPC_WIDTH, Constants.NPCS.ADAM_NPC_HEIGHT),
                 PresetNPC.Adam, MessageFactory.getRoomOneAdamMessage()));
         
+        
         // ROOM 2
         mRoomTwoSpriteArray = new ArrayList<BasicRoomSprite>();
         mRoomTwoSpriteArray.add(mRoom2toRoom1Door);
+        mRoomTwoSpriteArray.add(new GeneralImage("chopSaw.png", new Rectangle(450,100,350,500)));
 
         // ROOM 3
         mRoomThreeSpriteArray = new ArrayList<BasicRoomSprite>();
@@ -202,27 +205,32 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         mGameplayStatesToRespectiveArray.put(GameStates.GameplayStates.ROOM_4, roomFourSpriteArray);
 
         // ROOM 1
+
+        GameStates.GameplayStates wallState = GameStates.GameplayStates.ROOM_1;
         WallFactory.addWall(GameStates.GameplayStates.ROOM_1, new Rectangle(0, 100, 1000, 100));
         WallFactory.addWall(GameStates.GameplayStates.ROOM_1,
                 new Rectangle(0, 300, Constants.CANVAS_WIDTH / 2 - 200, 500));
         WallFactory.addWall(GameStates.GameplayStates.ROOM_1,
                 new Rectangle(Constants.CANVAS_WIDTH / 2 + 200, 300, Constants.CANVAS_WIDTH / 2 - 200, 500));
-
+        
         // ROOM 2
         WallFactory.addWall(GameStates.GameplayStates.ROOM_2,
                 new Rectangle(1000, 100, Constants.CANVAS_WIDTH - 1000, 100));
         WallFactory.addWall(GameStates.GameplayStates.ROOM_2,
-                new Rectangle(1000, 300, Constants.CANVAS_WIDTH - 1000, 100));
+                new Rectangle(1000, 300, Constants.CANVAS_WIDTH - 1000, 900));
+        WallFactory.addWall(GameStates.GameplayStates.ROOM_2, new Rectangle(0, 0, Constants.CANVAS_WIDTH, 100));
+        WallFactory.addWall(GameStates.GameplayStates.ROOM_2, new Rectangle(0, Constants.CANVAS_HEIGHT-100, Constants.CANVAS_WIDTH, 100));
+        WallFactory.addWall(GameStates.GameplayStates.ROOM_2, new Rectangle(0,0,100,Constants.CANVAS_HEIGHT-200));
 
         // ROOM 3
-        GameStates.GameplayStates wallState = GameStates.GameplayStates.ROOM_3;
+        wallState = GameStates.GameplayStates.ROOM_3;
         WallFactory.addHallway(wallState, 0, 200);
 
         // ROOM 4
         wallState = GameStates.GameplayStates.ROOM_4;
         WallFactory.addHallway(wallState, 0, room4toRoom3DoorPos.y);
 
-        EnemyFactory.addEnemy(GameStates.GameplayStates.ROOM_2, new Point(0, Constants.CANVAS_HEIGHT));
+        EnemyFactory.addEnemy(GameStates.GameplayStates.ROOM_2, new Point(0, Constants.CANVAS_HEIGHT/2));
         EnemyFactory.addEnemy(GameStates.GameplayStates.ROOM_3,
                 new Point(Constants.CANVAS_WIDTH / 2, Constants.CANVAS_HEIGHT / 2));
 
