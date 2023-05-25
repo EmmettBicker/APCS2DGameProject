@@ -178,9 +178,14 @@ public class Board extends JPanel implements ActionListener, KeyListener {
                         Constants.NPCS.ADAM_NPC_WIDTH, Constants.NPCS.ADAM_NPC_HEIGHT),
                 PresetNPC.Adam, MessageFactory.getRoomOneAdamMessage()));
         
+        
         // ROOM 2
         mRoomTwoSpriteArray = new ArrayList<BasicRoomSprite>();
         mRoomTwoSpriteArray.add(mRoom2toRoom1Door);
+        mRoomTwoSpriteArray.add(new NPC(
+                new Rectangle(Constants.CANVAS_WIDTH / 2 - 150, Constants.CANVAS_HEIGHT / 2,
+                        Constants.NPCS.ADAM_NPC_WIDTH, Constants.NPCS.ADAM_NPC_HEIGHT),
+                PresetNPC.Nile, MessageFactory.getRoomTwoNileMessage()));
 
         // ROOM 3
         mRoomThreeSpriteArray = new ArrayList<BasicRoomSprite>();
