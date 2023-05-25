@@ -15,6 +15,7 @@ import game.PlayerAttributes.HealthBar;
 import game.PlayerAttributes.Inventory;
 import game.PlayerAttributes.InventoryScreen;
 import game.enemies.Enemy;
+import game.generalSprites.BasicSpriteWithImage;
 import game.generalSprites.GeneralDoor;
 import game.generalSprites.GeneralMusic;
 import game.interfaces.BasicRoomSprite;
@@ -22,6 +23,8 @@ import game.titleScreen.*;
 import game.wallFactory.Wall;
 import game.wallFactory.WallFactory;
 import game.scrollingText.*;
+import game.shop.ShopDoor;
+import game.shop.SpriteDealer;
 import game.enemies.EnemyFactory;
 
 public class Board extends JPanel implements ActionListener, KeyListener {
@@ -173,6 +176,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         mGameScreenSpriteArray.add(mTextBox);
         mGameScreenSpriteArray.add(new Inventory());
         mGameScreenSpriteArray.add(mInventoryScreen);
+        
         mRoomOneSpriteArray.add(new NPC(
                 new Rectangle(Constants.CANVAS_WIDTH / 2 - 150, Constants.CANVAS_HEIGHT / 2,
                         Constants.NPCS.ADAM_NPC_WIDTH, Constants.NPCS.ADAM_NPC_HEIGHT),
@@ -186,6 +190,9 @@ public class Board extends JPanel implements ActionListener, KeyListener {
                 new Rectangle(Constants.CANVAS_WIDTH / 2 - 150, Constants.CANVAS_HEIGHT / 2,
                         Constants.NPCS.ADAM_NPC_WIDTH, Constants.NPCS.ADAM_NPC_HEIGHT),
                 PresetNPC.Nile, MessageFactory.getRoomTwoNileMessage()));
+        Point shopDoorLocation = new Point(0,500);
+        mRoomTwoSpriteArray.add(new ShopDoor(new Rectangle(shopDoorLocation.x, shopDoorLocation.y, Constants.DOOR_WIDTH,
+                Constants.DOOR_HEIGHT)));
 
         // ROOM 3
         mRoomThreeSpriteArray = new ArrayList<BasicRoomSprite>();
@@ -195,10 +202,20 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         // ROOM 4
         ArrayList<BasicRoomSprite> roomFourSpriteArray = new ArrayList<BasicRoomSprite>();
         roomFourSpriteArray.add(room4toRoom3Door);
-
+        
+        
+        // SHOP
+        
+        ArrayList<BasicSprite> mShopScreenSpriteArray = new ArrayList<BasicSprite>();
+        mShopScreenSpriteArray.add(new SpriteDealer("shop/spriteDealer.png", 
+                                                     new Rectangle(800,100,Constants.NPCS.SPRITE_DEALER_WIDTH,
+                                                                           Constants.NPCS.SPRITE_DEALER_HEIGHT)));
+        
+        
         mStatesToRespectiveArray.put(GameStates.States.TITLE_SCREEN, mTitleScreenSpriteArray);
         mStatesToRespectiveArray.put(GameStates.States.SCROLLING_TEXT, mBeginningTextArray);
         mStatesToRespectiveArray.put(GameStates.States.GAMEPLAY, mGameScreenSpriteArray);
+        mStatesToRespectiveArray.put(GameStates.States.SHOP, mShopScreenSpriteArray);
 
         mGameplayStatesToRespectiveArray.put(GameStates.GameplayStates.NOT_IN_GAME, mNotPlayingSpriteArray);
         mGameplayStatesToRespectiveArray.put(GameStates.GameplayStates.ROOM_1, mRoomOneSpriteArray);
