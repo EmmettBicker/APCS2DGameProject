@@ -24,6 +24,10 @@ public class Constants {
     public static class NPCS {
         public static final int ADAM_NPC_WIDTH = 60;
         public static final int ADAM_NPC_HEIGHT = 100;
+        
+        
+        public static final int SPRITE_DEALER_HEIGHT = 600;
+        public static final int SPRITE_DEALER_WIDTH = (int) (0.655 * SPRITE_DEALER_HEIGHT);
 
     }
 

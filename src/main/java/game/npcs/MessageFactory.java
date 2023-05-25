@@ -10,4 +10,12 @@ public class MessageFactory {
         s.add("Woohoo!");
         return s;
     }
+    
+    public static ArrayList<String> getRoomTwoNileMessage() {
+        ArrayList<String> s = new ArrayList<String>();
+        s.add("Another day");
+        s.add("Another thwacker");
+        s.add("sigh");
+        return s;
+    }
 }

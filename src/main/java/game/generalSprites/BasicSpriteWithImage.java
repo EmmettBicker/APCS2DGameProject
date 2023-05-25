@@ -11,24 +11,24 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import game.interfaces.BasicRoomSprite;
-
+import game.interfaces.BasicSprite;
 import game.Game;
 import game.GameStates;
 import game.utils.GeneralUtils;
 
-public class GeneralDoor implements BasicRoomSprite {
+public class BasicSpriteWithImage implements BasicSprite {
 
     // image that represents the player's position on the board
     protected BufferedImage img;
     protected GameStates.GameplayStates mDestination;
     protected Point mPlayerEndPos;
     protected Rectangle mHitbox;
+    protected String mFileName;
 
-    public GeneralDoor(GameStates.GameplayStates pDestination, Point pPlayerEndPos, Rectangle pHitbox) {
+    public BasicSpriteWithImage(String fileName, Rectangle pHitbox) {
         // load the assets
+        mFileName = fileName;
         loadImage();
-        mDestination = pDestination;
-        mPlayerEndPos = GeneralUtils.centerDoorEndDestination(pPlayerEndPos);
         mHitbox = pHitbox;
 
     }
@@ -37,17 +37,13 @@ public class GeneralDoor implements BasicRoomSprite {
         try {
             // you can use just the filename if the image file is in your
             // project folder, otherwise you need to provide the file path.
-            img = ImageIO.read(new File("src/main/resources/images/generalSprites/generalDoor.png"));
+            img = ImageIO.read(new File("src/main/resources/images/" + mFileName));
 
         } catch (IOException exc) {
             System.out.println("Error opening title screen image file: " + exc.getMessage());
         }
     }
     
-    public void setImage(BufferedImage pImage)
-    {
-        img = pImage;
-    }
 
     public void draw(Graphics g, ImageObserver observer) {
         // with the Point class, note that pos.getX() returns a double, but
@@ -65,27 +61,19 @@ public class GeneralDoor implements BasicRoomSprite {
     }
 
     public void keyPressed(KeyEvent e) {
-        int key = e.getKeyCode();
-
-        if (key == KeyEvent.VK_SPACE && Game.getPlayerHitbox().intersects(mHitbox)
-                && !Game.getHasChangedRoomAlready()) {
-            Game.setHasChangedRoomAlready(true);
-
-            GameStates.setGameplayState(mDestination);
-            Game.setPlayerPosition(mPlayerEndPos);
-        }
-
+    
     }
 
     @Override
     public void tick() {
 
         // no special behavior
+        }
+
+        @Override
+        public void onDelete() {
+ 
+        }
+
     }
 
-    @Override
-    public void onDelete() {
-        img = null;
-    }
-
-}
