@@ -16,7 +16,7 @@ import game.utils.ImageUtils;
 public class NPC implements NPCInterface {
 
     public enum PresetNPC {
-        Adam, Nile
+        Adam, Nile, Caroline, Alice
     }
 
     private BufferedImage npc;
@@ -52,6 +52,22 @@ public class NPC implements NPCInterface {
                     npcFlipped = ImageUtils.flipImageHoriziontally(npc);
                     npcHead = ImageIO.read(new File("src/main/resources/images/npcs/nileHead.png"));
                     break;
+                }
+                case Caroline:
+                {
+                    npc = ImageIO.read(new File("src/main/resources/images/npcs/carolineFigure.png"));
+                    npcFlipped = ImageUtils.flipImageHoriziontally(npc);
+                    npcHead = ImageIO.read(new File("src/main/resources/images/npcs/carolineHead.png"));
+                    break;
+                    
+                }
+                case Alice:
+                {
+                    npc = ImageIO.read(new File("src/main/resources/images/npcs/aliceFigure.png"));
+                    npcFlipped = ImageUtils.flipImageHoriziontally(npc);
+                    npcHead = ImageIO.read(new File("src/main/resources/images/npcs/aliceHead.png"));
+                    break;
+                    
                 }
             }
 

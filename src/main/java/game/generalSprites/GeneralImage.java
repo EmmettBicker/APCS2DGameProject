@@ -22,7 +22,7 @@ public class GeneralImage implements BasicRoomSprite {
     private BufferedImage img;
     private GameStates.GameplayStates mDestination;
     private Point mPlayerEndPos;
-    private Rectangle mHitbox;
+    protected Rectangle mHitbox;
     private String filename;
 
     public GeneralImage(String pFilename, Rectangle pHitbox) {
@@ -39,7 +39,7 @@ public class GeneralImage implements BasicRoomSprite {
             // you can use just the filename if the image file is in your
             // project folder, otherwise you need to provide the file path.
     
-            img = ImageIO.read(new File("src/main/resources/images/generalSprites/" + filename));
+            img = ImageIO.read(new File("src/main/resources/images/" + filename));
 
         } catch (IOException exc) {
             System.out.println("Error opening title screen image file: " + exc.getMessage());

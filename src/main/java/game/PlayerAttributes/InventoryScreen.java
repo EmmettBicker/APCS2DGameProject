@@ -2,6 +2,7 @@ package game.PlayerAttributes;
 
 import java.awt.event.KeyEvent;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
@@ -10,6 +11,7 @@ import java.util.ArrayList;
 import game.npcs.TextBox;
 import game.Constants;
 import game.Game;
+import game.PlayerAttributes.InventoryManager.Item;
 import game.interfaces.BasicSprite;
 
 public class InventoryScreen implements BasicSprite {
@@ -105,6 +107,13 @@ public class InventoryScreen implements BasicSprite {
                     head.width,
                     head.height,
                     observer);
+            g.setFont(new Font("Arial", Font.PLAIN, 25));
+            g.setColor(Color.GREEN);
+            int increment = 1;
+            g.drawString("Sprite: " + InventoryManager.getItemCount(Item.kSprite), textBoxX , textBoxY + (25 * increment++));
+            g.drawString("Thwackers: " + InventoryManager.getItemCount(Item.kThwacker), textBoxX , textBoxY + (25 * increment++));
+            g.drawString("Gears: " + InventoryManager.getItemCount(Item.kGear), textBoxX ,  textBoxY + (25 * increment++));
+            g.drawString("Bolts: " + InventoryManager.getItemCount(Item.kBolt), textBoxX ,  textBoxY + (25 * increment++));
 
         }
     }

@@ -18,4 +18,21 @@ public class MessageFactory {
         s.add("sigh");
         return s;
     }
+
+    public static ArrayList<String> getRoomThreeCarolineMessage() {
+        ArrayList<String> s = new ArrayList<String>();
+        s.add("you look dead tired dawg!");
+        s.add("go down & interact for some Sprite!");
+        s.add("slayyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy\n"
+                +"yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy");
+        return s;
+    }
+
+    public static ArrayList<String> getRoomFourAliceMessage() {
+        ArrayList<String> s = new ArrayList<String>();
+        s.add("Don't go through that door");
+        s.add("I was bored last night and made a monster");
+        s.add("I made sure the door needs 2 thwackers, 2 gears, and 2 bolts to open so no one goes through");
+        return s;
+    }
 }

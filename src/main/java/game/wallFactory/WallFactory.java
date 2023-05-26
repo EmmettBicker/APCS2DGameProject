@@ -35,7 +35,9 @@ public class WallFactory {
         WallFactory.addWall(pRoomState,
                 new Rectangle(x+100, 0, Constants.CANVAS_WIDTH-100, y-100));
         WallFactory.addWall(pRoomState,
-                new Rectangle(x+100, y+200, Constants.CANVAS_WIDTH-100, Constants.CANVAS_HEIGHT-300));
+                new Rectangle(x+100, y+200, Constants.CANVAS_WIDTH-600, Constants.CANVAS_HEIGHT-300));
+        WallFactory.addWall(pRoomState,
+                new Rectangle(Constants.CANVAS_WIDTH-600+200+x, y+200, 500, Constants.CANVAS_HEIGHT-300));
 
         WallFactory.addWall(pRoomState,
                 new Rectangle(x+Constants.CANVAS_WIDTH-100, y-200, 100, 200));

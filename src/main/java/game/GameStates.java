@@ -5,7 +5,7 @@ import java.util.Hashtable;
 
 public class GameStates {
     public enum States {
-        TITLE_SCREEN, SCROLLING_TEXT, GAMEPLAY, FINAL_BOSS, END_SCREEN, SHOP
+        TITLE_SCREEN, SCROLLING_TEXT, GAMEPLAY, FINAL_BOSS, END_SCREEN, SHOP, DEATH, VICTORY
     }
 
     public enum GameplayStates {

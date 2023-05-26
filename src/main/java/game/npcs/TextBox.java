@@ -121,6 +121,7 @@ public class TextBox implements BasicSprite {
             mWordIndex = 0;
             if (mTextIndex == mDesiredText.size()) {
                 setState(TextState.INVISIBLE);
+                
             }
 
         }

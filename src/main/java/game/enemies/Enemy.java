@@ -19,12 +19,12 @@ import java.util.ArrayList;
 
 public class Enemy implements EnemyInterface {
 
-    private BufferedImage image;
-    private Point enemyPos;
-    private EnemyHealthBar enemyHealthBar;
-    private int enemyCurrentHealth;
-    private int enemyMaxHealth;
-    private boolean isVisible; // Flag to indicate if the enemy is visible
+    protected BufferedImage image;
+    protected Point enemyPos;
+    protected EnemyHealthBar enemyHealthBar;
+    protected int enemyCurrentHealth;
+    protected int enemyMaxHealth;
+    protected boolean isVisible; // Flag to indicate if the enemy is visible
     private ArrayList<EnemyDrop> drops; // List to store the drops
 
     private long lastDamageTime = 0;
@@ -124,8 +124,10 @@ public class Enemy implements EnemyInterface {
     public void onDeath() {
         // Add drops to the list
         for (int i = 0; i < 3; i++) {
-           
-            EnemyDropsFactory.addDrop(GameStates.getGameplayState()) ;
+           Point randomPoint = new Point(enemyPos);
+           randomPoint.x += Math.random() * 50 - 100 + getEnemyHitboxRectangle().width*1.5;
+           randomPoint.y += Math.random() * 50 - 100 + getEnemyHitboxRectangle().height*1.5;
+           EnemyDropsFactory.addDrop(randomPoint, GameStates.getGameplayState());
             // drops.add(new EnemyDrop(i));
          
         }

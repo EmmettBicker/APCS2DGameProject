@@ -1,5 +1,6 @@
 package game.enemies;
 
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -18,20 +19,24 @@ public class EnemyDropsFactory {
     }
                     
     //add 
-    public static void addDrop(GameplayStates pRoom)
+    public static void addDrop(Point pLocation, GameplayStates pRoom)
     {
         mRoomStateToHashmapOfIDToEnemyDrop.get(pRoom).put(
-            uniqueDropId, new EnemyDrop(uniqueDropId));   
+            uniqueDropId, new EnemyDrop(pLocation, uniqueDropId)); 
+            uniqueDropId++;  
+        // for (EnemyDrop e : mRoomStateToHashmapOfIDToEnemyDrop.get(pRoom).values())
+        // {
+        //     System.out.println(pRoom + " " +e.getPos());
+        // }
         
-    System.out.println(  mRoomStateToHashmapOfIDToEnemyDrop.get(pRoom).size());
          
     }
 
     public static ArrayList<EnemyDrop> getAllRoomDrops(GameplayStates pRoom)
-    {
+    { 
         HashMap<Integer, EnemyDrop> roomDropsMap = mRoomStateToHashmapOfIDToEnemyDrop.get(pRoom);
         ArrayList<EnemyDrop> roomDrops = new ArrayList<>(roomDropsMap.values());
-        
+        // System.out.println(roomDrops.size());
         return roomDrops;
     }
 

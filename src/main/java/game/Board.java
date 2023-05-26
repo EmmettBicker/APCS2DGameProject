@@ -11,10 +11,13 @@ import game.npcs.MessageFactory;
 import game.npcs.NPC;
 import game.npcs.TextBox;
 import game.npcs.NPC.PresetNPC;
+import game.GameStates.GameplayStates;
 import game.PlayerAttributes.HealthBar;
 import game.PlayerAttributes.Inventory;
 import game.PlayerAttributes.InventoryScreen;
+import game.endgame.EndgameDoor;
 import game.enemies.Enemy;
+import game.enemies.EnemyDrop;
 import game.enemies.EnemyDropsFactory;
 import game.generalSprites.BasicSpriteWithImage;
 import game.generalSprites.GeneralDoor;
@@ -22,6 +25,7 @@ import game.generalSprites.GeneralImage;
 import game.generalSprites.GeneralMusic;
 import game.interfaces.BasicRoomSprite;
 import game.titleScreen.*;
+import game.wallFactory.FakeWall;
 import game.wallFactory.Wall;
 import game.wallFactory.WallFactory;
 import game.scrollingText.*;
@@ -39,7 +43,6 @@ public class Board extends JPanel implements ActionListener, KeyListener {
     public static final int TILE_SIZE = 10;
     public static final int ROWS = 720 / TILE_SIZE;
     public static final int COLUMNS = 1280 / TILE_SIZE;
-    private static final long serialVersionUID = 490905409104883233L;
 
     private GameStates.States[] mAllStatesArray;
     private GameStates.GameplayStates[] mAllRoomStatesArray;
@@ -191,7 +194,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         // ROOM 2
         mRoomTwoSpriteArray = new ArrayList<BasicRoomSprite>(); 
         mRoomTwoSpriteArray.add(mRoom2toRoom1Door);
-        mRoomTwoSpriteArray.add(new GeneralImage("chopSaw.png", new Rectangle(450,100,350,500)));
+        mRoomTwoSpriteArray.add(new GeneralImage("generalSprites/chopSaw.png", new Rectangle(450,100,350,500)));
         Point shopDoorLocation = new Point(0,Constants.CANVAS_HEIGHT-100-Constants.DOOR_HEIGHT);
         mRoomTwoSpriteArray.add(new ShopDoor(new Rectangle(shopDoorLocation.x, shopDoorLocation.y, Constants.DOOR_WIDTH,
                 Constants.DOOR_HEIGHT)));
@@ -205,11 +208,24 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         mRoomThreeSpriteArray = new ArrayList<BasicRoomSprite>();
         mRoomThreeSpriteArray.add(mRoom3toRoom1Door);
         mRoomThreeSpriteArray.add(room3toRoom4Door);
+        mRoomThreeSpriteArray.add(new NPC(
+            new Rectangle(Constants.CANVAS_WIDTH / 2 +150, Constants.CANVAS_HEIGHT / 2-200,
+                    Constants.NPCS.ADAM_NPC_WIDTH, Constants.NPCS.ADAM_NPC_HEIGHT),
+                    PresetNPC.Caroline, MessageFactory.getRoomThreeCarolineMessage()));
 
         // ROOM 4
         ArrayList<BasicRoomSprite> roomFourSpriteArray = new ArrayList<BasicRoomSprite>();
         roomFourSpriteArray.add(room4toRoom3Door);
-        
+        roomFourSpriteArray.add(new NPC(
+            new Rectangle(Constants.CANVAS_WIDTH / 2 +150, Constants.CANVAS_HEIGHT / 2-100,
+                    Constants.NPCS.ADAM_NPC_WIDTH, Constants.NPCS.ADAM_NPC_HEIGHT),
+                    PresetNPC.Alice, MessageFactory.getRoomFourAliceMessage()));
+
+        roomFourSpriteArray.add(new EndgameDoor( new Rectangle(room3toRoom4DoorPos.x, room3toRoom4DoorPos.y+100, Constants.DOOR_WIDTH,
+        Constants.DOOR_HEIGHT)));
+
+        // ROOM 5
+        ArrayList<BasicRoomSprite> roomFiveSpriteArray = new ArrayList<BasicRoomSprite>();
         
         // SHOP
         
@@ -235,17 +251,32 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         mShopScreenSpriteArray.add(new SpriteCostSelector());
 
         mShopScreenSpriteArray.add(mSpriteDealer);
+
+
+        // DEATH
+        ArrayList<BasicSprite> mDeathScreenSpriteArray = new ArrayList<BasicSprite>();
+        mDeathScreenSpriteArray.add(new BasicSpriteWithImage("special/deathScreen.png", 
+            new Rectangle(0,0,Constants.CANVAS_WIDTH, Constants.CANVAS_HEIGHT)));
+
+
+        ArrayList<BasicSprite> mVictoryScreenSpriteArray = new ArrayList<BasicSprite>();
+        mVictoryScreenSpriteArray.add(new BasicSpriteWithImage("special/victory.png", 
+            new Rectangle(0,0,Constants.CANVAS_WIDTH, Constants.CANVAS_HEIGHT)));
         
         mStatesToRespectiveArray.put(GameStates.States.TITLE_SCREEN, mTitleScreenSpriteArray);
         mStatesToRespectiveArray.put(GameStates.States.SCROLLING_TEXT, mBeginningTextArray);
         mStatesToRespectiveArray.put(GameStates.States.GAMEPLAY, mGameScreenSpriteArray);
         mStatesToRespectiveArray.put(GameStates.States.SHOP, mShopScreenSpriteArray);
+        mStatesToRespectiveArray.put(GameStates.States.DEATH, mDeathScreenSpriteArray);
+        mStatesToRespectiveArray.put(GameStates.States.VICTORY, mVictoryScreenSpriteArray);
+
 
         mGameplayStatesToRespectiveArray.put(GameStates.GameplayStates.NOT_IN_GAME, mNotPlayingSpriteArray);
         mGameplayStatesToRespectiveArray.put(GameStates.GameplayStates.ROOM_1, mRoomOneSpriteArray);
         mGameplayStatesToRespectiveArray.put(GameStates.GameplayStates.ROOM_2, mRoomTwoSpriteArray);
         mGameplayStatesToRespectiveArray.put(GameStates.GameplayStates.ROOM_3, mRoomThreeSpriteArray);
         mGameplayStatesToRespectiveArray.put(GameStates.GameplayStates.ROOM_4, roomFourSpriteArray);
+        mGameplayStatesToRespectiveArray.put(GameStates.GameplayStates.ROOM_5, roomFiveSpriteArray);
 
         // ROOM 1
 
@@ -268,14 +299,33 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         // ROOM 3
         wallState = GameStates.GameplayStates.ROOM_3;
         WallFactory.addHallway(wallState, 0, 200);
+        mRoomThreeSpriteArray.add(new FakeWall(new Rectangle(Constants.CANVAS_WIDTH-500, 400, Constants.CANVAS_WIDTH-600, Constants.CANVAS_HEIGHT-300)));
 
         // ROOM 4
         wallState = GameStates.GameplayStates.ROOM_4;
         WallFactory.addHallway(wallState, 0, room4toRoom3DoorPos.y);
+        WallFactory.addWall(GameplayStates.ROOM_4, new Rectangle(Constants.CANVAS_WIDTH-500, 500, Constants.CANVAS_WIDTH-600, Constants.CANVAS_HEIGHT-300));
+        
+        // ROOM 5
+        WallFactory.addWall(GameStates.GameplayStates.ROOM_5,
+                new Rectangle(0, 300, Constants.CANVAS_WIDTH / 2 - 200, 500));
+        WallFactory.addWall(GameStates.GameplayStates.ROOM_5,
+                new Rectangle(Constants.CANVAS_WIDTH / 2 + 200, 300, Constants.CANVAS_WIDTH / 2 - 200, 500));
+        
+
 
         EnemyFactory.addEnemy(GameStates.GameplayStates.ROOM_2, new Point(0, Constants.CANVAS_HEIGHT/2));
         EnemyFactory.addEnemy(GameStates.GameplayStates.ROOM_3,
                 new Point(Constants.CANVAS_WIDTH / 2, Constants.CANVAS_HEIGHT / 2));
+
+        EnemyFactory.addEnemy(GameStates.GameplayStates.ROOM_4,
+                new Point(Constants.CANVAS_WIDTH / 2+300, (Constants.CANVAS_HEIGHT-170) / 2));
+        EnemyFactory.addEnemy(GameStates.GameplayStates.ROOM_4,
+                new Point(Constants.CANVAS_WIDTH / 2+300, (Constants.CANVAS_HEIGHT-20) / 2));
+
+
+        EnemyFactory.addFinalBossEnemy(GameStates.GameplayStates.ROOM_5,
+                new Point(Constants.CANVAS_WIDTH / 2-100, 0));
 
         // Add all wall sprites to room array
 
@@ -341,7 +391,9 @@ public class Board extends JPanel implements ActionListener, KeyListener {
                 roomSprite.draw(g, this);
             }
             // System.out.println(EnemyDropsFactory.getAllRoomDrops(mGameplayState).size());
-            for (BasicSprite sprite : EnemyDropsFactory.getAllRoomDrops(mGameplayState)) {
+            
+            for (EnemyDrop sprite : EnemyDropsFactory.getAllRoomDrops(mGameplayState)) {
+               
                 sprite.draw(g, this);
                 
             }

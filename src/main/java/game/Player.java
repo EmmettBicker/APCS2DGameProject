@@ -13,6 +13,8 @@ import javax.imageio.ImageIO;
 
 import game.utils.GeneralUtils;
 import game.utils.ImageUtils;
+import game.GameStates.GameplayStates;
+import game.GameStates.States;
 import game.Weapon.WeaponStates;
 import game.interfaces.BasicSprite;
 
@@ -175,7 +177,7 @@ public class Player implements BasicSprite {
         GeneralUtils.wallCollision(getPlayerHitboxRectangle(), playerPos);
 
         passiveHealthRegen();
-
+        deathDetection();
     }
 
     public void screenEdgeDetection() {
@@ -189,6 +191,14 @@ public class Player implements BasicSprite {
             playerPos.y = 0;
         } else if (playerPos.y >= Constants.CANVAS_HEIGHT - (int) (rightImage.getHeight())) {
             playerPos.y = Constants.CANVAS_HEIGHT - (int) (rightImage.getHeight()) - 1;
+        }
+    }
+
+    public void deathDetection()
+    {
+        if (currentHealth <= 0)
+        {
+            GameStates.setState(States.DEATH);
         }
     }
 

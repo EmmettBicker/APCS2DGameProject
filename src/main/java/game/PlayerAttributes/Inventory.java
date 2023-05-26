@@ -7,6 +7,8 @@ import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+
 import game.npcs.TextBox;
 import javax.imageio.ImageIO;
 import java.awt.Point;
@@ -22,10 +24,12 @@ public class Inventory implements BasicSprite{
     private Rectangle inventoryLocation;
     
     private boolean mIsScreenOpen;
-    
+
     public Inventory() {
+        
         loadImage();
         inventoryLocation = new Rectangle(25,25,100,100);
+
     }
     
     private void loadImage() {
@@ -35,6 +39,7 @@ public class Inventory implements BasicSprite{
             System.out.println("Error opening image file bag: " + exc.getMessage());
         }
     }
+
     
     @Override
     public void draw(Graphics g, ImageObserver observer) {

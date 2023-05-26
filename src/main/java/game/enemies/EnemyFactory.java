@@ -23,6 +23,10 @@ public class EnemyFactory {
         mRoomStateToEnemyArray.get(pRoomState).add(new Enemy(pEnemyPos));
      
     }
+    public static void addFinalBossEnemy(GameStates.GameplayStates pRoomState, Point pEnemyPos) {
+        mRoomStateToEnemyArray.get(pRoomState).add(new FinalBoss(pEnemyPos));
+     
+    }
 
     public static ArrayList<Enemy> getRoomEnemyArray(GameStates.GameplayStates pRoomState) {
         return mRoomStateToEnemyArray.get(pRoomState);
