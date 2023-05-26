@@ -31,10 +31,10 @@ public class EnemyDrop implements BasicSprite {
             // you can use just the filename if the image file is in your
             // project folder, otherwise you need to provide the file path.
 
-            background = ImageIO.read(new File("src/main/resources/images/backgrounds/soda.png"));
+            background = ImageIO.read(new File("src/main/resources/images/soda.png"));
 
         } catch (IOException exc) {
-            System.out.println("Error opening title screen image file: " + exc.getMessage());
+            System.out.println("Error opening soda image file: " + exc.getMessage());
         }
     }
 

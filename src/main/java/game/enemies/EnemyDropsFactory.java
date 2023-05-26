@@ -14,7 +14,7 @@ public class EnemyDropsFactory {
     static {
         for (GameplayStates room : GameplayStates.values()) {
             mRoomStateToHashmapOfIDToEnemyDrop.put(room, new HashMap<Integer, EnemyDrop>());
-        }
+        } 
     }
                     
     //add 
@@ -26,7 +26,9 @@ public class EnemyDropsFactory {
 
     public static ArrayList<EnemyDrop> getAllRoomDrops(GameplayStates pRoom)
     {
-        return (ArrayList<EnemyDrop>) mRoomStateToHashmapOfIDToEnemyDrop.get(pRoom).values();
+        HashMap<Integer, EnemyDrop> roomDropsMap = mRoomStateToHashmapOfIDToEnemyDrop.get(pRoom);
+        ArrayList<EnemyDrop> roomDrops = new ArrayList<>(roomDropsMap.values());
+        return roomDrops;
     }
 
     public static void removeDrop(GameplayStates pRoom, int uniqueID)

@@ -14,6 +14,7 @@ import game.utils.GeneralUtils;
 import game.Constants;
 import game.Game;
 import game.interfaces.EnemyInterface;
+import java.util.ArrayList;
 
 public class Enemy implements EnemyInterface {
 
@@ -23,6 +24,7 @@ public class Enemy implements EnemyInterface {
     private int enemyCurrentHealth;
     private int enemyMaxHealth;
     private boolean isVisible; // Flag to indicate if the enemy is visible
+    private ArrayList<EnemyDrop> drops; // List to store the drops
 
     private long lastDamageTime = 0;
 
@@ -34,6 +36,7 @@ public class Enemy implements EnemyInterface {
         enemyHealthBar = new EnemyHealthBar(enemyMaxHealth, enemyCurrentHealth, image.getWidth(), 5, Color.RED,
                 Color.GREEN);
         isVisible = true; // Set the initial visibility to true
+        drops = new ArrayList<>(); // Initialize the list of drops
     }
 
     public void loadImage() {
@@ -59,7 +62,11 @@ public class Enemy implements EnemyInterface {
 
         enemyHealthBar.draw(g, enemyPos.x, enemyPos.y - 10);
 
+        // Draw drops
+        drawDrops(g, observer);
+
     }
+    
 
     @Override
     public void keyPressed(KeyEvent e) {
@@ -106,9 +113,19 @@ public class Enemy implements EnemyInterface {
         // Handle deletion if needed
     }
 
+    private void drawDrops(Graphics g, ImageObserver observer) {
+        for (EnemyDrop drop : drops) {
+            drop.draw(g, observer);
+        }
+    }
+
     @Override
     public void onDeath() {
-        
+        // Add drops to the list
+        for (int i = 0; i < 3; i++) {
+            drops.add(new EnemyDrop(i));
+            System.out.println(drops.toString());
+        }
     }
 
     public Rectangle getEnemyHitboxRectangle() {
