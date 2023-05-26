@@ -97,7 +97,7 @@ public class NPC implements NPCInterface {
 
     @Override
     public void onDelete() {
-        npc = null;
+
     }
 
 }

@@ -93,7 +93,7 @@ public class GeneralMusic implements BasicSprite {
         hasStartedMusic = false;
         background = null;
         music.stop();
-        music = null;
+
     }
 
 }

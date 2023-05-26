@@ -74,7 +74,7 @@ public class GeneralImage implements BasicRoomSprite {
 
     @Override
     public void onDelete() {
-        img = null;
+  
     }
 
 }

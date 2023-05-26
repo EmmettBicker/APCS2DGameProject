@@ -28,7 +28,7 @@ public class ShopDoor extends GeneralDoor{
             img = ImageIO.read(new File("src/main/resources/images/shop/spriteDoor.png"));
 
         } catch (IOException exc) {
-            System.out.println("Error opening title screen image file: " + exc.getMessage());
+            System.out.println("Error opening title screen imagde file: " + exc.getMessage());
         }
     }
     

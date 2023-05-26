@@ -61,7 +61,7 @@ public class EnemyDrop implements BasicSprite {
 
     @Override
     public void onDelete() {
-        background = null;
+    
     }
 
 }

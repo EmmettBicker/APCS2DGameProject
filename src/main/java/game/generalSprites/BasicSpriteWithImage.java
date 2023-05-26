@@ -28,19 +28,18 @@ public class BasicSpriteWithImage implements BasicSprite {
     public BasicSpriteWithImage(String fileName, Rectangle pHitbox) {
         // load the assets
         mFileName = fileName;
-        loadImage();
+        if (fileName != null) loadImage();
         mHitbox = pHitbox;
 
     }
 
     private void loadImage() {
         try {
-            // you can use just the filename if the image file is in your
             // project folder, otherwise you need to provide the file path.
             img = ImageIO.read(new File("src/main/resources/images/" + mFileName));
 
         } catch (IOException exc) {
-            System.out.println("Error opening title screen image file: " + exc.getMessage());
+            System.out.println("Error opening"+  mFileName + "file: " + exc.getMessage());
         }
     }
     
@@ -68,12 +67,12 @@ public class BasicSpriteWithImage implements BasicSprite {
     public void tick() {
 
         // no special behavior
-        }
+    }
 
-        @Override
-        public void onDelete() {
- 
-        }
+    @Override
+    public void onDelete() {
 
     }
+
+}
 

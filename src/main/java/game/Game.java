@@ -77,6 +77,7 @@ public class Game {
         return board.getWeapon();
     }
 
+
     public static void main(String[] args) {
         // invokeLater() is used here to prevent our graphics processing from
         // blocking the GUI. https://stackoverflow.com/a/22534931/4655368

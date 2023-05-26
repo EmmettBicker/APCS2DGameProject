@@ -64,7 +64,7 @@ public class GenericBackground implements BasicRoomSprite {
 
     @Override
     public void onDelete() {
-        background = null;
+  
     }
 
 }

@@ -85,7 +85,7 @@ public class GeneralDoor implements BasicRoomSprite {
 
     @Override
     public void onDelete() {
-        img = null;
+
     }
 
 }

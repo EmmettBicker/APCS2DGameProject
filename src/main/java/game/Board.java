@@ -25,7 +25,9 @@ import game.wallFactory.Wall;
 import game.wallFactory.WallFactory;
 import game.scrollingText.*;
 import game.shop.ShopDoor;
+import game.shop.SpriteCostSelector;
 import game.shop.SpriteDealer;
+import game.shop.SpriteDealerItem;
 import game.enemies.EnemyFactory;
 
 public class Board extends JPanel implements ActionListener, KeyListener {
@@ -56,6 +58,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
     private TextBox mTextBox;
 
     private InventoryScreen mInventoryScreen;
+    private SpriteDealer mSpriteDealer;
     // ROOM 1
     private GenericBackground mScreenOneBg;
     private GeneralDoor mRoom1toRoom2Door;
@@ -150,7 +153,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         mTimer.start();
 
         mTitleScreenSpriteArray = new ArrayList<BasicSprite>();
-
+        
         mTitleScreenSpriteArray.add(mTitleScreen);
         mTitleScreenSpriteArray.add(mSpaceText);
         // mTitleScreenSpriteArray.add(mTitleMusic);
@@ -185,12 +188,18 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         
         
         // ROOM 2
-        mRoomTwoSpriteArray = new ArrayList<BasicRoomSprite>();
+        mRoomTwoSpriteArray = new ArrayList<BasicRoomSprite>(); 
         mRoomTwoSpriteArray.add(mRoom2toRoom1Door);
         mRoomTwoSpriteArray.add(new GeneralImage("chopSaw.png", new Rectangle(450,100,350,500)));
-        Point shopDoorLocation = new Point(0,500);
+        Point shopDoorLocation = new Point(0,Constants.CANVAS_HEIGHT-100-Constants.DOOR_HEIGHT);
         mRoomTwoSpriteArray.add(new ShopDoor(new Rectangle(shopDoorLocation.x, shopDoorLocation.y, Constants.DOOR_WIDTH,
                 Constants.DOOR_HEIGHT)));
+        mRoomTwoSpriteArray.add(new NPC(
+            new Rectangle(Constants.CANVAS_WIDTH / 2 - 150, Constants.CANVAS_HEIGHT / 2,
+                    Constants.NPCS.ADAM_NPC_WIDTH, Constants.NPCS.ADAM_NPC_HEIGHT),
+                    PresetNPC.Nile, MessageFactory.getRoomTwoNileMessage()));
+    
+    
         // ROOM 3
         mRoomThreeSpriteArray = new ArrayList<BasicRoomSprite>();
         mRoomThreeSpriteArray.add(mRoom3toRoom1Door);
@@ -204,10 +213,27 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         // SHOP
         
         ArrayList<BasicSprite> mShopScreenSpriteArray = new ArrayList<BasicSprite>();
-        mShopScreenSpriteArray.add(new SpriteDealer("shop/spriteDealer.png", 
-                                                     new Rectangle(800,100,Constants.NPCS.SPRITE_DEALER_WIDTH,
-                                                                           Constants.NPCS.SPRITE_DEALER_HEIGHT)));
         
+        mShopScreenSpriteArray.add(new BasicSpriteWithImage("shop/spriteDealerGraphics.png", 
+                                   new Rectangle(0,0,Constants.CANVAS_WIDTH, Constants.CANVAS_HEIGHT)));
+        mShopScreenSpriteArray.add(new BasicSpriteWithImage("shop/spriteDealerBackground.png", 
+                                   new Rectangle(0,0,Constants.CANVAS_WIDTH, Constants.CANVAS_HEIGHT)));
+        mSpriteDealer = new SpriteDealer("shop/spriteDealer.png", 
+                                                     new Rectangle(0,0,Constants.CANVAS_WIDTH,
+                                                                           Constants.CANVAS_HEIGHT));
+        mShopScreenSpriteArray.add(new SpriteDealerItem(SpriteDealer.ItemSelected.BOLT, 
+                                   "shop/boltItem.png",new Rectangle(100,125,100,100)));
+
+        mShopScreenSpriteArray.add(new SpriteDealerItem(SpriteDealer.ItemSelected.THWACKER, 
+                                   "shop/thwackerItem.png",new Rectangle(200,325,100,100)));
+
+        mShopScreenSpriteArray.add(new SpriteDealerItem(SpriteDealer.ItemSelected.GEAR, 
+                                   "shop/gearItem.png",new Rectangle(300,525,100,100)));
+
+                                   
+        mShopScreenSpriteArray.add(new SpriteCostSelector());
+
+        mShopScreenSpriteArray.add(mSpriteDealer);
         
         mStatesToRespectiveArray.put(GameStates.States.TITLE_SCREEN, mTitleScreenSpriteArray);
         mStatesToRespectiveArray.put(GameStates.States.SCROLLING_TEXT, mBeginningTextArray);
@@ -413,6 +439,10 @@ public class Board extends JPanel implements ActionListener, KeyListener {
 
     public InventoryScreen getInventoryScreen() {
         return mInventoryScreen;
+    }
+
+    public SpriteDealer getSpriteDealer() {
+        return mSpriteDealer;
     }
 
 }
