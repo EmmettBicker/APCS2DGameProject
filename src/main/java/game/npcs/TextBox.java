@@ -70,7 +70,7 @@ public class TextBox implements BasicSprite {
         if (mTextState == TextState.INVISIBLE) {
             Game.getPlayer().allowMovement();
         } else {
-            System.out.println("here");
+       
             Game.getPlayer().lockMovement();
         }
         if (mTextState == TextState.ENTERING) {

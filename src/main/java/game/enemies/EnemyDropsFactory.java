@@ -21,13 +21,17 @@ public class EnemyDropsFactory {
     public static void addDrop(GameplayStates pRoom)
     {
         mRoomStateToHashmapOfIDToEnemyDrop.get(pRoom).put(
-            uniqueDropId, new EnemyDrop(uniqueDropId));    
+            uniqueDropId, new EnemyDrop(uniqueDropId));   
+        
+    System.out.println(  mRoomStateToHashmapOfIDToEnemyDrop.get(pRoom).size());
+         
     }
 
     public static ArrayList<EnemyDrop> getAllRoomDrops(GameplayStates pRoom)
     {
         HashMap<Integer, EnemyDrop> roomDropsMap = mRoomStateToHashmapOfIDToEnemyDrop.get(pRoom);
         ArrayList<EnemyDrop> roomDrops = new ArrayList<>(roomDropsMap.values());
+        
         return roomDrops;
     }
 

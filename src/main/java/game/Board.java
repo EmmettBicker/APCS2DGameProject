@@ -15,6 +15,7 @@ import game.PlayerAttributes.HealthBar;
 import game.PlayerAttributes.Inventory;
 import game.PlayerAttributes.InventoryScreen;
 import game.enemies.Enemy;
+import game.enemies.EnemyDropsFactory;
 import game.generalSprites.BasicSpriteWithImage;
 import game.generalSprites.GeneralDoor;
 import game.generalSprites.GeneralImage;
@@ -306,10 +307,17 @@ public class Board extends JPanel implements ActionListener, KeyListener {
                 // System.out.println(roomSprite);
                 roomSprite.tick();
             }
+            for (BasicSprite sprite : EnemyDropsFactory.getAllRoomDrops(mGameplayState)) {
+                sprite.tick();
+            }
         }
+        
         for (BasicSprite sprite : mStatesToRespectiveArray.get(mState)) {
             sprite.tick();
         }
+
+        
+
 
         // calling repaint() will trigger paintComponent() to run again,
         // which will refresh/redraw the graphics.
@@ -331,6 +339,11 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         if (mState == GameStates.States.GAMEPLAY) {
             for (BasicRoomSprite roomSprite : mGameplayStatesToRespectiveArray.get(mGameplayState)) {
                 roomSprite.draw(g, this);
+            }
+            // System.out.println(EnemyDropsFactory.getAllRoomDrops(mGameplayState).size());
+            for (BasicSprite sprite : EnemyDropsFactory.getAllRoomDrops(mGameplayState)) {
+                sprite.draw(g, this);
+                
             }
         }
         for (BasicSprite sprite : mStatesToRespectiveArray.get(mState)) {

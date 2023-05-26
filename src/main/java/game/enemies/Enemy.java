@@ -13,6 +13,7 @@ import javax.imageio.ImageIO;
 import game.utils.GeneralUtils;
 import game.Constants;
 import game.Game;
+import game.GameStates;
 import game.interfaces.EnemyInterface;
 import java.util.ArrayList;
 
@@ -113,7 +114,7 @@ public class Enemy implements EnemyInterface {
         // Handle deletion if needed
     }
 
-    private void drawDrops(Graphics g, ImageObserver observer) {
+    private void drawDrops(Graphics g, ImageObserver observer) {    
         for (EnemyDrop drop : drops) {
             drop.draw(g, observer);
         }
@@ -123,8 +124,10 @@ public class Enemy implements EnemyInterface {
     public void onDeath() {
         // Add drops to the list
         for (int i = 0; i < 3; i++) {
-            drops.add(new EnemyDrop(i));
-            System.out.println(drops.toString());
+           
+            EnemyDropsFactory.addDrop(GameStates.getGameplayState()) ;
+            // drops.add(new EnemyDrop(i));
+         
         }
     }
 

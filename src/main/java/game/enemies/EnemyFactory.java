@@ -21,6 +21,7 @@ public class EnemyFactory {
 
     public static void addEnemy(GameStates.GameplayStates pRoomState, Point pEnemyPos) {
         mRoomStateToEnemyArray.get(pRoomState).add(new Enemy(pEnemyPos));
+     
     }
 
     public static ArrayList<Enemy> getRoomEnemyArray(GameStates.GameplayStates pRoomState) {
