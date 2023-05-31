@@ -16,6 +16,9 @@ import game.Player.WeaponOrientationStates;
 import game.interfaces.BasicSprite;
 import game.enemies.*;
 
+/**
+ * A class representing a projectile in the game.
+ */
 public class Projectile implements BasicSprite {
 
     private BufferedImage projectileImage;
@@ -23,6 +26,9 @@ public class Projectile implements BasicSprite {
     private Point projectilePos;
     private boolean moving; // Flag to indicate if the projectile is moving
 
+    /**
+     * Enumeration of the projectile states.
+     */
     public enum ProjectileStates {
         INVISIBLE, VISIBLE
     }
@@ -30,6 +36,9 @@ public class Projectile implements BasicSprite {
     private ProjectileStates projectileState;
     private long timeEnteredWeaponState;
 
+    /**
+     * Constructs a new Projectile object.
+     */
     public Projectile() {
         loadImage();
         weaponOrientation = WeaponOrientationStates.WEAPON_RIGHT;
@@ -38,6 +47,12 @@ public class Projectile implements BasicSprite {
         moving = false;
     }
 
+    /**
+     * Draws the projectile on the screen.
+     *
+     * @param g        the graphics object
+     * @param observer the image observer
+     */
     @Override
     public void draw(Graphics g, ImageObserver observer) {
         if (System.currentTimeMillis() - timeEnteredWeaponState > Constants.DELAY_FOR_WEAPON_DEPLOYMENT) {
@@ -49,8 +64,7 @@ public class Projectile implements BasicSprite {
         if (moving) {
             updateProjectilePosition();
             if (!isProjectileOnScreen()) {
-                projectileState = ProjectileStates.INVISIBLE; // Set projectile state to invisible if it's outside the
-                                                              // screen
+                projectileState = ProjectileStates.INVISIBLE; // Set projectile state to invisible if it's outside the screen
             }
         } else {
             projectilePos.x = Game.getPlayer().getPlayerPos().x;
@@ -68,6 +82,11 @@ public class Projectile implements BasicSprite {
         }
     }
 
+    /**
+     * Handles the key pressed event.
+     *
+     * @param e the key event
+     */
     @Override
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
@@ -80,6 +99,9 @@ public class Projectile implements BasicSprite {
     }
 
 
+    /**
+     * Updates the state of the projectile.
+     */
     @Override
     public void tick() {
         if (projectileState == ProjectileStates.INVISIBLE) {
@@ -109,22 +131,41 @@ public class Projectile implements BasicSprite {
                 stopProjectileMovement();
                 setProjectileState(ProjectileStates.INVISIBLE);
             }
-        } 
+        }
     }
 
+    /**
+     * Called when the projectile is deleted.
+     */
     @Override
     public void onDelete() {
+        // no delete behavior
     }
 
+    /**
+     * Gets the current state of the projectile.
+     *
+     * @return the projectile state
+     */
     public ProjectileStates getProjectileState() {
         return projectileState;
     }
 
+    /**
+     * Sets the state of the projectile.
+     *
+     * @param state the projectile state to set
+     */
     public void setProjectileState(ProjectileStates state) {
         projectileState = state;
         timeEnteredWeaponState = System.currentTimeMillis();
     }
 
+    /**
+     * Gets the hitbox rectangle of the projectile.
+     *
+     * @return the projectile hitbox rectangle
+     */
     public Rectangle getProjectileHitBox() {
         int width = projectileImage.getWidth();
         int height = projectileImage.getHeight();
@@ -134,14 +175,27 @@ public class Projectile implements BasicSprite {
         return new Rectangle(x, y, width, height);
     }
 
+    /**
+     * Starts the movement of the projectile.
+     * Sets the 'moving' flag to true.
+     */
     private void startProjectileMovement() {
         moving = true;
     }
-
+    
+    /**
+     * Stops the movement of the projectile.
+     * Sets the 'moving' flag to false.
+     */
     private void stopProjectileMovement() {
         moving = false;
     }
 
+    /**
+     * Updates the position of the projectile based on its current weapon orientation.
+     * The position is updated by adding or subtracting the projectile speed from the current position
+     * in the corresponding direction.
+     */
     private void updateProjectilePosition() {
         switch (weaponOrientation) {
             case WEAPON_UP:
@@ -156,9 +210,14 @@ public class Projectile implements BasicSprite {
             case WEAPON_RIGHT:
                 projectilePos.x += Constants.PROJECTILE_SPEED;
                 break;
-        } 
+        }
     }
 
+    /**
+     * Checks if the projectile is currently on the screen.
+     *
+     * @return true if the projectile is on the screen, false otherwise
+     */
     private boolean isProjectileOnScreen() {
         int projectileWidth = projectileImage.getWidth();
         int projectileHeight = projectileImage.getHeight();

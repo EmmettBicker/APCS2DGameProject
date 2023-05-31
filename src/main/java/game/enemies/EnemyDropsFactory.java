@@ -4,8 +4,12 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import game.GameStates.GameplayStates;;
+import game.GameStates.GameplayStates;
 
+/**
+ * The EnemyDropsFactory class is responsible for managing enemy drops in the game.
+ * It provides methods to add, retrieve, and remove enemy drops in different gameplay states.
+ */
 public class EnemyDropsFactory {
     private static int uniqueDropId = 0;
     
@@ -18,31 +22,37 @@ public class EnemyDropsFactory {
         } 
     }
                     
-    //add 
-    public static void addDrop(Point pLocation, GameplayStates pRoom)
-    {
+    /**
+     * Adds an enemy drop at the specified location in the given gameplay state.
+     * 
+     * @param pLocation  the location of the enemy drop
+     * @param pRoom  the gameplay state in which the enemy drop should be added
+     */
+    public static void addDrop(Point pLocation, GameplayStates pRoom) {
         mRoomStateToHashmapOfIDToEnemyDrop.get(pRoom).put(
             uniqueDropId, new EnemyDrop(pLocation, uniqueDropId)); 
-            uniqueDropId++;  
-        // for (EnemyDrop e : mRoomStateToHashmapOfIDToEnemyDrop.get(pRoom).values())
-        // {
-        //     System.out.println(pRoom + " " +e.getPos());
-        // }
-        
-         
+        uniqueDropId++;  
     }
 
-    public static ArrayList<EnemyDrop> getAllRoomDrops(GameplayStates pRoom)
-    { 
+    /**
+     * Returns a list of all enemy drops in the specified gameplay state.
+     * 
+     * @param pRoom  the gameplay state from which to retrieve the enemy drops
+     * @return a list of all enemy drops in the specified gameplay state
+     */
+    public static ArrayList<EnemyDrop> getAllRoomDrops(GameplayStates pRoom) { 
         HashMap<Integer, EnemyDrop> roomDropsMap = mRoomStateToHashmapOfIDToEnemyDrop.get(pRoom);
         ArrayList<EnemyDrop> roomDrops = new ArrayList<>(roomDropsMap.values());
-        // System.out.println(roomDrops.size());
         return roomDrops;
     }
 
-    public static void removeDrop(GameplayStates pRoom, int uniqueID)
-    {
+    /**
+     * Removes the enemy drop with the specified unique ID from the given gameplay state.
+     * 
+     * @param pRoom  the gameplay state from which to remove the enemy drop
+     * @param uniqueID  the unique ID of the enemy drop to be removed
+     */
+    public static void removeDrop(GameplayStates pRoom, int uniqueID) {
         mRoomStateToHashmapOfIDToEnemyDrop.get(pRoom).remove(uniqueID);
     }
-    //delete
 }

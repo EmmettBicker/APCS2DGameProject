@@ -15,61 +15,64 @@ import game.GameStates;
 import game.PlayerAttributes.InventoryManager;
 import game.interfaces.BasicSprite;
 
+/**
+ * The EnemyDrop class represents a drop left behind by an enemy when defeated.
+ * It implements the BasicSprite interface and provides functionality for drop behavior.
+ */
 public class EnemyDrop implements BasicSprite {
 
-    // image that represents the player's position on the board
     private BufferedImage background;
     private Point pos;
     private int uniqueID;
     private Rectangle mHitbox;
+
+    /**
+     * Constructs an EnemyDrop object with the specified location and unique ID.
+     *
+     * @param pLocation  the location of the drop
+     * @param pUniqueID  the unique ID of the drop
+     */
     public EnemyDrop(Point pLocation, int pUniqueID) {
-        // load the assets
         uniqueID = pUniqueID;
         pos = pLocation;
         pos.x += Math.random() * 50.0 - 25;
         pos.y += Math.random() * 50.0 - 25;
         mHitbox = new Rectangle(pos.x, pos.y, 30, 40);
         loadImage();
-        
-
     }
 
+    /**
+     * Loads the image for the enemy drop from the file.
+     * The image file should be located in the "src/main/resources/images/enemies" directory.
+     */
     private void loadImage() {
         try {
-            // you can use just the filename if the image file is in your
-            // project folder, otherwise you need to provide the file path.
-
             background = ImageIO.read(new File("src/main/resources/images/enemies/spriteDrink.png"));
-
         } catch (IOException exc) {
             System.out.println("Error opening soda image file: " + exc.getMessage());
         }
     }
-    public Point getPos(){ 
+
+    /**
+     * Returns the position of the enemy drop.
+     *
+     * @return the position of the enemy drop
+     */
+    public Point getPos() {
         return pos;
     }
 
+    @Override
     public void draw(Graphics g, ImageObserver observer) {
-        // with the Point class, note that pos.getX() returns a double, but
-        // pos.x reliably returns an int. https://stackoverflow.com/a/30220114/4655368
-        // this is also where we translate board grid position into a canvas pixel
-        // position by multiplying by the tile size.
-        g.drawImage(background, 
-                mHitbox.x, 
-                mHitbox.y, 
-                mHitbox.width, 
-                mHitbox.height, 
-                observer);
-
-
+        g.drawImage(background, mHitbox.x, mHitbox.y, mHitbox.width, mHitbox.height, observer);
     }
 
+    @Override
     public void keyPressed(KeyEvent e) {}
 
     @Override
     public void tick() {
-        if (Game.getPlayerHitbox().intersects(mHitbox))
-        {
+        if (Game.getPlayerHitbox().intersects(mHitbox)) {
             EnemyDropsFactory.removeDrop(GameStates.getGameplayState(), uniqueID);
             InventoryManager.addItem(InventoryManager.Item.kSprite, 1);
         }
@@ -77,8 +80,5 @@ public class EnemyDrop implements BasicSprite {
     }
 
     @Override
-    public void onDelete() {
-    
-    }
-
+    public void onDelete() {}
 }

@@ -7,14 +7,26 @@ import java.awt.image.ImageObserver;
 
 import game.Constants;
 import game.Game;
-
 import game.interfaces.BasicSprite;
 
+/**
+ * The HealthBar class represents the health bar of the player in the game.
+ * It implements the BasicSprite interface.
+ */
 public class HealthBar implements BasicSprite {
 
+    /**
+     * Constructs a HealthBar object.
+     */
     public HealthBar() {
     }
 
+    /**
+     * Draws the health bar on the screen.
+     *
+     * @param g        the Graphics object to draw on
+     * @param observer the ImageObserver to observe the drawing process
+     */
     @Override
     public void draw(Graphics g, ImageObserver observer) {
 
@@ -32,7 +44,7 @@ public class HealthBar implements BasicSprite {
 
         int segmentWidth = width / maxHealth;
 
-        // width of the seperator
+        // width of the separator
         int inbetweenWidth = 5;
         // surrounding rectangle
         int padX = 5, padY = 5;
@@ -52,35 +64,38 @@ public class HealthBar implements BasicSprite {
                 g.fillRect(x + i * segmentWidth, y, segmentWidth, height);
 
             }
-            // after drawing every segment draw this black line at the end of it (but not
-            // the final segment)
-
+            // after drawing every segment draw this black line at the end of it (but not the final segment)
             g.setColor(Color.BLACK);
             g.fillRect(x + (i + 1) * segmentWidth - inbetweenWidth, y, inbetweenWidth, height);
-
         }
-
-        // draw current and max health text
-        // String healthText = currentHealth + " / " + maxHealth;
-        // FontMetrics fm = g.getFontMetrics();
-        // int textWidth = fm.stringWidth(healthText);
-        // int textHeight = fm.getHeight();
-        // g.setColor(Color.BLACK);
-        // g.drawString(healthText, x - textWidth - Constants.HEALTH_BAR_PADDING, y +
-        // (height + textHeight) / 2);
     }
 
+    /**
+     * Handles the key events for the health bar.
+     * This method is currently empty and does not handle any key events.
+     *
+     * @param e the KeyEvent object representing the key press event
+     */
     @Override
     public void keyPressed(KeyEvent e) {
+        // Handle key press if needed
     }
 
+    /**
+     * Updates the health bar logic.
+     * This method is currently empty and does not perform any updates.
+     */
     @Override
     public void tick() {
-
+        // Update logic if needed
     }
 
+    /**
+     * Performs cleanup operations when the health bar is deleted.
+     * This method is currently empty and does not perform any cleanup operations.
+     */
     @Override
     public void onDelete() {
+        // Handle deletion if needed
     }
-
 }

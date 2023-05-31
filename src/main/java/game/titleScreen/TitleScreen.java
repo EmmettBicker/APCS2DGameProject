@@ -12,62 +12,74 @@ import javax.imageio.ImageIO;
 import game.GameStates;
 import game.interfaces.BasicSprite;
 
+/**
+ * The TitleScreen class represents the title screen of the game.
+ * It implements the BasicSprite interface.
+ */
 public class TitleScreen implements BasicSprite {
 
-    // image that represents the player's position on the board
     private BufferedImage background;
     private Point pos;
 
+    /**
+     * Constructs a TitleScreen object.
+     * It loads the background image and initializes the position.
+     */
     public TitleScreen() {
-        // load the assets
         loadImage();
         pos = new Point(0, 0);
-
     }
 
+    /**
+     * Loads the background image from the file.
+     * If there is an error loading the image, an exception is caught and an error message is printed.
+     */
     private void loadImage() {
         try {
-            // you can use just the filename if the image file is in your
-            // project folder, otherwise you need to provide the file path.
-
             background = ImageIO.read(new File("src/main/resources/images/backgrounds/titleScreen.png"));
-
         } catch (IOException exc) {
             System.out.println("Error opening title screen image file: " + exc.getMessage());
         }
     }
 
+    /**
+     * Draws the title screen background on the graphics context.
+     *
+     * @param g        the Graphics object to draw on
+     * @param observer the ImageObserver object
+     */
     public void draw(Graphics g, ImageObserver observer) {
-        // with the Point class, note that pos.getX() returns a double, but
-        // pos.x reliably returns an int. https://stackoverflow.com/a/30220114/4655368
-        // this is also where we translate board grid position into a canvas pixel
-        // position by multiplying by the tile size.
-
-        g.drawImage(
-                background,
-                pos.x,
-                pos.y,
-                observer);
-
+        g.drawImage(background, pos.x, pos.y, observer);
     }
 
+    /**
+     * Handles the key pressed events for the title screen.
+     * It changes the game state to scrolling text when the space key is pressed.
+     *
+     * @param e the KeyEvent object representing the key press event
+     */
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
         if (key == KeyEvent.VK_SPACE) {
-
             GameStates.setState(GameStates.States.SCROLLING_TEXT);
         }
-
     }
 
+    /**
+     * Updates the title screen.
+     * There is no special behavior for the title screen.
+     */
     @Override
     public void tick() {
-        // no special behavior
+        // No special behavior for the title screen
     }
 
+    /**
+     * Performs cleanup tasks when the title screen is deleted.
+     * It sets the background image to null.
+     */
     @Override
     public void onDelete() {
         background = null;
     }
-
 }

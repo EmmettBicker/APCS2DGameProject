@@ -16,14 +16,26 @@ import game.PlayerAttributes.InventoryManager;
 import game.PlayerAttributes.InventoryManager.Item;
 import game.generalSprites.GeneralDoor;
 
-public class EndgameDoor extends GeneralDoor{
+/**
+ * The EndgameDoor class represents a door object that appears in the endgame room of the game.
+ * It extends the GeneralDoor class and provides additional functionality specific to the endgame.
+ */
+public class EndgameDoor extends GeneralDoor {
 
+    /**
+     * Constructs an EndgameDoor object with the specified hitbox.
+     *
+     * @param pHitbox the hitbox of the door
+     */
     public EndgameDoor(Rectangle pHitbox) {
         super(GameplayStates.ROOM_5, new Point(Constants.CANVAS_WIDTH / 2 - 25, Constants.CANVAS_HEIGHT - 250), pHitbox);
         loadImage();
-        //TODO Auto-generated constructor stub
     }
     
+    /**
+     * Loads the image for the locked door from the file.
+     * The image file should be located in the "src/main/resources/images/special" directory.
+     */
     private void loadImage() {
         try {
             // you can use just the filename if the image file is in your
@@ -31,10 +43,17 @@ public class EndgameDoor extends GeneralDoor{
             img = ImageIO.read(new File("src/main/resources/images/special/lockedDoor.png"));
 
         } catch (IOException exc) {
-            System.out.println("Error opening title screen imagde file: " + exc.getMessage());
+            System.out.println("Error opening title screen image file: " + exc.getMessage());
         }
     }
     
+    /**
+     * Handles the key pressed event for the endgame door.
+     * If the player has collected enough items, pressing the space key and intersecting with the door's hitbox
+     * will change the gameplay state to the destination room and move the player to the specified position.
+     *
+     * @param e the KeyEvent object representing the key press event
+     */
     @Override
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
@@ -50,7 +69,5 @@ public class EndgameDoor extends GeneralDoor{
             Game.setPlayerPosition(mPlayerEndPos);
             
         }
-
-    }
-    
+    }   
 }

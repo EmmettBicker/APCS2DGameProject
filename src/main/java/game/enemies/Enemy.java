@@ -17,6 +17,10 @@ import game.GameStates;
 import game.interfaces.EnemyInterface;
 import java.util.ArrayList;
 
+/**
+ * The Enemy class represents an enemy in the game.
+ * It implements the EnemyInterface interface.
+ */
 public class Enemy implements EnemyInterface {
 
     protected BufferedImage image;
@@ -24,11 +28,15 @@ public class Enemy implements EnemyInterface {
     protected EnemyHealthBar enemyHealthBar;
     protected int enemyCurrentHealth;
     protected int enemyMaxHealth;
-    protected boolean isVisible; // Flag to indicate if the enemy is visible
-    private ArrayList<EnemyDrop> drops; // List to store the drops
-
+    protected boolean isVisible;
+    private ArrayList<EnemyDrop> drops;
     private long lastDamageTime = 0;
 
+    /**
+     * Constructs an Enemy object with the specified position.
+     *
+     * @param pos the position of the enemy
+     */
     public Enemy(Point pos) {
         loadImage();
         enemyPos = pos;
@@ -36,10 +44,13 @@ public class Enemy implements EnemyInterface {
         enemyMaxHealth = 3;
         enemyHealthBar = new EnemyHealthBar(enemyMaxHealth, enemyCurrentHealth, image.getWidth(), 5, Color.RED,
                 Color.GREEN);
-        isVisible = true; // Set the initial visibility to true
-        drops = new ArrayList<>(); // Initialize the list of drops
+        isVisible = true;
+        drops = new ArrayList<>();
     }
 
+    /**
+     * Loads the image for the enemy from a file.
+     */
     public void loadImage() {
         try {
             image = ImageIO.read(new File("src/main/resources/images/enemies/enemySprite.png"));
@@ -52,7 +63,7 @@ public class Enemy implements EnemyInterface {
     @Override
     public void draw(Graphics g, ImageObserver observer) {
         if (!isVisible) {
-            return; // If the enemy is not visible, don't draw it
+            return;
         }
 
         g.drawImage(
@@ -63,26 +74,23 @@ public class Enemy implements EnemyInterface {
 
         enemyHealthBar.draw(g, enemyPos.x, enemyPos.y - 10);
 
-        // Draw drops
         drawDrops(g, observer);
-
     }
-    
 
     @Override
     public void keyPressed(KeyEvent e) {
+        // Handle key press if needed
     }
 
     @Override
     public void tick() {
         if (!isVisible) {
-            return; // If the enemy is not visible, skip the update logic
+            return;
         }
 
         int deltaX = (int) Math.abs((Game.getPlayerPosition().getX() - enemyPos.getX()));
         int deltaY = (int) Math.abs((Game.getPlayerPosition().getY() - enemyPos.getY()));
         if (deltaX > deltaY) {
-            // if player is further down
             if (Game.getPlayerPosition().getX() > enemyPos.getX()) {
                 enemyPos.x += Constants.BASIC_ENEMY_SPEED;
             } else {
@@ -103,7 +111,6 @@ public class Enemy implements EnemyInterface {
         }
 
         if (enemyCurrentHealth <= 0) {
-            // Enemy health dropped to 0, make it invisible
             isVisible = false;
             onDeath();
         }
@@ -122,21 +129,26 @@ public class Enemy implements EnemyInterface {
 
     @Override
     public void onDeath() {
-        // Add drops to the list
         for (int i = 0; i < 3; i++) {
            Point randomPoint = new Point(enemyPos);
            randomPoint.x += Math.random() * 50 - 100 + getEnemyHitboxRectangle().width*1.5;
            randomPoint.y += Math.random() * 50 - 100 + getEnemyHitboxRectangle().height*1.5;
            EnemyDropsFactory.addDrop(randomPoint, GameStates.getGameplayState());
-            // drops.add(new EnemyDrop(i));
-         
         }
     }
 
+    /**
+     * Returns the rectangle representing the hitbox of the enemy.
+     *
+     * @return the hitbox rectangle
+     */
     public Rectangle getEnemyHitboxRectangle() {
         return new Rectangle((int) enemyPos.getX(), (int) enemyPos.getY(), image.getWidth(), image.getHeight());
     }
 
+    /**
+     * Lowers the enemy's health by the player's attack damage.
+     */
     public void lowerEnemyHealth() {
         long currentTime = System.currentTimeMillis();
         if (currentTime - lastDamageTime > Constants.DELAY_BETWEEN_DAMAGE_TICKS) {

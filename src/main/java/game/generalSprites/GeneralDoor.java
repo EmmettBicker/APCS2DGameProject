@@ -11,11 +11,14 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import game.interfaces.BasicRoomSprite;
-
 import game.Game;
 import game.GameStates;
 import game.utils.GeneralUtils;
 
+/**
+ * The GeneralDoor class represents a door sprite in a room.
+ * It implements the BasicRoomSprite interface and provides functionality for doors.
+ */
 public class GeneralDoor implements BasicRoomSprite {
 
     // image that represents the player's position on the board
@@ -24,15 +27,24 @@ public class GeneralDoor implements BasicRoomSprite {
     protected Point mPlayerEndPos;
     protected Rectangle mHitbox;
 
+    /**
+     * Constructs a GeneralDoor object with the specified destination, player end position, and hitbox.
+     * 
+     * @param pDestination    the destination gameplay state of the door
+     * @param pPlayerEndPos   the position where the player will end up after going through the door
+     * @param pHitbox         the hitbox of the door
+     */
     public GeneralDoor(GameStates.GameplayStates pDestination, Point pPlayerEndPos, Rectangle pHitbox) {
         // load the assets
         loadImage();
         mDestination = pDestination;
         mPlayerEndPos = GeneralUtils.centerDoorEndDestination(pPlayerEndPos);
         mHitbox = pHitbox;
-
     }
 
+    /**
+     * Loads the door image from the file.
+     */
     private void loadImage() {
         try {
             // you can use just the filename if the image file is in your
@@ -44,11 +56,21 @@ public class GeneralDoor implements BasicRoomSprite {
         }
     }
     
-    public void setImage(BufferedImage pImage)
-    {
+    /**
+     * Sets the image of the door.
+     * 
+     * @param pImage  the new image for the door
+     */
+    public void setImage(BufferedImage pImage) {
         img = pImage;
     }
 
+    /**
+     * Draws the door on the graphics context.
+     * 
+     * @param g         the graphics context
+     * @param observer  the image observer
+     */
     public void draw(Graphics g, ImageObserver observer) {
         // with the Point class, note that pos.getX() returns a double, but
         // pos.x reliably returns an int. https://stackoverflow.com/a/30220114/4655368
@@ -64,6 +86,11 @@ public class GeneralDoor implements BasicRoomSprite {
 
     }
 
+    /**
+     * Handles the key press event for the door.
+     * 
+     * @param e  the key event
+     */
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
 
@@ -77,15 +104,19 @@ public class GeneralDoor implements BasicRoomSprite {
 
     }
 
+    /**
+     * Performs the tick update for the door.
+     */
     @Override
     public void tick() {
-
         // no special behavior
     }
 
+    /**
+     * Performs the necessary actions when the door is deleted.
+     */
     @Override
     public void onDelete() {
 
     }
-
 }

@@ -10,11 +10,18 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import game.interfaces.BasicSprite;
 
+/**
+ * The BeginningText class represents the scrolling text at the beginning of the game.
+ * It implements the BasicSprite interface.
+ */
 public class BeginningText implements BasicSprite {
 
     private BufferedImage text;
     private Point pos;
 
+    /**
+     * Constructs a BeginningText object.
+     */
     public BeginningText() {
         loadImage();
         pos = new Point(0, 0);
@@ -29,6 +36,12 @@ public class BeginningText implements BasicSprite {
         }
     }
 
+    /**
+     * Draws the beginning text on the given Graphics object.
+     *
+     * @param g the Graphics object to draw on
+     * @param observer the ImageObserver object
+     */
     @Override
     public void draw(Graphics g, ImageObserver observer) {
         g.drawImage(
@@ -38,6 +51,11 @@ public class BeginningText implements BasicSprite {
                 observer);
     }
 
+    /**
+     * Handles the key pressed events for the beginning text.
+     *
+     * @param e the KeyEvent object representing the key press event
+     */
     @Override
     public void keyPressed(KeyEvent e) {
     }
@@ -47,6 +65,9 @@ public class BeginningText implements BasicSprite {
 
     }
 
+    /**
+     * Performs any necessary cleanup when the beginning text is deleted.
+     */
     @Override
     public void onDelete() {
         text = null;

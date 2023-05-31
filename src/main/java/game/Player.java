@@ -18,6 +18,10 @@ import game.GameStates.States;
 import game.Weapon.WeaponStates;
 import game.interfaces.BasicSprite;
 
+/**
+ * The Player class represents the player character in the game.
+ * It handles the player's movement, health, sprite rendering, and other related functionality.
+ */
 public class Player implements BasicSprite {
 
     public static WeaponStates weaponState;
@@ -32,6 +36,9 @@ public class Player implements BasicSprite {
 
     private PlayerFacingStates playerFacing;
 
+    /**
+     * Represents the current orientation of the player's weapon.
+     */
     public enum WeaponOrientationStates {
         WEAPON_UP, WEAPON_DOWN, WEAPON_LEFT, WEAPON_RIGHT,
     }
@@ -48,6 +55,10 @@ public class Player implements BasicSprite {
     private long lastHealthRegenTime = System.currentTimeMillis();
     private boolean canMove;
 
+    /**
+     * Constructs a new Player object.
+     * It loads the player's image, sets the initial position, orientation, and health.
+     */
     public Player() {
         loadImage();
 
@@ -59,35 +70,29 @@ public class Player implements BasicSprite {
         canMove = true;
     }
 
+    /**
+     * Loads the player's image from a file.
+     */
     private void loadImage() {
         try {
             rightImage = ImageIO.read(new File("src/main/resources/images/player.png"));
-            leftImage = ImageUtils.flipImageHoriziontally(rightImage);
+            leftImage = ImageUtils.flipImageHorizontally(rightImage);
         } catch (IOException exc) {
             System.out.println("Error opening image file: " + exc.getMessage());
         }
     }
 
+    /**
+     * Renders the player's sprite on the screen.
+     *
+     * @param g        the Graphics object used for rendering
+     * @param observer the ImageObserver object
+     */
     public void draw(Graphics g, ImageObserver observer) {
-        // with the Point class, note that pos.getX() returns a double, but
-        // pos.x reliably returns an int. https://stackoverflow.com/a/30220114/4655368
-        // this is also where we translate board grid position into a canvas pixel
-        // position by multiplying by the tile size.
-        // System.out.println(pos);
-
         if (playerFacing == PlayerFacingStates.RIGHT) {
-
-            g.drawImage(
-                    leftImage,
-                    playerPos.x,
-                    playerPos.y,
-                    observer);
+            g.drawImage(leftImage, playerPos.x, playerPos.y, observer);
         } else if (playerFacing == PlayerFacingStates.LEFT) {
-            g.drawImage(
-                    rightImage,
-                    playerPos.x,
-                    playerPos.y,
-                    observer);
+            g.drawImage(rightImage, playerPos.x, playerPos.y, observer);
         }
     }
 
@@ -96,6 +101,11 @@ public class Player implements BasicSprite {
     private boolean isDownPressed = false;
     private boolean isLeftPressed = false;
 
+    /**
+     * Handles the key press events for controlling the player's movement.
+     *
+     * @param e the KeyEvent object representing the key press event
+     */
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
         if (key == KeyEvent.VK_UP) {
@@ -114,13 +124,22 @@ public class Player implements BasicSprite {
             isLeftPressed = true;
             currWeaponOrientation = WeaponOrientationStates.WEAPON_LEFT;
         }
-        
     }
 
+    /**
+     * Retrieves the current orientation of the player's weapon.
+     *
+     * @return the current WeaponOrientationStates value
+     */
     public WeaponOrientationStates getCurrWeaponOrientation() {
         return currWeaponOrientation;
     }
 
+    /**
+     * Handles the key release events for controlling the player's movement.
+     *
+     * @param e the KeyEvent object representing the key release event
+     */
     public void keyReleased(KeyEvent e) {
         int key = e.getKeyCode();
         if (key == KeyEvent.VK_UP) {
@@ -135,9 +154,11 @@ public class Player implements BasicSprite {
         if (key == KeyEvent.VK_LEFT) {
             isLeftPressed = false;
         }
-
     }
 
+    /**
+     * Updates the player's movement based on the currently pressed keys.
+     */
     public void updateMovement() {
         if (canMove) {
             if (isUpPressed) {
@@ -157,36 +178,41 @@ public class Player implements BasicSprite {
         }
     }
 
+    /**
+     * Locks the player's movement.
+     */
     public void lockMovement() {
         canMove = false;
-
     }
 
+    /**
+     * Allows the player's movement.
+     */
     public void allowMovement() {
         canMove = true;
     }
 
+    /**
+     * Updates the player's state in each game tick.
+     * This includes movement, collision detection, health regeneration, and death detection.
+     */
     public void tick() {
         updateMovement();
-        // this gets called once every tick, before the repainting process happens.
-        // so we can do anything needed in here to update the state of the player.
-
-        // prevent the player from moving off the edge of the board sideways
         screenEdgeDetection();
-
         GeneralUtils.wallCollision(getPlayerHitboxRectangle(), playerPos);
-
         passiveHealthRegen();
         deathDetection();
     }
 
+    /**
+     * Performs screen edge detection to prevent the player from moving off the edge of the game board.
+     */
     public void screenEdgeDetection() {
         if (playerPos.x < 0) {
             playerPos.x = 0;
         } else if (playerPos.x >= Constants.CANVAS_WIDTH - rightImage.getWidth()) {
             playerPos.x = Constants.CANVAS_WIDTH - 1 - rightImage.getHeight();
         }
-        // prevent the player from moving off the edge of the board vertically
         if (playerPos.y < 0) {
             playerPos.y = 0;
         } else if (playerPos.y >= Constants.CANVAS_HEIGHT - (int) (rightImage.getHeight())) {
@@ -194,24 +220,40 @@ public class Player implements BasicSprite {
         }
     }
 
-    public void deathDetection()
-    {
-        if (currentHealth <= 0)
-        {
+    /**
+     * Performs death detection for the player.
+     * If the player's health reaches 0 or below, the game state is set to "DEATH".
+     */
+    public void deathDetection() {
+        if (currentHealth <= 0) {
             GameStates.setState(States.DEATH);
         }
     }
 
+    /**
+     * Sets the position of the player.
+     *
+     * @param pPos the new position of the player
+     */
     public void setPosition(Point pPos) {
-        // No mutation
         playerPos.x = pPos.x;
         playerPos.y = pPos.y;
     }
 
+    /**
+     * Retrieves the position of the player.
+     *
+     * @return the position of the player as a Point object
+     */
     public Point getPlayerPos() {
         return playerPos;
     }
 
+    /**
+     * Retrieves the bounding rectangle of the player's hitbox.
+     *
+     * @return the bounding rectangle of the player's hitbox
+     */
     public Rectangle getPlayerHitboxRectangle() {
         return new Rectangle((int) playerPos.getX(), (int) playerPos.getY(), rightImage.getWidth(),
                 rightImage.getHeight());
@@ -222,14 +264,28 @@ public class Player implements BasicSprite {
         // no special action yet
     }
 
+    /**
+     * Retrieves the current health of the player.
+     *
+     * @return the current health of the player
+     */
     public int getCurrentHealth() {
         return currentHealth;
     }
 
+    /**
+     * Retrieves the maximum health of the player.
+     *
+     * @return the maximum health of the player
+     */
     public int getMaxHealth() {
         return maxHealth;
     }
 
+    /**
+     * Lowers the player's health by a certain amount.
+     * The player's health is reduced only if a certain time has passed since the last damage taken.
+     */
     public void lowerPlayerHealth() {
         long currentTime = System.currentTimeMillis();
         if (currentTime - lastDamageTime > Constants.DELAY_BETWEEN_DAMAGE_TICKS) {
@@ -238,8 +294,11 @@ public class Player implements BasicSprite {
         }
     }
 
+    /**
+     * Performs passive health regeneration for the player.
+     * The player's health gradually increases over time, up to the maximum health.
+     */
     public void passiveHealthRegen() {
-        // Check if it's time to regenerate health
         if (currentHealth < maxHealth) {
             if (System.currentTimeMillis() - lastHealthRegenTime >= Constants.HEALTH_REGEN_DELAY) {
                 currentHealth += Constants.HEALTH_REGEN_AMOUNT;
@@ -248,6 +307,11 @@ public class Player implements BasicSprite {
         }
     }
 
+    /**
+     * Retrieves the width of the player's image.
+     *
+     * @return the width of the player's image
+     */
     public int getPlayerImageWidth() {
         return rightImage.getWidth();
     }

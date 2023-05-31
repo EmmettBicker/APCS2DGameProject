@@ -2,7 +2,16 @@ package game.npcs;
 
 import java.util.ArrayList;
 
+/**
+ * The MessageFactory class provides static methods to retrieve messages for different NPCs in different rooms.
+ */
 public class MessageFactory {
+
+    /**
+     * Retrieves the messages for Adam in Room One.
+     *
+     * @return an ArrayList of strings representing Adam's messages
+     */
     public static ArrayList<String> getRoomOneAdamMessage() {
         ArrayList<String> s = new ArrayList<String>();
         s.add("I'm Adam Salem, your mentor for this year!");
@@ -10,7 +19,12 @@ public class MessageFactory {
         s.add("Woohoo!");
         return s;
     }
-    
+
+    /**
+     * Retrieves the messages for Nile in Room Two.
+     *
+     * @return an ArrayList of strings representing Nile's messages
+     */
     public static ArrayList<String> getRoomTwoNileMessage() {
         ArrayList<String> s = new ArrayList<String>();
         s.add("Another day");
@@ -19,15 +33,25 @@ public class MessageFactory {
         return s;
     }
 
+    /**
+     * Retrieves the messages for Caroline in Room Three.
+     *
+     * @return an ArrayList of strings representing Caroline's messages
+     */
     public static ArrayList<String> getRoomThreeCarolineMessage() {
         ArrayList<String> s = new ArrayList<String>();
         s.add("you look dead tired dawg!");
         s.add("go down & interact for some Sprite!");
         s.add("slayyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy\n"
-                +"yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy");
+                + "yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy");
         return s;
     }
 
+    /**
+     * Retrieves the messages for Alice in Room Four.
+     *
+     * @return an ArrayList of strings representing Alice's messages
+     */
     public static ArrayList<String> getRoomFourAliceMessage() {
         ArrayList<String> s = new ArrayList<String>();
         s.add("Don't go through that door");

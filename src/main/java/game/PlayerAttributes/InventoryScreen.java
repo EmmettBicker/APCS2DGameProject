@@ -14,11 +14,19 @@ import game.Game;
 import game.PlayerAttributes.InventoryManager.Item;
 import game.interfaces.BasicSprite;
 
+/**
+ * The InventoryScreen class represents the inventory screen in the game.
+ * It implements the BasicSprite interface.
+ */
 public class InventoryScreen implements BasicSprite {
 
+    /**
+     * Enumeration representing the possible text states of the inventory screen.
+     */
     public enum TextState {
         INVISIBLE, ENTERING, DISPLAYED
     };
+
     private Color mTransparentishWhite;
     private TextState mTextState;
     private BufferedImage mHeadImage;
@@ -28,6 +36,9 @@ public class InventoryScreen implements BasicSprite {
     private ArrayList<String> mDesiredText;
     private boolean doneWithSentence;
 
+    /**
+     * Constructs an InventoryScreen object.
+     */
     public InventoryScreen() {
         mTextState = TextState.INVISIBLE;
         timeEnteredState = System.currentTimeMillis();
@@ -36,27 +47,52 @@ public class InventoryScreen implements BasicSprite {
         mTransparentishWhite = new Color(255, 255, 255, 70);
     }
 
+    /**
+     * Sets the state of the inventory screen.
+     *
+     * @param pTextState the text state to set
+     */
     public void setState(TextState pTextState) {
         timeEnteredState = System.currentTimeMillis();
         mTextState = pTextState;
         mTextIndex = 0;
     }
 
+    /**
+     * Sets the desired text to display on the inventory screen.
+     *
+     * @param pDesiredText the desired text to display
+     */
     public void setText(ArrayList<String> pDesiredText) {
         mDesiredText = pDesiredText;
     }
 
+    /**
+     * Sets the head image to display on the inventory screen.
+     *
+     * @param pHeadImage the head image to display
+     */
     public void setHeadImage(BufferedImage pHeadImage) {
         mHeadImage = pHeadImage;
     }
 
+    /**
+     * Returns the current text state of the inventory screen.
+     *
+     * @return the text state of the inventory screen
+     */
     public TextState getTextState() {
         return mTextState;
     }
 
+    /**
+     * Draws the inventory screen on the given Graphics object.
+     *
+     * @param g the Graphics object to draw on
+     * @param observer the ImageObserver object
+     */
     @Override
     public void draw(Graphics g, ImageObserver observer) {
-        // System.out.println(mTextState);
         int textPad = 50;
         int horizontalWidth = 1000;
         int verticalHeight = 150;
@@ -72,8 +108,7 @@ public class InventoryScreen implements BasicSprite {
 
         boolean isTalking = Game.getTextBox().getTextState() != TextBox.TextState.INVISIBLE;
         
-        if (!isTalking)
-        {
+        if (!isTalking) {
             if (mTextState == TextState.INVISIBLE) {
                 Game.getPlayer().allowMovement();
             } else {
@@ -118,6 +153,11 @@ public class InventoryScreen implements BasicSprite {
         }
     }
 
+    /**
+     * Handles the key pressed events for the inventory screen.
+     *
+     * @param e the KeyEvent object representing the key press event
+     */
     @Override
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
