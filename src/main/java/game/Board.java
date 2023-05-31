@@ -107,7 +107,6 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         mTitleMusic = new GeneralMusic("src/main/resources/music/titleScreenChopin.wav");
 
         // ROOM 1
-        mScreenOneBg = new GenericBackground("screen1");
         mPlayer = new Player();
         mWeapon = new Weapon();
         mProjectile = new Projectile();
@@ -174,7 +173,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         mNotPlayingSpriteArray = new ArrayList<BasicRoomSprite>();
         mRoomOneSpriteArray = new ArrayList<BasicRoomSprite>();
 
-        mRoomOneSpriteArray.add(mScreenOneBg);
+        mRoomOneSpriteArray.add(new GenericBackground("screen1"));
         mRoomOneSpriteArray.add(mRoom1toRoom3Door);
         mRoomOneSpriteArray.add(mRoom1toRoom2Door);
         mGameScreenSpriteArray.add(mPlayer);
@@ -193,6 +192,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         
         // ROOM 2
         mRoomTwoSpriteArray = new ArrayList<BasicRoomSprite>(); 
+        mRoomTwoSpriteArray.add(new GenericBackground("screen2"));
         mRoomTwoSpriteArray.add(mRoom2toRoom1Door);
         mRoomTwoSpriteArray.add(new GeneralImage("generalSprites/chopSaw.png", new Rectangle(450,100,350,500)));
         Point shopDoorLocation = new Point(0,Constants.CANVAS_HEIGHT-100-Constants.DOOR_HEIGHT);
@@ -206,6 +206,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
     
         // ROOM 3
         mRoomThreeSpriteArray = new ArrayList<BasicRoomSprite>();
+        mRoomThreeSpriteArray.add(new GenericBackground("screen3"));
         mRoomThreeSpriteArray.add(mRoom3toRoom1Door);
         mRoomThreeSpriteArray.add(room3toRoom4Door);
         mRoomThreeSpriteArray.add(new NPC(
@@ -214,14 +215,15 @@ public class Board extends JPanel implements ActionListener, KeyListener {
                     PresetNPC.Caroline, MessageFactory.getRoomThreeCarolineMessage()));
 
         // ROOM 4
-        ArrayList<BasicRoomSprite> roomFourSpriteArray = new ArrayList<BasicRoomSprite>();
-        roomFourSpriteArray.add(room4toRoom3Door);
-        roomFourSpriteArray.add(new NPC(
+        ArrayList<BasicRoomSprite> mRoomFourSpriteArray = new ArrayList<BasicRoomSprite>();
+        mRoomFourSpriteArray.add(new GenericBackground("screen4"));
+        mRoomFourSpriteArray.add(room4toRoom3Door);
+        mRoomFourSpriteArray.add(new NPC(
             new Rectangle(Constants.CANVAS_WIDTH / 2 +150, Constants.CANVAS_HEIGHT / 2-100,
                     Constants.NPCS.ADAM_NPC_WIDTH, Constants.NPCS.ADAM_NPC_HEIGHT),
                     PresetNPC.Alice, MessageFactory.getRoomFourAliceMessage()));
 
-        roomFourSpriteArray.add(new EndgameDoor( new Rectangle(room3toRoom4DoorPos.x, room3toRoom4DoorPos.y+100, Constants.DOOR_WIDTH,
+        mRoomFourSpriteArray.add(new EndgameDoor( new Rectangle(room3toRoom4DoorPos.x, room3toRoom4DoorPos.y+100, Constants.DOOR_WIDTH,
         Constants.DOOR_HEIGHT)));
 
         // ROOM 5
@@ -275,7 +277,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         mGameplayStatesToRespectiveArray.put(GameStates.GameplayStates.ROOM_1, mRoomOneSpriteArray);
         mGameplayStatesToRespectiveArray.put(GameStates.GameplayStates.ROOM_2, mRoomTwoSpriteArray);
         mGameplayStatesToRespectiveArray.put(GameStates.GameplayStates.ROOM_3, mRoomThreeSpriteArray);
-        mGameplayStatesToRespectiveArray.put(GameStates.GameplayStates.ROOM_4, roomFourSpriteArray);
+        mGameplayStatesToRespectiveArray.put(GameStates.GameplayStates.ROOM_4, mRoomFourSpriteArray);
         mGameplayStatesToRespectiveArray.put(GameStates.GameplayStates.ROOM_5, roomFiveSpriteArray);
 
         // ROOM 1
@@ -314,7 +316,8 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         
 
 
-        EnemyFactory.addEnemy(GameStates.GameplayStates.ROOM_2, new Point(0, Constants.CANVAS_HEIGHT/2));
+        EnemyFactory.addEnemy(GameStates.GameplayStates.ROOM_2, new Point(0, Constants.CANVAS_HEIGHT/4));
+        EnemyFactory.addEnemy(GameStates.GameplayStates.ROOM_2, new Point(0, (Constants.CANVAS_HEIGHT * 3)/4));
         EnemyFactory.addEnemy(GameStates.GameplayStates.ROOM_3,
                 new Point(Constants.CANVAS_WIDTH / 2, Constants.CANVAS_HEIGHT / 2));
 

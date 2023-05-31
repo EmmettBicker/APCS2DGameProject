@@ -63,7 +63,7 @@ public class Constants {
     /**
      * The delay in milliseconds for health regeneration.
      */
-    public static final long HEALTH_REGEN_DELAY = 5000;
+    public static final long HEALTH_REGEN_DELAY = 10000;
 
     /**
      * The amount of health regenerated per regeneration interval.
