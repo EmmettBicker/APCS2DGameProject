@@ -4,10 +4,7 @@ import java.awt.Color;
 import java.awt.Point;
 import java.io.File;
 import java.io.IOException;
-
 import javax.imageio.ImageIO;
-import javax.swing.text.Position;
-
 import game.GameStates;
 
 public class FinalBoss extends Enemy{
