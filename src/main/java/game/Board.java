@@ -227,7 +227,8 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         Constants.DOOR_HEIGHT)));
 
         // ROOM 5
-        ArrayList<BasicRoomSprite> roomFiveSpriteArray = new ArrayList<BasicRoomSprite>();
+        ArrayList<BasicRoomSprite> mRoomFiveSpriteArray = new ArrayList<BasicRoomSprite>();
+        mRoomFiveSpriteArray.add(new GenericBackground("screen5"));
         
         // SHOP
         
@@ -278,7 +279,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         mGameplayStatesToRespectiveArray.put(GameStates.GameplayStates.ROOM_2, mRoomTwoSpriteArray);
         mGameplayStatesToRespectiveArray.put(GameStates.GameplayStates.ROOM_3, mRoomThreeSpriteArray);
         mGameplayStatesToRespectiveArray.put(GameStates.GameplayStates.ROOM_4, mRoomFourSpriteArray);
-        mGameplayStatesToRespectiveArray.put(GameStates.GameplayStates.ROOM_5, roomFiveSpriteArray);
+        mGameplayStatesToRespectiveArray.put(GameStates.GameplayStates.ROOM_5, mRoomFiveSpriteArray);
 
         // ROOM 1
 
