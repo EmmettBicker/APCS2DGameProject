@@ -140,6 +140,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         Point room3toRoom1DoorPos = new Point(0, 200);
         Point room3toRoom4DoorPos = new Point(Constants.CANVAS_WIDTH - Constants.DOOR_WIDTH, 200);
         Point room4toRoom3DoorPos = new Point(0, 300);
+        Point room5toRoom3Dorr = new Point(0,100);
 
         // ROOM 1 (sprites to be drawn in room 1)
         mRoom1toRoom2Door = new GeneralDoor(GameStates.GameplayStates.ROOM_2, room2toRoom1DoorPos,
